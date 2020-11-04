@@ -1913,7 +1913,7 @@ eigen value lambda_2: 2.0 w/ eigen vector x_2: [-0.70710678  0.70710678]
 \[
 A = V \Lambda V^{-1}
 \]</div>
-<p><span class="math notranslate nohighlight">\(V\)</span> acts a a base change. If you are not convinced by this affirmation, one trivial example is the following:</p>
+<p><span class="math notranslate nohighlight">\(V\)</span> is called the left eigen vector and <span class="math notranslate nohighlight">\(V^{-1}\)</span> is the rigth eigen vector. If you are not convinced by this affirmation, one trivial example is the following:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 A = \begin{bmatrix} a &amp; 0 \\ 0 &amp; b \end{bmatrix} = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix} \begin{bmatrix} a &amp; 0 \\ 0 &amp; b \end{bmatrix} \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix} = I_2 A I_2^{-1}
@@ -1939,33 +1939,13 @@ f(A) = V^{-1} f(\Lambda) V
 <span class="n">V</span> <span class="o">=</span> <span class="n">eigen_vectors</span> <span class="o">/</span> <span class="n">eigen_vectors</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">V_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decompositon:</span><span class="se">\n</span><span class="s2">V:</span><span class="se">\n</span><span class="si">{</span><span class="n">V</span><span class="si">}</span><span class="se">\n</span><span class="s2">L:</span><span class="se">\n</span><span class="si">{</span><span class="n">L</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reconstruction A=VLV^(-1):</span><span class="se">\n</span><span class="si">{</span><span class="n">V</span> <span class="o">@</span> <span class="n">L</span> <span class="o">@</span> <span class="n">V_1</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(f:x -&gt; x^2) wo/ Diagonalization:</span><span class="se">\n</span><span class="si">{</span><span class="n">A</span><span class="o">**</span><span class="mi">2</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(f:x -&gt; x^2) w/ Diagonalization:</span><span class="se">\n</span><span class="si">{</span><span class="n">V</span> <span class="o">@</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">@</span> <span class="n">V_1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">@</span> <span class="n">L</span> <span class="o">@</span> <span class="n">V_1</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Decompositon:
-V:
-[[0.  1. ]
- [1.  0.2]]
-L:
-[[-2.  0.]
- [ 0.  3.]]
-
-Reconstruction A=VLV^(-1):
-[[ 3.  0.]
- [ 1. -2.]]
-
-(f:x -&gt; x^2) wo/ Diagonalization:
-[[9. 0.]
- [1. 4.]]
-
-(f:x -&gt; x^2) w/ Diagonalization:
-[[9. 0.]
- [1. 4.]]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3.,  0.],
+       [ 1., -2.]])
 </pre></div>
 </div>
 </div>
@@ -1974,6 +1954,54 @@ Reconstruction A=VLV^(-1):
 </div>
 <div class="section" id="singular-value-decomposition">
 <h2><span class="section-number">1.6. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">¶</a></h2>
+<p>The singular value decomposition or SVD for short is the graal of the modern linear algebra and is not limited to square matrices. The SVD consist of obtaining 3 matrices, the left singular vectors <span class="math notranslate nohighlight">\(U\)</span> of size <span class="math notranslate nohighlight">\(m \times n\)</span>, the right singular vector <span class="math notranslate nohighlight">\(V\)</span> of size <span class="math notranslate nohighlight">\(n \times n\)</span> both orthonormal and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix of size <span class="math notranslate nohighlight">\(n \times n\)</span> containing numerals called singular values.</p>
+<div class="math notranslate nohighlight">
+\[
+A = USV^T
+\]</div>
+<p>The SVD of a transformation matrix A tries to capture its essence as a rotation stretched. Its computation procedure is comes quite easily by computing the <span class="math notranslate nohighlight">\(AA^T\)</span> and <span class="math notranslate nohighlight">\(A^TA\)</span> matrices to solve for <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> separatly.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+AA^T &amp; = USV^TVS^TU^T \\
+     &amp; = US^2U^T
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+A^TA &amp; = VS^TU^TUSV^T \\
+     &amp; = VS^2V^T
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<p>Then, it is a matter of computing the orthonormal eigen vectors and values for the 2 matrices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">U</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">@</span> <span class="n">V_T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 3.,  2.,  2.],
+       [ 2.,  3., -2.]])
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="applications">
 <h2><span class="section-number">1.7. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
