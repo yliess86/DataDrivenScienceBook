@@ -9,4 +9,4 @@ pdf:
 	${CXX} ${SRC} --builder pdflatex
 
 ghp:
-	ghp-import -n -p -f ${SRC}_build/html
+	ghp-import -n -p -f ${SRC}/_build/html
