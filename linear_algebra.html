@@ -355,23 +355,23 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#equation-resolution">
-     1.7.1. Equation Resolution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#image-compression">
-     1.7.2. Image Compression
+    <a class="reference internal nav-link" href="#linear-system-of-equations">
+     1.7.1. Linear System of Equations
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linear-regression">
-     1.7.3. Linear Regression
+     1.7.2. Linear Regression
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#multi-linear-regression">
-     1.7.4. Multi-linear Regression
+     1.7.3. Multi-linear Regression
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#image-compression">
+     1.7.4. Image Compression
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -1972,9 +1972,28 @@ f(A) = V^{-1} f(\Lambda) V
 <h2><span class="section-number">1.6. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">¶</a></h2>
 <p>The singular value decomposition or SVD for short is the graal of the modern linear algebra and is not limited to square matrices. The SVD consist of obtaining 3 matrices, the left singular vectors <span class="math notranslate nohighlight">\(U\)</span> of size <span class="math notranslate nohighlight">\(m \times n\)</span>, the right singular vector <span class="math notranslate nohighlight">\(V\)</span> of size <span class="math notranslate nohighlight">\(n \times n\)</span> both orthonormal and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix of size <span class="math notranslate nohighlight">\(n \times n\)</span> containing numerals called singular values.</p>
 <div class="math notranslate nohighlight">
-\[
-A = USV^T
-\]</div>
+\[\begin{split}
+\begin{equation}
+\begin{split}
+A &amp; = USV^T \\
+  &amp; = \begin{bmatrix}
+      | &amp; &amp; | \\
+      \vec{u_1} &amp; \dots &amp; \vec{u_n} \\
+      | &amp; &amp; | \\
+      \end{bmatrix}
+      \begin{bmatrix}
+      \sigma_1 &amp; \dots &amp; 0 \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      0 &amp; \dots &amp; \sigma_n \\
+      \end{bmatrix}
+      \begin{bmatrix}
+      ─ &amp; \vec{v_1}^T &amp; ─ \\
+       &amp; \dots &amp; \\
+      ─ &amp; \vec{v_n}^T &amp; ─ \\
+      \end{bmatrix}
+\end{split}
+\end{equation}
+\end{split}\]</div>
 <p>The SVD of a transformation matrix A tries to capture its essence as a rotation stretched. Its computation procedure is comes quite easily by computing the <span class="math notranslate nohighlight">\(AA^T\)</span> and <span class="math notranslate nohighlight">\(A^TA\)</span> matrices to solve for <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> separatly.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -2018,7 +2037,8 @@ A^TA &amp; = VS^TU^TUSV^T \\
 </div>
 </div>
 </div>
-<p>More practically, the SVD of a transform matrix can be seen as a rotation (and/or relfection) <span class="math notranslate nohighlight">\(V^T\)</span>, a stretch <span class="math notranslate nohighlight">\(\Sigma\)</span> and another rotation <span class="math notranslate nohighlight">\(U\)</span>. This decomposition has real physical meaning and is relatively easy to interpret. Let’s observe this phenomenon with an example:</p>
+<p>More practically, the SVD of a transform matrix preserves can be seen as a rotation (and/or relfection) <span class="math notranslate nohighlight">\(V^T\)</span>, a stretch <span class="math notranslate nohighlight">\(\Sigma\)</span> and another rotation <span class="math notranslate nohighlight">\(U\)</span>. This decomposition has real physical meaning and is relatively easy to interpret.</p>
+<p>The SVD has the particularity to preserve unitary transformation matrices. Let’s observe this phenomenon with an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -2176,17 +2196,206 @@ A (SVD):
 </div>
 <div class="section" id="applications">
 <h2><span class="section-number">1.7. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="equation-resolution">
-<h3><span class="section-number">1.7.1. </span>Equation Resolution<a class="headerlink" href="#equation-resolution" title="Permalink to this headline">¶</a></h3>
+<p>Linear Algebra is a key concept to represent applied mathematics, wether it is rigid body physics, fluid mechanics, thermodynamics, computer vision, computer graphics, machine learning, and many others. This section details core example applications of linear algebra and especially the SVD.</p>
+<div class="section" id="linear-system-of-equations">
+<h3><span class="section-number">1.7.1. </span>Linear System of Equations<a class="headerlink" href="#linear-system-of-equations" title="Permalink to this headline">¶</a></h3>
+<p>Let’s considere the over-determined system of linear equations <span class="math notranslate nohighlight">\(A \vec{x} = \vec{y}\)</span> with <span class="math notranslate nohighlight">\(A\)</span> an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix with <span class="math notranslate nohighlight">\(m &gt; n\)</span>. Let <span class="math notranslate nohighlight">\(\vec{r}\)</span> be the residual for <span class="math notranslate nohighlight">\(x\)</span>: <span class="math notranslate nohighlight">\(\vec{r} = A \vec{x} - \vec{y}\)</span>. The vector <span class="math notranslate nohighlight">\(\vec{\hat{x}}\)</span> is the one that yields the smallest residual, or more precisely the smallest norm <span class="math notranslate nohighlight">\(\|\vec{r}\|\)</span>, and is refered as the least-squares solution (the best but not unique):</p>
+<div class="math notranslate nohighlight">
+\[
+\vec{\hat{x}} = \underset{x \in \mathbb{C}^n}{min} \|\vec{y} - A \vec{x} \|
+\]</div>
+<p>The least-square solution is given by the rewritting the linear system of equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{split}
+A \vec{\hat{x}}     &amp; = \vec{y} \\
+A^T A \vec{\hat{x}} &amp; = A^T \vec{y} \\
+\vec{\hat{x}}       &amp; = (A^T A)^{-1} A^T \vec{y} \\
+\vec{\hat{x}}       &amp; = A^+ \vec{y}
+\end{split}
+\end{equation}
+\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <span class="math notranslate nohighlight">\(\vec{b}\)</span> is null, the system is called an Homoheneous System, in this case the problem becomes a constraint optimization problem and won’t be treated in this chapter.</p>
 </div>
-<div class="section" id="image-compression">
-<h3><span class="section-number">1.7.2. </span>Image Compression<a class="headerlink" href="#image-compression" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(A^+\)</span> can be computed easily using its singular value decomposition. Using this method, the system becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\vec{\hat{x}} = A^+ \vec{y} = U \Sigma^+ V^T \vec{y}
+\]</div>
+<p>Let’s try to visualize such as system of equations. Let’s consider 3 planes and let’s find their intersection point:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \left\{
+    \begin{matrix}
+    \begin{split}
+    x &amp; + y  &amp; + 0 &amp; = -\frac{1}{2} \\ 
+    0 &amp; + y  &amp; + z &amp; = -\frac{1}{2} \\
+    x &amp; + 0  &amp; + z &amp; = -\frac{1}{2} \\
+    \end{split}
+    \end{matrix}
+    \right.
+    &amp;&amp;
+    \begin{bmatrix} 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \end{bmatrix}
+    \begin{bmatrix} x \\ y \\ z \end{bmatrix}
+    = \begin{bmatrix} -\frac{1}{2} \\ -\frac{1}{2} \\ -\frac{1}{2} \end{bmatrix}
+\end{align}
+\end{split}\]</div>
+<p>We can either resolve this system of equations by elimination or using the upper mentionned technique. The solution is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\vec{\hat{x}} = \begin{pmatrix} -\frac{1}{4} \\ -\frac{1}{4} \\ -\frac{1}{4} \end{pmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="n">A_plus</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">A_plus</span> <span class="o">@</span> <span class="n">Y</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;W/ Manual A_plus Computation (inversion):</span><span class="se">\n</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y</span>               <span class="c1"># U S V_T x = y &lt;=&gt; S V_T x = U_T y = c</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span>    <span class="c1">#   S V_T x = c &lt;=&gt; V_T x = 1/S c = w</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">V_T</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span>             <span class="c1">#     V_T x = w &lt;=&gt; x = (V_T)_T w</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;W/ Manual Least Square (SVD):</span><span class="se">\n</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;W/ Numpy Least-square Solver:</span><span class="se">\n</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>W/ Manual A_plus Computation (inversion):
+[[-0.25]
+ [-0.25]
+ [-0.25]]
+
+W/ Manual Least Square (SVD):
+[[-0.25]
+ [-0.25]
+ [-0.25]]
+
+W/ Numpy Least-square Solver:
+[[-0.25]
+ [-0.25]
+ [-0.25]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d.art3d</span> <span class="kn">import</span> <span class="n">Poly3DCollection</span><span class="p">,</span> <span class="n">Line3DCollection</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">cube_verts</span><span class="p">(</span><span class="n">cube</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="p">(</span><span class="n">cube</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))]</span>
+    <span class="n">verts</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">verts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">verts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="n">verts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="n">verts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    
+    
+<span class="k">def</span> <span class="nf">cube_edges</span><span class="p">(</span><span class="n">verts</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">4</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">7</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+        <span class="p">[</span><span class="n">verts</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">verts</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span>
+    <span class="p">])</span>
+
+
+<span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">cube_verts</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span>  <span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">),</span>
+    <span class="p">(</span> <span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">,</span>  <span class="n">r</span><span class="p">),</span>
+<span class="p">)))</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">(</span><span class="n">cube_edges</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">],</span> <span class="p">[</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">],</span> <span class="p">[</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="matrix-lse-fig">
+<div class="cell_output docutils container">
+<img alt="_images/linear_algebra_85_0.png" src="_images/linear_algebra_85_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 1.15 </span><span class="caption-text">Intersection of 3 planes in <span class="math notranslate nohighlight">\(\begin{pmatrix} -\frac{1}{4} \\ -\frac{1}{4} \\ -\frac{1}{4} \end{pmatrix}\)</span>.</span><a class="headerlink" href="#matrix-lse-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="linear-regression">
-<h3><span class="section-number">1.7.3. </span>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.7.2. </span>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="multi-linear-regression">
-<h3><span class="section-number">1.7.4. </span>Multi-linear Regression<a class="headerlink" href="#multi-linear-regression" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.7.3. </span>Multi-linear Regression<a class="headerlink" href="#multi-linear-regression" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="image-compression">
+<h3><span class="section-number">1.7.4. </span>Image Compression<a class="headerlink" href="#image-compression" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="principal-component-analysis">
 <h3><span class="section-number">1.7.5. </span>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this headline">¶</a></h3>
