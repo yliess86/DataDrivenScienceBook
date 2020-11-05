@@ -1,7 +1,8 @@
 CXX=jb build
 SRC=data_driven_science_book
 
-all: html pdf ghp
+all: build pdf
+build: html ghp
 
 html:
 	${CXX} ${SRC}
