@@ -1,0 +1,10 @@
+CXX=jb build
+SRC=data_driven_science_book
+
+all: html pdf ghp
+
+build:
+	${CXX} ${SRC}
+	ghp-import -n -p -f ${SRC}/_build/html
+pdf:
+	${CXX} ${SRC} --builder pdflatex
