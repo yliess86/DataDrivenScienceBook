@@ -1,5 +1,7 @@
-- file: preface
-- file: author_biography
+- file: introduction
   numbered: true
-  
-- file: applied_linear_algebra
+
+- part: Applied Mathematics
+  chapters:
+  - file: 1_applied_mathematics/0_introduction
+  - file: 1_applied_mathematics/1_linear_algebra
