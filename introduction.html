@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; Data-Driven Science Text Book</title>
+    <title>Introduction &#8212; Data-Driven Science: a Python Visual and Practical Text Book</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Applied Linear Algebra" href="linear_algebra.html" />
+    <link rel="next" title="1. Applied Mathermatics" href="1_applied_mathematics/0_introduction.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -77,7 +77,7 @@
 <a class="navbar-brand text-wrap" href="index.html">
   
   
-  <h1 class="site-logo" id="site-title">Data-Driven Science Text Book</h1>
+  <h1 class="site-logo" id="site-title">Data-Driven Science: a Python Visual and Practical Text Book</h1>
   
 </a>
 </div>
@@ -95,10 +95,20 @@
   </a>
  </li>
 </ul>
+<p class="caption">
+ <span class="caption-text">
+  Applied Mathematics
+ </span>
+</p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="linear_algebra.html">
-   1. Applied Linear Algebra
+  <a class="reference internal" href="1_applied_mathematics/0_introduction.html">
+   1. Applied Mathermatics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_applied_mathematics/1_linear_algebra.html">
+   2. Linear Algebra
   </a>
  </li>
 </ul>
@@ -154,6 +164,19 @@
 </div>
         <!-- Source interaction buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/yliess86/DataDrivenScienceBook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
@@ -168,6 +191,25 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preface">
+   Preface
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#author-biography">
+   Author Biography
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -177,9 +219,19 @@
                 
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This book contains the content for the DVIC IRM Data-Driven Science Lectures.
-Book under construction…</p>
+<div class="section" id="preface">
+<h2>Preface<a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>Data-Driven Science TextBook</strong> contains the reference material for the Data-Driven Science Lectures given at the <a class="reference external" href="https://dvic.devinci.fr/">De Vinci Innovation Center</a>.</p>
+<p><strong>Data-Driven Science</strong> is an <strong>inter-disciplinary</strong> field of Computer Science using scientific processes to extract knowledge from structured or unstructured data. The field concentrates on multiple hot science subfields such as <strong>Big Data</strong>, <strong>Data Visualization</strong>, <strong>Data Sonification</strong>, <strong>Data Mining</strong>, <strong>Machine Learning</strong>, <strong>Deep Learning</strong> and more.</p>
+<p>The fundamental sciences of <strong>Linear Algebra</strong>, <strong>Statistics</strong> and <strong>Probabilities</strong>, <strong>Optimization</strong>, and <strong>Algorithmy</strong>  are essential to the Data-Driven Sciences. This book does not aim at covering all of those fields in detail. It provides enough material to build interest for students in the Data-Driven Science fields. In this sense, each chapter introduces the mathematical knowledge necessary to apply it to real-world applications.</p>
+<p><strong><a class="reference external" href="https://www.python.org/">Python 3.8</a></strong> is chosen as the reference language in this book as it is for the moment one of the programming language of choice for Data Science, along with standard libraries such as <a class="reference external" href="https://numpy.org/">Numpy</a>, <a class="reference external" href="https://matplotlib.org/">Matplotlib</a>, and <a class="reference external" href="https://pytorch.org/">PyTorch</a>. Each discussed throughout the chapters comes with direct implementation examples.</p>
+</div>
+<div class="section" id="author-biography">
+<h2>Author Biography<a class="headerlink" href="#author-biography" title="Permalink to this headline">¶</a></h2>
+<p><img alt="Author" src="https://avatars3.githubusercontent.com/u/22802760?s=400&amp;u=2684db709294d703009a7082c2968020a85c56d0&amp;v=4" /></p>
+<p><strong>Yliess HATI</strong> is a Ph.D. student at the <a class="reference external" href="https://dvic.devinci.fr/">De Vinci Innovation Center</a> (DVIC), the trans-disciplinary research lab of the <a class="reference external" href="https://www.devinci.fr/">Pôle Universitaire Léonard de Vinci Paris - La Défense</a>. He is graduated from the engineering school <a class="reference external" href="https://www.esilv.fr/">ESILV</a> in Computer Science. His research focuses on the field of Deep Learning (DL) and, more particularly, on its use for Human-Computer Interaction (HCI) by creating interactive new experiences. He has published in academic research conferences such as the <a class="reference external" href="https://icad2019.icad.org/">International Conference on Auditory Display</a> and <a class="reference external" href="https://www.cvmp-conference.org/2019/">ACM SIGGRAPH European Conference on Visual Media Production</a>.</p>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 
@@ -211,14 +263,14 @@ Book under construction…</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="linear_algebra.html" title="next page"><span class="section-number">1. </span>Applied Linear Algebra</a>
+    <a class='right-next' id="next-link" href="1_applied_mathematics/0_introduction.html" title="next page"><span class="section-number">1. </span>Applied Mathermatics</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
       <p>
         
-          By The Jupyter Book community<br/>
+          By Yliess HATI<br/>
         
             &copy; Copyright 2020.<br/>
       </p>
