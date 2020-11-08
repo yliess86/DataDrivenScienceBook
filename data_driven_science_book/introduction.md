@@ -8,6 +8,8 @@ The **Data-Driven Science TextBook** contains the reference material for the Dat
 
 The fundamental sciences of **Linear Algebra**, **Statistics** and **Probabilities**, **Optimization**, and **Algorithmy**  are essential to the Data-Driven Sciences. This book does not aim at covering all of those fields in detail. It provides enough material to build interest for students in the Data-Driven Science fields. In this sense, each chapter introduces the mathematical knowledge necessary to apply it to real-world applications.
 
+**[Python 3.8](https://www.python.org/)** is chosen as the reference language in this book as it is for the moment one of the programming language of choice for Data Science, along with standard libraries such as [Numpy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), and [PyTorch](https://pytorch.org/). Each discussed throughout the chapters comes with direct implementation examples.
+
 ## Author Biography
 
 ![Author](https://avatars3.githubusercontent.com/u/22802760?s=400&u=2684db709294d703009a7082c2968020a85c56d0&v=4)
