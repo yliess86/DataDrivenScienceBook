@@ -1,4 +1,5 @@
-- file: introduction
+- file: preface
+- file: author
   numbered: true
   
 - file: linear_algebra
