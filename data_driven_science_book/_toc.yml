@@ -1,5 +1,5 @@
 - file: preface
-- file: author
+- file: author_biography
   numbered: true
   
-- file: linear_algebra
+- file: applied_linear_algebra

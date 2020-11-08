@@ -1,3 +1,5 @@
-# Author
+# Author Biography
 
-Info about me.
+![Author](https://avatars3.githubusercontent.com/u/22802760?s=400&u=2684db709294d703009a7082c2968020a85c56d0&v=4)
+
+**Yliess HATI** is a Ph.D. student at the [De Vinci Innovation Center](https://dvic.devinci.fr/) (DVIC), the trans-disciplinary research lab of the [Pôle Universitaire Léonard de Vinci Paris - La Défense](https://www.devinci.fr/). He is graduated from the engineering school [ESILV](https://www.esilv.fr/) in Computer Science. His research focuses on the field of Deep Learning (DL) and, more particularly, on its use for Human-Computer Interaction (HCI) by creating interactive new experiences. He has published in academic research conferences such as the [International Conference on Auditory Display](https://icad2019.icad.org/) and [ACM SIGGRAPH European Conference on Visual Media Production](https://www.cvmp-conference.org/2019/).
