@@ -3,7 +3,7 @@ author: Yliess HATI
 copyright: "2020"
 
 execute:
-  execute_notebooks: "force"
+  execute_notebooks: "auto"
   
 repository:
   url: https://github.com/yliess86/DataDrivenScienceBook
