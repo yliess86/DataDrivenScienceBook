@@ -1,7 +1,7 @@
 - file: introduction
   numbered: true
 
-- part: Data Visualization
+- part: Data Representations
   chapters:
   - file: 2_data_representations/0_introduction
   - file: 2_data_representations/1_data_visualization
