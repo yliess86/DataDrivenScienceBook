@@ -1,12 +1,12 @@
 - file: introduction
   numbered: true
 
-- part: Applied Mathematics
-  chapters:
-  - file: 1_applied_mathematics/0_introduction
-  - file: 1_applied_mathematics/1_linear_algebra
-
 - part: Data Visualization
   chapters:
   - file: 2_data_representations/0_introduction
   - file: 2_data_representations/1_data_visualization
+
+- part: Applied Mathematics
+  chapters:
+  - file: 1_applied_mathematics/0_introduction
+  - file: 1_applied_mathematics/1_linear_algebra
