@@ -1,4 +1,4 @@
-# Applied Mathermatics
+# Introduction
 
 **Applied Mathematics** applies maths to a different field such as **Engineering**, **Computer Science**, **Physics**, **Biology**, **Finance**, and more. It consists of formulating and studying a practical problem using mathematical models.
 
