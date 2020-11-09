@@ -259,8 +259,8 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#type-of-figures">
-     2.2.2. Type of Figures
+    <a class="reference internal nav-link" href="#visualization-types">
+     2.2.2. Visualization Types
     </a>
    </li>
   </ul>
@@ -276,8 +276,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#contextualization-and-story-telling">
-     2.3.2. Contextualization and Story Telling
+    <a class="reference internal nav-link" href="#contextualization-and-storytelling">
+     2.3.2. Contextualization and Storytelling
     </a>
    </li>
   </ul>
@@ -361,7 +361,7 @@
 </div>
 <div class="section" id="aesthetics">
 <h4><span class="section-number">2.2.1.2. </span>Aesthetics<a class="headerlink" href="#aesthetics" title="Permalink to this headline">¶</a></h4>
-<p>Even if they seem quite different at first glance, every type of graph has the <strong>same elements of language</strong>. Those elements are called <strong>Aesthetics</strong> and are the following:</p>
+<p>Even if they seem quite different at first glance, every type of graph has the <strong>same elements of language</strong>. Those elements are called <strong>Aesthetics</strong>. Each <strong>data value</strong> needs to be mapped with <strong>only one aesthetic</strong>. When this is not the case, data visualization can lead to ambiguities.</p>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -431,17 +431,106 @@
 </div>
 </div>
 </div>
-<div class="section" id="type-of-figures">
-<h3><span class="section-number">2.2.2. </span>Type of Figures<a class="headerlink" href="#type-of-figures" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="visualization-types">
+<h3><span class="section-number">2.2.2. </span>Visualization Types<a class="headerlink" href="#visualization-types" title="Permalink to this headline">¶</a></h3>
+<p>Data points can be visualized in many ways. This section lists the visualization types with their corresponding data types they are used for.</p>
+<table class="table" id="id1">
+<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Visualization Types vs. Data Types</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Type</p></th>
+<th class="head"><p>Visualization Types</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Correlation</strong></p></td>
+<td><p>Scatterplot, Bubble plot, Heatmap, Correlogram</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Evolution</strong></p></td>
+<td><p>Line plot, Area plot, Stacked Densities, Parallel Set</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Proportion</strong></p></td>
+<td><p>Tree plot, Stacked Densities</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ranking</strong></p></td>
+<td><p>Bar plot (vertical and horizontal), Spider</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Distribution</strong></p></td>
+<td><p>Vilon, Density, Histogram</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Uncertainty</strong></p></td>
+<td><p>Half Eyes, Confidence Bands</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Maps</strong></p></td>
+<td><p>Map, Choropleth map, Connection Map, Buble Map</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Flow</strong></p></td>
+<td><p>Chord Diagram, Graph Network, Parallel Set</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="design-principles">
 <h2><span class="section-number">2.3. </span>Design Principles<a class="headerlink" href="#design-principles" title="Permalink to this headline">¶</a></h2>
+<p>This section discusses the fundamental principles of data visualization: <strong>Data-ink Ratio</strong> and <strong>Storytelling</strong>.</p>
 <div class="section" id="minimalism-and-proportional-ink">
 <h3><span class="section-number">2.3.1. </span>Minimalism and Proportional Ink<a class="headerlink" href="#minimalism-and-proportional-ink" title="Permalink to this headline">¶</a></h3>
+<p>Data Visualization must encourage <strong>accessibility first</strong>, visually and contextually. <strong>Minimalism</strong> for visualization is one way to achieve such a goal and has been formulated as the <strong>Data-Ink Ratio</strong>. It represents the ink ratio used for representing the data against the total ink used to print the entire graphic. The <strong>closer</strong> it is <strong>to 1</strong>, the <strong>less distracting</strong> the visualization is.</p>
+<p>Tufte has provided five laws for Data-ink:</p>
+<ul class="simple">
+<li><p>Above all else, show the data</p></li>
+<li><p>Maximize data-ink ratio</p></li>
+<li><p>Erase non-data-ink</p></li>
+<li><p>Revise and edit</p></li>
+</ul>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="s2">&quot;#F6514C&quot;</span><span class="p">,</span> <span class="s2">&quot;#E5AE42&quot;</span><span class="p">]</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tick_label</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Object Percentage&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Percentage&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Object Type&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span> <span class="o">*</span> <span class="mi">10</span><span class="si">}</span><span class="s2">%&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="p">):</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tick_label</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;#7EC6E5&quot;</span><span class="p">,</span> <span class="s2">&quot;#7EC6E5&quot;</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Object Percentage&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="p">):</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
 </div>
-<div class="section" id="contextualization-and-story-telling">
-<h3><span class="section-number">2.3.2. </span>Contextualization and Story Telling<a class="headerlink" href="#contextualization-and-story-telling" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="figure align-center" id="intro-minimalism-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/1_data_visualization_11_0.png" src="../_images/1_data_visualization_11_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Demonstration of Data-Ink Ratio, without on top figure and with on bottom figure.</span><a class="headerlink" href="#intro-minimalism-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="contextualization-and-storytelling">
+<h3><span class="section-number">2.3.2. </span>Contextualization and Storytelling<a class="headerlink" href="#contextualization-and-storytelling" title="Permalink to this headline">¶</a></h3>
+<p>The most powerful part of data visualization is <strong>Storytelling</strong>. Without, the visualization lacks impact. It is first essential to define a <strong>Context</strong>, the <strong>Audience</strong>, and the <strong>Nature of the data</strong> to create a connection between those two entities. Nevertheless, a big part of the interaction with the target is achieved through visuals. <strong>Aesthetics</strong> can be used to <strong>draw attention</strong> to certain parts of the graphic.</p>
 </div>
 </div>
 </div>
