@@ -551,7 +551,7 @@ v_n
 <p>For a vector of dimension n, the magnitude <em>(length)</em> is defined as follow:</p>
 <div class="math notranslate nohighlight">
 \[
-\|\vec{v}\| = \sum_{i=1}^n v_i^2
+\|\vec{v}\| = \sqrt{\sum_{i=1}^n v_i^2}
 \]</div>
 <p>A vector with magnitude one is called a unit vector. Any vector can be transformed into its unit equivalent by dividing it by its magnitude:</p>
 <div class="math notranslate nohighlight">
@@ -715,7 +715,7 @@ v_n
 <p>In a <strong>3-dimensional euclidean space</strong>, the <strong>cross product</strong> between two vectors is define as follow:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\|\vec{u}\| \times \|\vec{v}\| = \begin{pmatrix}
+\vec{u} \times \vec{v} = \begin{pmatrix}
 u_y v_z - u_z v_y \\
 u_z v_x - u_x v_z \\
 u_x v_y - u_y v_x
@@ -900,10 +900,10 @@ M_{n \times m} =
 M^T = 
 \begin{align}
     \begin{bmatrix}
-    m_{1, 1} &amp; m_{2, 1} &amp; \dots &amp; m_{m, 1} \\
-    m_{1, 2} &amp; m_{2, 2} &amp; \dots &amp; m_{m, 2} \\
+    m_{1, 1} &amp; m_{2, 1} &amp; \dots &amp; m_{n, 1} \\
+    m_{1, 2} &amp; m_{2, 2} &amp; \dots &amp; m_{n, 2} \\
     \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-    m_{1, n} &amp; m_{2, n} &amp; \dots &amp; m_{m, n}
+    m_{1, m} &amp; m_{2, m} &amp; \dots &amp; m_{n, m}
     \end{bmatrix}
     &amp;
     = \begin{bmatrix}
@@ -958,9 +958,11 @@ M^T =
 <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
@@ -981,20 +983,13 @@ M^T =
 <p>The <strong>Hadamard product</strong> is an <strong>element-wise product</strong> and requires the two matrices to be of the <strong>same dimensionality</strong>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-A \odot B = \begin{align}
-    \begin{bmatrix}
-    a_{1, 1} b_{1, 1} &amp; a_{1, 2} b_{1, 2} &amp; \dots &amp; a_{1, m} b_{1, m} \\
-    a_{2, 1} b_{2, 1} &amp; a_{2, 2} b_{2, 2} &amp; \dots &amp; a_{2, m} b_{2, m} \\
-    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-    a_{n, 1} b_{n, 1} &amp; a_{n, 2} b_{n, 2} &amp; \dots &amp; a_{n, m} b_{n, m}
-    \end{bmatrix}
-    &amp;
-    = \begin{bmatrix}
-    | &amp; | &amp;  &amp; | \\
-    \vec{v_1} &amp; \vec{v_2} &amp; \dots &amp; \vec{v_m} \\
-    | &amp; | &amp;  &amp; |
-    \end{bmatrix}
-\end{align}
+A \odot B =
+\begin{bmatrix}
+a_{1, 1} b_{1, 1} &amp; a_{1, 2} b_{1, 2} &amp; \dots &amp; a_{1, m} b_{1, m} \\
+a_{2, 1} b_{2, 1} &amp; a_{2, 2} b_{2, 2} &amp; \dots &amp; a_{2, m} b_{2, m} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{n, 1} b_{n, 1} &amp; a_{n, 2} b_{n, 2} &amp; \dots &amp; a_{n, m} b_{n, m}
+\end{bmatrix}
 \end{split}\]</div>
 </div>
 <div class="section" id="matrix-multiplication">
@@ -1207,7 +1202,7 @@ g &amp; h &amp; i
 \end{vmatrix}
 &amp; = a.\begin{vmatrix}e &amp; f \\ h &amp; i\end{vmatrix} - d.\begin{vmatrix}b &amp; c \\ h &amp; i\end{vmatrix} + g.\begin{vmatrix}b &amp; c \\ e &amp; f\end{vmatrix} \\
 &amp; = a(ei - hf) - d(bi - he) + g(bf - ec) \\
-&amp; = aei - ahf - dbi + dhc + gbf + gec
+&amp; = aei - ahf - dbi + dhc + gbf - gec
 \end{split}
 \end{equation}
 \end{split}\]</div>
@@ -2021,7 +2016,7 @@ A = \begin{bmatrix} a &amp; 0 \\ 0 &amp; b \end{bmatrix} = \begin{bmatrix} 1 &am
 <p>This matrix decomposition comes pretty handy in various situation du to its properties. For example, considering <span class="math notranslate nohighlight">\(f\)</span> as any polynomial function:</p>
 <div class="math notranslate nohighlight">
 \[
-f(A) = V^{-1} f(\Lambda) V
+f(A) = V f(\Lambda) V^{-1}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2054,7 +2049,7 @@ f(A) = V^{-1} f(\Lambda) V
 </div>
 <div class="section" id="singular-value-decomposition">
 <h2><span class="section-number">2.7. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>Singular Value Decomposition</strong>, or SVD for short, is the Holy Grail of the modern Linear Algebra and is <strong>not limited to square matrices</strong>. The SVD consist of obtaining 3 matrices, the <strong>Left Singular Vectors</strong> <span class="math notranslate nohighlight">\(U\)</span> of size <span class="math notranslate nohighlight">\(m \times m\)</span>, the <strong>Right Singular Vector</strong> <span class="math notranslate nohighlight">\(V\)</span> of size <span class="math notranslate nohighlight">\(n \times n\)</span> both <strong>orthonormal</strong> and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix of size <span class="math notranslate nohighlight">\(m \times n\)</span> containing numerals called <strong>Singular Values</strong>.</p>
+<p>The <strong>Singular Value Decomposition</strong>, or SVD for short, is the <strong>Holy Grail</strong> of the modern Linear Algebra and is <strong>not limited to square matrices</strong>. The SVD consist of obtaining 3 matrices, the <strong>Left Singular Vectors</strong> <span class="math notranslate nohighlight">\(U\)</span> of size <span class="math notranslate nohighlight">\(m \times m\)</span>, the <strong>Right Singular Vector</strong> <span class="math notranslate nohighlight">\(V\)</span> of size <span class="math notranslate nohighlight">\(n \times n\)</span> both <strong>orthonormal</strong> and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix of size <span class="math notranslate nohighlight">\(m \times n\)</span> containing numerals called <strong>Singular Values</strong>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{equation}
@@ -2085,10 +2080,10 @@ A &amp; = USV^T \\
 \end{split}\]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The SVD does not require to compute the full left singular vectors and singular values. It can be simplified by ditching the null singular values, and their corresponding left singular vectors. This also saves memory and computation. This simplified version of the SVD is referred to as the economy SVD:</p>
+<p>The SVD does not require to compute the full left singular vectors and singular values. It can be simplified by ditching the null singular values, and their corresponding left and right singular vectors. This also saves memory and computation. This simplified version of the SVD is referred to as the economy SVD:</p>
 <div class="math notranslate nohighlight">
 \[
-A = \hat{U} \hat{\Sigma} V^T
+A = \tilde{U} \tilde{\Sigma} \tilde{V}^T
 \]</div>
 </div>
 <p>The SVD of a transformation matrix A tries to capture its essence as a <strong>Rotation</strong> and a <strong>Stretch</strong>. Its computation procedure is coming quite easily by computing the <span class="math notranslate nohighlight">\(AA^T\)</span> and <span class="math notranslate nohighlight">\(A^TA\)</span> matrices to solve for <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> separately.</p>
@@ -2551,9 +2546,9 @@ Xw = y
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 2.96
-Intercept: 0.84
-MSE: 0.44
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 2.85
+Intercept: 0.61
+MSE: 0.37
 </pre></div>
 </div>
 </div>
@@ -2996,7 +2991,7 @@ B V = U \Sigma
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original Sigmas [Data]: [2.  0.5]
-Infered  Sigmas [SVD] : [2.01763606 0.49833491]
+Infered  Sigmas [SVD] : [2.02660605 0.4975451 ]
 </pre></div>
 </div>
 </div>
