@@ -709,6 +709,82 @@ v_n
 </div>
 </div>
 </div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)),</span> <span class="o">-</span><span class="mf">0.3</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))])</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)),</span>  <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">]</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">]</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">]</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Arbitrary Vectors&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Colinear Vectors&quot;</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Orthogonal Vectors&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="vector-dot-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/1_linear_algebra_18_0.png" src="../_images/1_linear_algebra_18_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Visualization of arbitrary vectors left, colinear vectors middle, and orthogonal vectors right. Try to visualize the perpendicular projection of the green vector on the red one. In the case of colinear vectors, the length of the new vector obtained by projection is <span class="math notranslate nohighlight">\(0\)</span>, <span class="math notranslate nohighlight">\(-1\)</span> in the case of the colinear vectors (they reflect), and an arbitrary positive number between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> for the arbitrary one.</span><a class="headerlink" href="#vector-dot-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="cross-product">
 <h4><span class="section-number">2.2.2.4. </span>Cross Product<a class="headerlink" href="#cross-product" title="Permalink to this headline">¶</a></h4>
@@ -781,9 +857,9 @@ u_x v_y - u_y v_x
 </div>
 <div class="figure align-center" id="vector-cross-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_20_0.png" src="../_images/1_linear_algebra_20_0.png" />
+<img alt="../_images/1_linear_algebra_23_0.png" src="../_images/1_linear_algebra_23_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Generic 3 axis Euclidean base. z axis obtained using hte cross product on x and y.</span><a class="headerlink" href="#vector-cross-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Generic 3 axis Euclidean base. z axis obtained using hte cross product on x and y.</span><a class="headerlink" href="#vector-cross-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -868,9 +944,9 @@ M_{n \times m} =
 </div>
 <div class="figure align-center" id="matrix-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_25_0.png" src="../_images/1_linear_algebra_25_0.png" />
+<img alt="../_images/1_linear_algebra_28_0.png" src="../_images/1_linear_algebra_28_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Two visualisations of the matrix <span class="math notranslate nohighlight">\(\begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\end{bmatrix}\)</span> composed of the <span class="math notranslate nohighlight">\(3\)</span> vectors <span class="math notranslate nohighlight">\(\begin{pmatrix}1\\0\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\begin{pmatrix}0\\1\end{pmatrix}\)</span>, and <span class="math notranslate nohighlight">\(\begin{pmatrix}0\\0\end{pmatrix}\)</span>, as an image left and as point coordinates right.</span><a class="headerlink" href="#matrix-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Two visualisations of the matrix <span class="math notranslate nohighlight">\(\begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\end{bmatrix}\)</span> composed of the <span class="math notranslate nohighlight">\(3\)</span> vectors <span class="math notranslate nohighlight">\(\begin{pmatrix}1\\0\end{pmatrix}\)</span>, <span class="math notranslate nohighlight">\(\begin{pmatrix}0\\1\end{pmatrix}\)</span>, and <span class="math notranslate nohighlight">\(\begin{pmatrix}0\\0\end{pmatrix}\)</span>, as an image left and as point coordinates right.</span><a class="headerlink" href="#matrix-fig" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="id1">
 <h4><span class="section-number">2.2.3.1. </span>Scaling and Addition<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
@@ -973,9 +1049,9 @@ M^T =
 </div>
 <div class="figure align-center" id="matrix-transpose-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_30_0.png" src="../_images/1_linear_algebra_30_0.png" />
+<img alt="../_images/1_linear_algebra_33_0.png" src="../_images/1_linear_algebra_33_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Grayscale image of <a class="reference external" href="https://upload.wikimedia.org/wikipedia/en/7/7d/Lenna_%28test_image%29.png">Lenna</a>, a matrix of size <span class="math notranslate nohighlight">\(h \times w\)</span> left, and its transpose of size <span class="math notranslate nohighlight">\(w \times h\)</span> right.</span><a class="headerlink" href="#matrix-transpose-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Grayscale image of <a class="reference external" href="https://upload.wikimedia.org/wikipedia/en/7/7d/Lenna_%28test_image%29.png">Lenna</a>, a matrix of size <span class="math notranslate nohighlight">\(h \times w\)</span> left, and its transpose of size <span class="math notranslate nohighlight">\(w \times h\)</span> right.</span><a class="headerlink" href="#matrix-transpose-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="hadamard-product">
@@ -1124,9 +1200,9 @@ shape:
 </div>
 <div class="figure align-center" id="matrix-square-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_37_0.png" src="../_images/1_linear_algebra_37_0.png" />
+<img alt="../_images/1_linear_algebra_40_0.png" src="../_images/1_linear_algebra_40_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text"><span class="math notranslate nohighlight">\(16 \times 16\)</span> sqaures matrices, Diagonal, Lower Triangular, Upper Triangular. White is <span class="math notranslate nohighlight">\(1\)</span>, black is <span class="math notranslate nohighlight">\(0\)</span>.</span><a class="headerlink" href="#matrix-square-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text"><span class="math notranslate nohighlight">\(16 \times 16\)</span> sqaures matrices, Diagonal, Lower Triangular, Upper Triangular. White is <span class="math notranslate nohighlight">\(1\)</span>, black is <span class="math notranslate nohighlight">\(0\)</span>.</span><a class="headerlink" href="#matrix-square-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="identity">
@@ -1272,9 +1348,9 @@ det(M) = \sum_{\sigma \in \Sigma} (sgn(\sigma) \prod_{i=1}^n m_{i, \sigma_i})
 </div>
 <div class="figure align-center" id="matrix-det-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_45_0.png" src="../_images/1_linear_algebra_45_0.png" />
+<img alt="../_images/1_linear_algebra_48_0.png" src="../_images/1_linear_algebra_48_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Visualisation of the determinant of the <span class="math notranslate nohighlight">\(I_2\)</span> matrix. <span class="math notranslate nohighlight">\(|I_2| = 1\)</span> and the area of a unit square <span class="math notranslate nohighlight">\(1\)</span>.</span><a class="headerlink" href="#matrix-det-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Visualisation of the determinant of the <span class="math notranslate nohighlight">\(I_2\)</span> matrix. <span class="math notranslate nohighlight">\(|I_2| = 1\)</span> and the area of a unit square <span class="math notranslate nohighlight">\(1\)</span>.</span><a class="headerlink" href="#matrix-det-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1304,9 +1380,9 @@ det(M) = \sum_{\sigma \in \Sigma} (sgn(\sigma) \prod_{i=1}^n m_{i, \sigma_i})
 \end{split}\]</div>
 <div class="figure align-center" id="matrix-scale-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_49_0.png" src="../_images/1_linear_algebra_49_0.png" />
+<img alt="../_images/1_linear_algebra_52_0.png" src="../_images/1_linear_algebra_52_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Effect of Scaling Matrix, scaling by <span class="math notranslate nohighlight">\(2\)</span> on x axis, <span class="math notranslate nohighlight">\(0.5\)</span> on y axis, left figure, scaling by <span class="math notranslate nohighlight">\(2\)</span> on x axis, <span class="math notranslate nohighlight">\(0.5\)</span> on z axis, right figure.</span><a class="headerlink" href="#matrix-scale-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Effect of Scaling Matrix, scaling by <span class="math notranslate nohighlight">\(2\)</span> on x axis, <span class="math notranslate nohighlight">\(0.5\)</span> on y axis, left figure, scaling by <span class="math notranslate nohighlight">\(2\)</span> on x axis, <span class="math notranslate nohighlight">\(0.5\)</span> on z axis, right figure.</span><a class="headerlink" href="#matrix-scale-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="rotatation">
@@ -1457,9 +1533,9 @@ sin(\theta) &amp; cos(\theta)
 </div>
 <div class="figure align-center" id="matrix-rotation-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_53_0.png" src="../_images/1_linear_algebra_53_0.png" />
+<img alt="../_images/1_linear_algebra_56_0.png" src="../_images/1_linear_algebra_56_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Effect of Rotation Matrix, rotating the figure by <span class="math notranslate nohighlight">\(45^{\circ}\)</span> left figure, and <span class="math notranslate nohighlight">\(45^{\circ}\)</span> on the <span class="math notranslate nohighlight">\(x\)</span> axis in blue, and on the <span class="math notranslate nohighlight">\(z\)</span> axis in green, right figure.</span><a class="headerlink" href="#matrix-rotation-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Effect of Rotation Matrix, rotating the figure by <span class="math notranslate nohighlight">\(45^{\circ}\)</span> left figure, and <span class="math notranslate nohighlight">\(45^{\circ}\)</span> on the <span class="math notranslate nohighlight">\(x\)</span> axis in blue, and on the <span class="math notranslate nohighlight">\(z\)</span> axis in green, right figure.</span><a class="headerlink" href="#matrix-rotation-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="shearing">
@@ -1578,9 +1654,9 @@ sin(\theta) &amp; cos(\theta)
 </div>
 <div class="figure align-center" id="matrix-shear-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_57_0.png" src="../_images/1_linear_algebra_57_0.png" />
+<img alt="../_images/1_linear_algebra_60_0.png" src="../_images/1_linear_algebra_60_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Effect of Rotation Matrix, rotating the figure by <span class="math notranslate nohighlight">\(45^{\circ}\)</span> left figure, and <span class="math notranslate nohighlight">\(45^{\circ}\)</span> on the <span class="math notranslate nohighlight">\(x\)</span> axis in blue, and on the <span class="math notranslate nohighlight">\(z\)</span> axis in green, right figure.</span><a class="headerlink" href="#matrix-shear-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Effect of Rotation Matrix, rotating the figure by <span class="math notranslate nohighlight">\(45^{\circ}\)</span> left figure, and <span class="math notranslate nohighlight">\(45^{\circ}\)</span> on the <span class="math notranslate nohighlight">\(x\)</span> axis in blue, and on the <span class="math notranslate nohighlight">\(z\)</span> axis in green, right figure.</span><a class="headerlink" href="#matrix-shear-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="reflection">
@@ -1699,9 +1775,9 @@ sin(\theta) &amp; cos(\theta)
 </div>
 <div class="figure align-center" id="matrix-reflect-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_61_0.png" src="../_images/1_linear_algebra_61_0.png" />
+<img alt="../_images/1_linear_algebra_64_0.png" src="../_images/1_linear_algebra_64_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Effect of Reflection Matrix, reflected on all axis (x and y left, x, y, and z right) in blue.</span><a class="headerlink" href="#matrix-reflect-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Effect of Reflection Matrix, reflected on all axis (x and y left, x, y, and z right) in blue.</span><a class="headerlink" href="#matrix-reflect-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1841,9 +1917,9 @@ sin(\theta) &amp; cos(\theta)
 </div>
 <div class="figure align-center" id="matrix-translate-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_65_0.png" src="../_images/1_linear_algebra_65_0.png" />
+<img alt="../_images/1_linear_algebra_68_0.png" src="../_images/1_linear_algebra_68_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Effect of Translation Matrix. Red square is translated by <span class="math notranslate nohighlight">\(\begin{pmatrix} -0.5 \\ -0.5 \end{pmatrix}\)</span> in blue on left, and red cube is translated by <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ -1 \\ 0 \end{pmatrix}\)</span> in blue, <span class="math notranslate nohighlight">\(\begin{pmatrix} -1 \\ 0 \\ 0 \end{pmatrix}\)</span> in green, and <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}\)</span> in yellow, on right.</span><a class="headerlink" href="#matrix-translate-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.16 </span><span class="caption-text">Effect of Translation Matrix. Red square is translated by <span class="math notranslate nohighlight">\(\begin{pmatrix} -0.5 \\ -0.5 \end{pmatrix}\)</span> in blue on left, and red cube is translated by <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ -1 \\ 0 \end{pmatrix}\)</span> in blue, <span class="math notranslate nohighlight">\(\begin{pmatrix} -1 \\ 0 \\ 0 \end{pmatrix}\)</span> in green, and <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}\)</span> in yellow, on right.</span><a class="headerlink" href="#matrix-translate-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1996,9 +2072,9 @@ eigen value lambda_2: 2.0 w/ eigen vector x_2: [-0.70710678  0.70710678]
 </div>
 <div class="figure align-center" id="matrix-eigen-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_70_0.png" src="../_images/1_linear_algebra_70_0.png" />
+<img alt="../_images/1_linear_algebra_73_0.png" src="../_images/1_linear_algebra_73_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.16 </span><span class="caption-text">Eigenvector visulaization for <span class="math notranslate nohighlight">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span> with eigenvalues and vectors respectively <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\)</span>, and <span class="math notranslate nohighlight">\(2 \begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</span>. Notice how each eigenvector does not deviate from its span.</span><a class="headerlink" href="#matrix-eigen-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Eigenvector visulaization for <span class="math notranslate nohighlight">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span> with eigenvalues and vectors respectively <span class="math notranslate nohighlight">\(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\)</span>, and <span class="math notranslate nohighlight">\(2 \begin{pmatrix} 1 \\ 0 \end{pmatrix}\)</span>. Notice how each eigenvector does not deviate from its span.</span><a class="headerlink" href="#matrix-eigen-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="diagonalisation">
@@ -2284,9 +2360,9 @@ A (SVD):
 </div>
 <div class="figure align-center" id="matrix-svd-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_79_0.png" src="../_images/1_linear_algebra_79_0.png" />
+<img alt="../_images/1_linear_algebra_82_0.png" src="../_images/1_linear_algebra_82_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.17 </span><span class="caption-text">SVD visualization applied to a unit sphere left, with a rotation and stretch matrix transformation middle, and the reconstructed transformation after decomposition by svd (using only <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span>).</span><a class="headerlink" href="#matrix-svd-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.18 </span><span class="caption-text">SVD visualization applied to a unit sphere left, with a rotation and stretch matrix transformation middle, and the reconstructed transformation after decomposition by svd (using only <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span>).</span><a class="headerlink" href="#matrix-svd-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>The SVD is particularly useful when the <span class="math notranslate nohighlight">\(A\)</span> transformation matrix is rectangular and/or does not allow the computation of its inverse <span class="math notranslate nohighlight">\(A^{-1}\)</span>. When it is the case, we can compute what is called the <strong>Pseudo-Inverse</strong> of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(A^+\)</span>.</p>
 <div class="admonition note">
@@ -2487,9 +2563,9 @@ W/ Numpy Least-square Solver:
 </div>
 <div class="figure align-center" id="matrix-lse-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_84_0.png" src="../_images/1_linear_algebra_84_0.png" />
+<img alt="../_images/1_linear_algebra_87_0.png" src="../_images/1_linear_algebra_87_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.18 </span><span class="caption-text">Intersection of 3 planes in <span class="math notranslate nohighlight">\(\begin{pmatrix} -\frac{1}{4} \\ -\frac{1}{4} \\ -\frac{1}{4} \end{pmatrix}\)</span>.</span><a class="headerlink" href="#matrix-lse-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.19 </span><span class="caption-text">Intersection of 3 planes in <span class="math notranslate nohighlight">\(\begin{pmatrix} -\frac{1}{4} \\ -\frac{1}{4} \\ -\frac{1}{4} \end{pmatrix}\)</span>.</span><a class="headerlink" href="#matrix-lse-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="linear-regression">
@@ -2546,9 +2622,9 @@ Xw = y
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 2.85
-Intercept: 0.61
-MSE: 0.37
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 2.83
+Intercept: 0.63
+MSE: 0.42
 </pre></div>
 </div>
 </div>
@@ -2597,9 +2673,9 @@ MSE: 0.37
 </div>
 <div class="figure align-center" id="matrix-1dlinreg-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_89_0.png" src="../_images/1_linear_algebra_89_0.png" />
+<img alt="../_images/1_linear_algebra_92_0.png" src="../_images/1_linear_algebra_92_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.19 </span><span class="caption-text">Visualization of a One-dimensional regression for the <span class="math notranslate nohighlight">\(3x + 1\)</span> line.</span><a class="headerlink" href="#matrix-1dlinreg-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.20 </span><span class="caption-text">Visualization of a One-dimensional regression for the <span class="math notranslate nohighlight">\(3x + 1\)</span> line.</span><a class="headerlink" href="#matrix-1dlinreg-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Let us observe the classic multi-dimensional dataset Boston. Here, data <span class="math notranslate nohighlight">\(X\)</span> represent features of houses such as its area in <span class="math notranslate nohighlight">\(m^2\)</span> and <span class="math notranslate nohighlight">\(y\)</span> the corresponding median value price in a factor of 1000$. Our goal is to be able to estimate any house price given its available features.</p>
 <div class="cell docutils container">
@@ -2834,9 +2910,9 @@ MSE [test ]: 20.72
 </div>
 <div class="figure align-center" id="matrix-linreg-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_96_0.png" src="../_images/1_linear_algebra_96_0.png" />
+<img alt="../_images/1_linear_algebra_99_0.png" src="../_images/1_linear_algebra_99_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.20 </span><span class="caption-text">Prediction versus Target in blue. The more the points are close to the dotted line, the better.</span><a class="headerlink" href="#matrix-linreg-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.21 </span><span class="caption-text">Prediction versus Target in blue. The more the points are close to the dotted line, the better.</span><a class="headerlink" href="#matrix-linreg-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="image-compression">
@@ -2913,9 +2989,9 @@ SVD Truncation 100: 346.00kB
 </div>
 <div class="figure align-center" id="matrix-imgcompress-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_101_0.png" src="../_images/1_linear_algebra_101_0.png" />
+<img alt="../_images/1_linear_algebra_104_0.png" src="../_images/1_linear_algebra_104_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.21 </span><span class="caption-text">Image <a class="reference external" href="https://en.wikipedia.org/wiki/Coin#/media/File:Athens_coin_discovered_in_Pushkalavati.jpg">Athens coin</a> compressions with SVD and their size in kB. T is the number of singular vectors and values (in order) taken for reconstruction of the image.</span><a class="headerlink" href="#matrix-imgcompress-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.22 </span><span class="caption-text">Image <a class="reference external" href="https://en.wikipedia.org/wiki/Coin#/media/File:Athens_coin_discovered_in_Pushkalavati.jpg">Athens coin</a> compressions with SVD and their size in kB. T is the number of singular vectors and values (in order) taken for reconstruction of the image.</span><a class="headerlink" href="#matrix-imgcompress-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="principal-component-analysis">
@@ -2991,7 +3067,7 @@ B V = U \Sigma
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original Sigmas [Data]: [2.  0.5]
-Infered  Sigmas [SVD] : [2.02660605 0.4975451 ]
+Infered  Sigmas [SVD] : [2.00266144 0.50019403]
 </pre></div>
 </div>
 </div>
@@ -3027,9 +3103,9 @@ Infered  Sigmas [SVD] : [2.02660605 0.4975451 ]
 </div>
 <div class="figure align-center" id="matrix-toypca-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_106_0.png" src="../_images/1_linear_algebra_106_0.png" />
+<img alt="../_images/1_linear_algebra_109_0.png" src="../_images/1_linear_algebra_109_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.22 </span><span class="caption-text">PCA applied to a gaussian toy example in blue. Principal axes are recovered using SVD.</span><a class="headerlink" href="#matrix-toypca-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.23 </span><span class="caption-text">PCA applied to a gaussian toy example in blue. Principal axes are recovered using SVD.</span><a class="headerlink" href="#matrix-toypca-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Now let us observe the use of PCA on real world data.</p>
 <div class="cell docutils container">
@@ -3240,9 +3316,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-svdcancer-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_113_0.png" src="../_images/1_linear_algebra_113_0.png" />
+<img alt="../_images/1_linear_algebra_116_0.png" src="../_images/1_linear_algebra_116_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.23 </span><span class="caption-text">Singular values of the Breast Cancer Dataset.</span><a class="headerlink" href="#matrix-svdcancer-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.24 </span><span class="caption-text">Singular values of the Breast Cancer Dataset.</span><a class="headerlink" href="#matrix-svdcancer-fig" title="Permalink to this image">¶</a></p>
 </div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
@@ -3286,9 +3362,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-pcacancer-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_116_0.png" src="../_images/1_linear_algebra_116_0.png" />
+<img alt="../_images/1_linear_algebra_119_0.png" src="../_images/1_linear_algebra_119_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.24 </span><span class="caption-text">First 2 principal components of the Breast Cancer dataset provided by sklearn. Cancer patients are represented in red, and normal ones in blue. Notice the sign difference between the manual PCA (using svd) and the sklearn one. This is due to the fact that eigenvectors represent the direction of a span which is invariant to its sign.</span><a class="headerlink" href="#matrix-pcacancer-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.25 </span><span class="caption-text">First 2 principal components of the Breast Cancer dataset provided by sklearn. Cancer patients are represented in red, and normal ones in blue. Notice the sign difference between the manual PCA (using svd) and the sklearn one. This is due to the fact that eigenvectors represent the direction of a span which is invariant to its sign.</span><a class="headerlink" href="#matrix-pcacancer-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="eigenfaces">
@@ -3374,9 +3450,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-eigenfaces-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_123_0.png" src="../_images/1_linear_algebra_123_0.png" />
+<img alt="../_images/1_linear_algebra_126_0.png" src="../_images/1_linear_algebra_126_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.25 </span><span class="caption-text">Singular values of the Eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.26 </span><span class="caption-text">Singular values of the Eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-fig" title="Permalink to this image">¶</a></p>
 </div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
@@ -3407,14 +3483,18 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-eigenfaces-display-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_126_0.png" src="../_images/1_linear_algebra_126_0.png" />
+<img alt="../_images/1_linear_algebra_129_0.png" src="../_images/1_linear_algebra_129_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.26 </span><span class="caption-text">Mean face of the LFW dataset and the first 9 eigen faces.</span><a class="headerlink" href="#matrix-eigenfaces-display-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.27 </span><span class="caption-text">Mean face of the LFW dataset and the first 9 eigen faces.</span><a class="headerlink" href="#matrix-eigenfaces-display-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="approximation">
 <h4><span class="section-number">2.8.5.2. </span>Approximation<a class="headerlink" href="#approximation" title="Permalink to this headline">¶</a></h4>
 <p>Then try to approximate the two remaining faces using the computed eigenfaces, and visualize their appearance depending on different truncations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember <span class="math notranslate nohighlight">\(U^T=U^{-1}\)</span> as <span class="math notranslate nohighlight">\(U\)</span> is defined as an otheogonal matrix. A consequence of this fact is <span class="math notranslate nohighlight">\(X=U U^T X\)</span>.</p>
+</div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Facial Reconstructions for test Candidate 0</span>
@@ -3449,9 +3529,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-eigenfaces-approx-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_131_0.png" src="../_images/1_linear_algebra_131_0.png" />
+<img alt="../_images/1_linear_algebra_134_0.png" src="../_images/1_linear_algebra_134_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.27 </span><span class="caption-text">Approximate representations of the first test candidate using the eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-approx-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.28 </span><span class="caption-text">Approximate representations of the first test candidate using the eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-approx-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Try to approximate an image completely different from the one present in the dataset, a coin, for example.</p>
 <div class="cell tag_hide-input docutils container">
@@ -3501,9 +3581,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-eigenfaces-coin-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_136_0.png" src="../_images/1_linear_algebra_136_0.png" />
+<img alt="../_images/1_linear_algebra_139_0.png" src="../_images/1_linear_algebra_139_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.28 </span><span class="caption-text">Approximate representations of the <a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/3/3b/Claudius_II_coin_%28colourised%29.png">Claudius II Coin</a> using the eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-coin-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.29 </span><span class="caption-text">Approximate representations of the <a class="reference external" href="https://upload.wikimedia.org/wikipedia/commons/3/3b/Claudius_II_coin_%28colourised%29.png">Claudius II Coin</a> using the eigenfaces.</span><a class="headerlink" href="#matrix-eigenfaces-coin-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="embedding">
@@ -3548,9 +3628,9 @@ memory usage: 133.5 KB
 </div>
 <div class="figure align-center" id="matrix-eigenfaces-pca-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/1_linear_algebra_141_0.png" src="../_images/1_linear_algebra_141_0.png" />
+<img alt="../_images/1_linear_algebra_144_0.png" src="../_images/1_linear_algebra_144_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 2.29 </span><span class="caption-text">Projection of the 2 test candidates on to the 4th and 3rd principal components. Their projection almost allow us to cluster them visually, although it is not perfect due parlty to the lack of feature alignement in the chosen dataset.</span><a class="headerlink" href="#matrix-eigenfaces-pca-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 2.30 </span><span class="caption-text">Projection of the 2 test candidates on to the 4th and 3rd principal components. Their projection almost allow us to cluster them visually, although it is not perfect due parlty to the lack of feature alignement in the chosen dataset.</span><a class="headerlink" href="#matrix-eigenfaces-pca-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
