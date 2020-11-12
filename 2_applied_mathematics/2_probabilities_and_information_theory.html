@@ -178,7 +178,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/2_applied_mathematics/3_probabilities_and_information_theory.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/2_applied_mathematics/2_probabilities_and_information_theory.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -198,7 +198,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/yliess86/DataDrivenScienceBook/issues/new?title=Issue%20on%20page%20%2F2_applied_mathematics/3_probabilities_and_information_theory.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/yliess86/DataDrivenScienceBook/issues/new?title=Issue%20on%20page%20%2F2_applied_mathematics/2_probabilities_and_information_theory.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -219,7 +219,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/yliess86/DataDrivenScienceBook/master?urlpath=tree/2_applied_mathematics/3_probabilities_and_information_theory.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/yliess86/DataDrivenScienceBook/master?urlpath=tree/2_applied_mathematics/2_probabilities_and_information_theory.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -257,8 +257,18 @@
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#dice-rowling">
-       3.2.1.1. Dice Rowling
+      <a class="reference internal nav-link" href="#rowling-dices">
+       3.2.1.1. Rowling Dices
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#birthday-paradox">
+       3.2.1.2. Birthday Paradox
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sampling-with-or-without-replacement">
+       3.2.1.3. Sampling with or without Replacement
       </a>
      </li>
     </ul>
@@ -455,7 +465,7 @@
 <p>The <strong>Probability</strong> of an <strong>Event</strong> , defined as the chance of its realization,  is encoded as a <strong>Positive Real Numeral</strong> between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. Formally speaking, we first define a <strong>Probability Space</strong> composed of the three following components: a <strong>Sample Space</strong> <span class="math notranslate nohighlight">\(\Omega\)</span> representing all possible outcomes of an experiment, a set of possible <strong>Events</strong>, as well as a <strong>Probability Function</strong> <span class="math notranslate nohighlight">\(P\)</span> measuring the chance of each event to occur.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Note the <span class="math notranslate nohighlight">\(\Omega\)</span> contains itself but also the empty set of events <span class="math notranslate nohighlight">\(\varnothing\)</span></p>
+<p>Note the <span class="math notranslate nohighlight">\(\Omega\)</span> contains itself but also the empty set of events <span class="math notranslate nohighlight">\(\varnothing\)</span>.</p>
 </div>
 <p>The probability function is defined such as it always respect the following requirements:</p>
 <ul class="simple">
@@ -465,8 +475,8 @@
 <li><p><span class="math notranslate nohighlight">\(P(\overline{A}) = 1 - P(A)\)</span> with <span class="math notranslate nohighlight">\(\overline{A}\)</span> being the complement of the event <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 </ul>
 <p>Let us illustrate those concepts by comparing three random experiments by <strong>Monte Carlo Simulation</strong> in conjunction with the <strong>Theroy</strong>.</p>
-<div class="section" id="dice-rowling">
-<h4><span class="section-number">3.2.1.1. </span>Dice Rowling<a class="headerlink" href="#dice-rowling" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="rowling-dices">
+<h4><span class="section-number">3.2.1.1. </span>Rowling Dices<a class="headerlink" href="#rowling-dices" title="Permalink to this headline">¶</a></h4>
 <p>Consider the following experiment where two independant and non-pipped six-sided dices are rolled, and we want to find the probability of the both dice being odd. The problem can be formalised as follow:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\Omega = \left \{ 1, \dots, 6  \right \}^2\)</span></p></li>
@@ -474,112 +484,161 @@
 <li><p><span class="math notranslate nohighlight">\(P(B) = \frac{|B|}{|\Omega|}\)</span> where <span class="math notranslate nohighlight">\(|.|\)</span> denotes the number of element in the given set</p></li>
 </ul>
 <p>The probability function is symmetric and can be resumed in the following table:</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
 
-<span class="n">omega</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">omega</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">omega</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">]</span>
+<span class="n">table</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="p">]</span>
 
-<span class="n">pf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">omega</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">omega</span><span class="p">])</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pf</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">omega</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">omega</span><span class="p">)</span>
+<span class="n">bold</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">bf</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">$&quot;</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">table</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bold</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+<span class="n">cell_size</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">cell_size</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">cellText</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">cellColours</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">cellLoc</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">get_celld</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">cell</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="n">cell_size</span><span class="p">)</span>
+    <span class="n">cell</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="n">cell_size</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="experiment-dice-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_2_0.png" src="../_images/2_probabilities_and_information_theory_2_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Table representig the probabilities for each value of the two dices. The odd outcomes’cell are filled in gray.</span><a class="headerlink" href="#experiment-dice-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>Using the defined probability function, we can now compute the probability of the event <span class="math notranslate nohighlight">\(A\)</span> as beign:</p>
+<div class="math notranslate nohighlight">
+\[
+P(A) = \frac{18}{36} = 0.5
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="n">N</span><span class="p">,</span> <span class="n">FACES</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">10e4</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">is_odd</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span>
+
+<span class="n">th_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">is_odd</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">FACES</span><span class="p">,</span> <span class="n">FACES</span><span class="p">)])</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">FACES</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">mc_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">is_odd</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">FACES</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">FACES</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span> <span class="o">/</span> <span class="n">N</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Theory                : P(A) = </span><span class="si">{</span><span class="n">th_p</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monte Carlo Estimation: P(A) = </span><span class="si">{</span><span class="n">mc_p</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>6</td>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>7</td>
-      <td>8</td>
-      <td>9</td>
-      <td>10</td>
-      <td>11</td>
-      <td>12</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theory                : P(A) = 50.00%
+Monte Carlo Estimation: P(A) = 50.06%
+</pre></div>
 </div>
-<!-- 
-Monte Carlo Simulations W/ Theory
-- Rolling Dice
-- Password Hacking
-- Sampling w/ or wo/ Replacement
--->
+</div>
+</div>
+</div>
+<div class="section" id="birthday-paradox">
+<h4><span class="section-number">3.2.1.2. </span>Birthday Paradox<a class="headerlink" href="#birthday-paradox" title="Permalink to this headline">¶</a></h4>
+<p>Consider a room full of people. If we ask the following question: What is the probability of having pairs of people with the same birthday date without the year? It is certain that with 366 people, you will have at least one pair. But what if we have fewer people? With 50 people, there is 50% chance for the existence of such a pair. This problem is referred to as the birthday paradox.</p>
+<p>Let us formalized this problem as follow:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Omega=\left \{ (x_i, x_j) \; \text{with} \; x_i, x_j \in \left \{ 1, \dots, 365 \right \} \right \}\)</span>, <span class="math notranslate nohighlight">\(|\Omega| = 365^n\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A = \left \{ (x_i, x_j) \; \text{whre} \; x_i=x_j \right \}\)</span></p></li>
+</ul>
+<p>Let us considere <span class="math notranslate nohighlight">\(\overline{A}\)</span> which consists of all the tuples where <span class="math notranslate nohighlight">\(x_i \neq x_j\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+|\overline{A}| = 365 \cdot 364 \cdot \dots \cdot (365 - n + 1) = \frac{365!}{(365 - n)!}
+\]</div>
+<p>As <span class="math notranslate nohighlight">\(\overline{A}\)</span> is the complement for <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(A) = 1 - P(\overline{A}) = 1 - \frac{|\overline{A}|}{|\Omega|} = 1 - \frac{365!}{(365 - n)! \cdot 365^n}
+\]</div>
+<p>In this sense, if we take a room of 50 people <span class="math notranslate nohighlight">\(P(A) \approx 97.04\%\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e2</span><span class="p">)</span>
+
+<span class="n">factorial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">factorials</span> <span class="o">=</span> <span class="p">[</span><span class="n">factorial</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">366</span><span class="p">)]</span>
+
+<span class="n">days</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">365</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">same</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span>
+
+<span class="n">theo</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">factorials</span><span class="p">[</span><span class="mi">365</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">factorials</span><span class="p">[</span><span class="mi">365</span> <span class="o">-</span> <span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">365</span> <span class="o">**</span> <span class="n">n</span><span class="p">)))</span> 
+<span class="n">simu</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">same</span><span class="p">(</span><span class="n">days</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span> <span class="o">/</span> <span class="n">N</span> 
+
+<span class="n">ns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">60</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">th_ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">theo</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">])</span>
+<span class="n">mc_ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">simu</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">])</span>
+
+<span class="n">total_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">th_ps</span> <span class="o">-</span> <span class="n">mc_ps</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Theory vs Monte Carlo Simulation Mean Error: </span><span class="si">{</span><span class="n">total_error</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theory vs Monte Carlo Simulation Mean Error: 0.03
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">th_ps</span><span class="p">)</span>
+<span class="n">scat</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mc_ps</span><span class="p">)),</span> <span class="n">mc_ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(birthday match)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line</span><span class="p">,</span> <span class="n">scat</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Theory&quot;</span><span class="p">,</span> <span class="s2">&quot;Monte Carlo&quot;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="experiment-birthday-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_9_0.png" src="../_images/2_probabilities_and_information_theory_9_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Probability of a matching birthday in a room of n people.</span><a class="headerlink" href="#experiment-birthday-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="sampling-with-or-without-replacement">
+<h4><span class="section-number">3.2.1.3. </span>Sampling with or without Replacement<a class="headerlink" href="#sampling-with-or-without-replacement" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 <div class="section" id="sets">
