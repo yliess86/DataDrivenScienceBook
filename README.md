@@ -1,6 +1,6 @@
 # Introduction
 
-![BookCover](../resources/cover_book.png)
+![BookCover](resources/cover_book.png)
 
 ## Preface
 
