@@ -10,3 +10,4 @@
   chapters:
   - file: 2_applied_mathematics/0_introduction
   - file: 2_applied_mathematics/1_linear_algebra
+  - file: 2_applied_mathematics/3_probabilities_and_information_theory
