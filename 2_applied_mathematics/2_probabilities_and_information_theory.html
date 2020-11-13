@@ -301,6 +301,13 @@
     <a class="reference internal nav-link" href="#baye-s-theorem">
      3.2.5. Baye’s Theorem
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#radio-transmission">
+       3.2.5.1. Radio Transmission
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -982,6 +989,48 @@ P(H | e) = \frac{P(e | H) P(H)}{P(e)}
 <li><p><strong>likelihood</strong> of the evidence given our hypothesis is true</p></li>
 <li><p><strong>marginal</strong> probability <span class="math notranslate nohighlight">\(P(e)\)</span>, how probable is the new evidence under all possible hypotheses</p></li>
 </ul>
+<div class="section" id="radio-transmission">
+<h4><span class="section-number">3.2.5.1. </span>Radio Transmission<a class="headerlink" href="#radio-transmission" title="Permalink to this headline">¶</a></h4>
+<p>Consider the example of a radio signal sent from the ISS to earth. Let say the bits transmitted are <span class="math notranslate nohighlight">\(1\)</span> 75% else <span class="math notranslate nohighlight">\(0\)</span>. It is logical to consider the fact that the transmitted signal can be altered, distorted through physical phenomena. Let us denote <span class="math notranslate nohighlight">\(\epsilon_0\)</span> the chance of receiving a <span class="math notranslate nohighlight">\(1\)</span> instead of a <span class="math notranslate nohighlight">\(0\)</span>, and <span class="math notranslate nohighlight">\(\epsilon_1\)</span> the chance or receiving a <span class="math notranslate nohighlight">\(0\)</span> instead of a <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>Suppose you received a bit <span class="math notranslate nohighlight">\(R\)</span> as a 1. What is the probability that it was, in fact, transmitted <span class="math notranslate nohighlight">\(T\)</span> as 1? We can obtain the response by applying Baye’s Rule:</p>
+<div class="math notranslate nohighlight">
+\[
+P(T=1 | R=1) = \frac{P(R=1\;|\;T=1) P(T=1)}{P(R=1)} = \frac{0.7(1 - \epsilon_1)}{0.7 (1 - \epsilon_1) + 0.3 \epsilon_0}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">10e4</span><span class="p">)</span>
+
+<span class="n">prior</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">eps_0</span><span class="p">,</span> <span class="n">eps_1</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span>
+
+<span class="n">flip</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">bit</span><span class="p">:</span> <span class="n">bit</span> <span class="o">^</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">eps_1</span> <span class="k">if</span> <span class="n">bit</span> <span class="k">else</span> <span class="n">eps_0</span><span class="p">)</span> <span class="k">else</span> <span class="n">bit</span>
+
+<span class="n">T_bits</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">prior</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">R_bits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">flip</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span> <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">T_bits</span><span class="p">])</span> 
+
+<span class="n">ones</span> <span class="o">=</span> <span class="n">R_bits</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">ones_count</span> <span class="o">=</span> <span class="n">ones</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">mc_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_bits</span><span class="p">[</span><span class="n">ones</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">ones_count</span>
+<span class="n">th_p</span> <span class="o">=</span> <span class="n">prior</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">prior</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps_1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prior</span><span class="p">)</span> <span class="o">*</span> <span class="n">eps_0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Theory              : P(T=1 | R=1) = </span><span class="si">{</span><span class="n">th_p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monte Carlo Estimate: P(T=1 | R=1) = </span><span class="si">{</span><span class="n">mc_p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Theory              : P(T=1 | R=1) = 0.9310344827586207
+Monte Carlo Estimate: P(T=1 | R=1) = 0.9311757589089309
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="probability-distributions">
