@@ -320,25 +320,27 @@
     <a class="reference internal nav-link" href="#random-variables">
      3.3.1. Random Variables
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discrete-random-variable">
+       3.3.1.1. Discrete Random Variable
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#continuous-random-variable">
+       3.3.1.2. Continuous Random Variable
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#distributions-zoo">
+     3.3.2. Distributions Zoo
+    </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#moment-based-descriptors">
-     3.3.2. Moment Based Descriptors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#discrete-distributions">
-     3.3.3. Discrete Distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#continuous-distributions">
-     3.3.4. Continuous Distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#joint-distributions">
-     3.3.5. Joint Distributions
+     3.3.3. Moment Based Descriptors
     </a>
    </li>
   </ul>
@@ -947,8 +949,8 @@ P(A) = \sum_{i=0}^{\infty} P(A \cap B_i) = \sum_{i=0}^{\infty} P(A | B_i) P(B_i)
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">c</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 
@@ -1035,20 +1037,93 @@ Monte Carlo Estimate: P(T=1 | R=1) = 0.9311757589089309
 </div>
 <div class="section" id="probability-distributions">
 <h2><span class="section-number">3.3. </span>Probability Distributions<a class="headerlink" href="#probability-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a sense of what probability is, it is time to introduce the notion of <strong>Random Variables</strong> and the various probability <strong>Distributions</strong>.</p>
 <div class="section" id="random-variables">
 <h3><span class="section-number">3.3.1. </span>Random Variables<a class="headerlink" href="#random-variables" title="Permalink to this headline">¶</a></h3>
+<p>In probability, the numerical values involved in a random experiment are called <strong>Random Variable</strong>. The random variable <span class="math notranslate nohighlight">\(X\)</span> is a function of the sample space <span class="math notranslate nohighlight">\(\Omega\)</span> that represents some outcome <span class="math notranslate nohighlight">\(X(\omega)\)</span> for a given outcome <span class="math notranslate nohighlight">\(\omega\)</span>. The <strong>Probability Distribution</strong> of the random variable <span class="math notranslate nohighlight">\(X\)</span> is represented by the function:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x)=P(X=x)
+\]</div>
+<p>Random Variables can take different forms and can be either <strong>discrete</strong> or <strong>continuous</strong> depending on the problem’s nature. Let us consider an example for each of those two types.</p>
+<div class="section" id="discrete-random-variable">
+<h4><span class="section-number">3.3.1.1. </span>Discrete Random Variable<a class="headerlink" href="#discrete-random-variable" title="Permalink to this headline">¶</a></h4>
+<p>Consider a bag containing a defined number of balls of different colors. Let now define <span class="math notranslate nohighlight">\(X:\Omega \rightarrow \mathbb{Z}\)</span>, the discrete random variable counting the number of occurrences of one color for each ball. Each ball has the same chance of being picked. In this case, the probability distribution can be represented using a <strong>Probability Mass Function</strong> <em>(PMF)</em> <span class="math notranslate nohighlight">\(p\)</span> where:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x)=P(X=x), \; x \in \mathbb{Z}
+\]</div>
+<p>The <em>PMF</em> always respect the following:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_x p(x) = 1
+\]</div>
+</div>
+<div class="section" id="continuous-random-variable">
+<h4><span class="section-number">3.3.1.2. </span>Continuous Random Variable<a class="headerlink" href="#continuous-random-variable" title="Permalink to this headline">¶</a></h4>
+<p>In continuous space, random variable are often represented with continuous random variables. In this case, the <em>PMF</em> does not hold any more,  <span class="math notranslate nohighlight">\(p(x)=0\)</span> for every given <span class="math notranslate nohighlight">\(x\)</span>. We then talk about <strong>Probability Density Function</strong> <em>(PDF)</em> p(x):</p>
+<div class="math notranslate nohighlight">
+\[
+p(x)_{h \rightarrow 0} \approx P(x \leq X \leq x + h)
+\]</div>
+<p>The <em>PDF</em> always respect the following:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{+\infty} p(x) = 1
+\]</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">probas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">))</span>
+<span class="n">probas</span> <span class="o">=</span> <span class="n">probas</span> <span class="o">/</span> <span class="n">probas</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">probas</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Discrete (PMF)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+
+<span class="n">bell</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> 
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">Y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Continuous (PDF)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;density&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="dist-types-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_32_0.png" src="../_images/2_probabilities_and_information_theory_32_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">PMF of a random discrete variable left, and PDF of a random continuous variable right.</span><a class="headerlink" href="#dist-types-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="distributions-zoo">
+<h3><span class="section-number">3.3.2. </span>Distributions Zoo<a class="headerlink" href="#distributions-zoo" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="moment-based-descriptors">
-<h3><span class="section-number">3.3.2. </span>Moment Based Descriptors<a class="headerlink" href="#moment-based-descriptors" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="discrete-distributions">
-<h3><span class="section-number">3.3.3. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="continuous-distributions">
-<h3><span class="section-number">3.3.4. </span>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="joint-distributions">
-<h3><span class="section-number">3.3.5. </span>Joint Distributions<a class="headerlink" href="#joint-distributions" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.3.3. </span>Moment Based Descriptors<a class="headerlink" href="#moment-based-descriptors" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="statistical-inference">
