@@ -345,13 +345,25 @@
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#expectation-variance-and-covariance">
-     3.3.4. Expectation, Variance and Covariance
+     3.3.4. Expectation, Variance, and Covariance
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#distribution-zoo">
      3.3.5. Distribution Zoo
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#discrete-distributions">
+       3.3.5.1. Discrete Distributions
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#continuous-distributions">
+       3.3.5.2. Continuous Distributions
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -1205,10 +1217,302 @@ P(X_4, X_3, X_2, X_1) &amp; = P(X_4\;|\;X_3, X_2, X_1) P(X_3, X_2, X_1) \\
 \end{split}\]</div>
 </div>
 <div class="section" id="expectation-variance-and-covariance">
-<h3><span class="section-number">3.3.4. </span>Expectation, Variance and Covariance<a class="headerlink" href="#expectation-variance-and-covariance" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.3.4. </span>Expectation, Variance, and Covariance<a class="headerlink" href="#expectation-variance-and-covariance" title="Permalink to this headline">¶</a></h3>
+<p>Probability theory comes with various metrics for representing and studying the variation of distributions such as the <strong>Expectation</strong>, <strong>Variance</strong>, <strong>Standard Deviation</strong>, and the <strong>Covariance</strong> for example.</p>
+<p>The <strong>Expectation</strong> of any function <span class="math notranslate nohighlight">\(f\)</span> in respect to a random variable <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(\mathbb{E}(x)\)</span>, is its weighted average over the dostribution <span class="math notranslate nohighlight">\(P(X)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}_{X \sim P}[f(x)] = \sum_x f(x) P(X=x) &amp;&amp; E_{X \sim p}[f(x)] = \int f(x) p(x) dx
+\end{align}
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="math notranslate nohighlight">\(X \sim P\)</span> is often omitted when explicit.</p>
+</div>
+<p>The Expectation has the particularity to be a <strong>linear function</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[a f(x) + b g(x)] = a \mathbb{E}[f(x)] + b \mathbb{E}[g(x)]
+\]</div>
+<p>The <strong>Variance</strong> gives informations about the variation of a function over a random variable and is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+Var(f(x)) &amp; = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])^2] \\
+          &amp; = \mathbb{E}[f(x)^2] - \mathbb{E}[f(x)]^2
+\end{align}
+\end{split}\]</div>
+<p>A low variance implies that each sample of the distribution is close to its expected value. We define the <strong>Standard Deviation</strong> as the square root of the variance.</p>
+<p>The <strong>Covariance</strong> allow to express in which way and how much linearly related are two values over a random variable sampled from a given distribution:</p>
+<div class="math notranslate nohighlight">
+\[
+Cov(f(x), g(x)) = \mathbb{E}[(f(x) - \mathbb{E}[f(x)])(g(x) - \mathbb{E}[g(x)])]
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the two random variables are independent, their covariance is null.</p>
+</div>
+<p>We can then define the <strong>Covariance Matrix</strong> of a random <span class="math notranslate nohighlight">\(n\)</span>-dimensional vector <span class="math notranslate nohighlight">\(x\)</span> as a square matrix of size <span class="math notranslate nohighlight">\(n\)</span> where:</p>
+<div class="math notranslate nohighlight">
+\[
+Cov(x)_{i,j} = Cov(x_i, x_j)
+\]</div>
+<p>As <span class="math notranslate nohighlight">\(Cov(f(X), f(X))=Var(f(X))\)</span>, the diagonal of the covatiant matrix gives the variance of the variable <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
 </div>
 <div class="section" id="distribution-zoo">
 <h3><span class="section-number">3.3.5. </span>Distribution Zoo<a class="headerlink" href="#distribution-zoo" title="Permalink to this headline">¶</a></h3>
+<p>Multiple distributions have been defined and studied over the years, depending on their context. In this section, we list some of them and their descriptors. Some details are omitted for the sake of compactness.</p>
+<div class="section" id="discrete-distributions">
+<h4><span class="section-number">3.3.5.1. </span>Discrete Distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Uniform</strong> <span class="math notranslate nohighlight">\(U(a, b)\)</span></p></li>
+</ul>
+<p>The <strong>Uniform</strong> distirbution gives the same probability for every sample of the probability space it is defined on:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p(x) = \begin{cases}
+\frac{1}{b-a} &amp; \text{ if } x \in [a, b] \\ 
+0 &amp; \text{otherwise} 
+\end{cases} 
+\end{split}\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[x] = \frac{a + b}{2} &amp;&amp; Var(x) = \frac{(b - a)^2}{12}
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>Bernoulli</strong> <span class="math notranslate nohighlight">\(B(p)\)</span></p></li>
+</ul>
+<p>The <strong>Bernoulli</strong> distribution is defined for a binary random variable to which a value of <span class="math notranslate nohighlight">\(1\)</span> is given with probability <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\((1 - p)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = p^k (1 - p)^{1 - k},\;k\in{0;1}
+\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[x] = p &amp;&amp; Var(x) = p (1 - p)
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>Binomial</strong> <span class="math notranslate nohighlight">\(B(n, p)\)</span></p></li>
+</ul>
+<p>The <strong>Binomial</strong> is defined as a <span class="math notranslate nohighlight">\(n\)</span> simultaneous trials of independent Bernoulli experiment with <span class="math notranslate nohighlight">\(k\)</span> the number of successful trials:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p(x) = \begin{pmatrix} n \\ k \end{pmatrix} p^k (1 - p)^{n - k}
+\end{split}\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[x] = np &amp;&amp; Var(x) = np(1 - p)
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>Poisson</strong> <span class="math notranslate nohighlight">\(Pois(\lambda)\)</span></p></li>
+</ul>
+<p>The <strong>Poisson</strong> distribution can be used for modeling occurences of events over time or space with <span class="math notranslate nohighlight">\(k\)</span> the number of occurrences and <span class="math notranslate nohighlight">\(\lambda\)</span> the rate of occurrence:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \frac{\lambda^k e^{-\lambda}}{k!}
+\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[x] = \lambda &amp;&amp; Var(x) = \lambda
+\end{align}
+\]</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e3</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;U(0, 4)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;B(p=0.5)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;B(n=4, p=0.5)&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Pois($</span><span class="se">\\</span><span class="s2">lambda$=1.2)&quot;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="discrete-dist-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_40_0.png" src="../_images/2_probabilities_and_information_theory_40_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Visualization of the discrete Uniform, Bernoulli, Binomial, and Poisson distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#discrete-dist-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="continuous-distributions">
+<h4><span class="section-number">3.3.5.2. </span>Continuous Distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Normal (Gaussian)</strong> <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span></p></li>
+</ul>
+<p>The <strong>Normal</strong>, <strong>Gaussian</strong>, or <strong>Laplce-Gaussian</strong> distribution is continuous and one of the most used distributions to model natural phenomas such as white noise and brownien movement. It is parametrized by a mean <span class="math notranslate nohighlight">\(\mu\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> and looks like a Bell curve:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2} \left (\ \frac{x - \mu}{\sigma} \right )\ ^2}
+\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[X] = \mu &amp;&amp; Var(X) = \sigma^2
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>Gamma</strong> <span class="math notranslate nohighlight">\(\Gamma(k, \theta)\)</span></p></li>
+</ul>
+<p>The <strong>Gamma</strong> distribution is a family of continuous distribution (<span class="math notranslate nohighlight">\(\chi^2\)</span> and exponential distribution) used for modeling natural temporal phenomenas sucha as Lifespan Analysis and is parametrized by two parameters, the scale <span class="math notranslate nohighlight">\(k\)</span>, and the intensity <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+p(x) = \frac{x^{k - 1}e^{-\frac{x}{\theta}}}{\Gamma(k)\theta^k} &amp;&amp; \Gamma(n) = (n - 1)!
+\end{align}
+\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[X] = k\theta &amp;&amp; Var(X) = k\theta^2
+\end{align}
+\]</div>
+<ul class="simple">
+<li><p><strong>Beta</strong> <span class="math notranslate nohighlight">\(Beta(\alpha, \beta)\)</span></p></li>
+</ul>
+<p>The <strong>Beta</strong> distribution, generalize to multiple variables with the name <strong>Dirichlet</strong> distribution, is a continuous distribution used to model random behaviours of percentages and distributions, and especially in Bayesian Inference for modeling the conjugate prior probability of the Brenoulli, Binomial and other distributions. It is paremtrized by two positive values, <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = x^{\alpha - 1}(1 - x)^{\beta - 1} \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}
+\]</div>
+<p>Its expected value and variance are:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}[X] = \frac{\alpha}{\alpha + \beta} &amp;&amp; Var(X) = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}
+\end{align}
+\]</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e4</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathcal</span><span class="si">{N}</span><span class="s2">(</span><span class="se">\\</span><span class="s2">mu, </span><span class="se">\\</span><span class="s2">sigma^2)$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathcal</span><span class="si">{N}</span><span class="s2">$(0, 1.0)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathcal</span><span class="si">{N}</span><span class="s2">$(0, 0.2)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathcal</span><span class="si">{N}</span><span class="s2">$(0, 5.0)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">mathcal</span><span class="si">{N}</span><span class="s2">$(-2, 1.0)&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;$\Gamma(k, </span><span class="se">\\</span><span class="s2">theta)$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;$\Gamma$(1, 2.0)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$\Gamma$(9, 0.5)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$\Gamma$(3, 2.0)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;$\Gamma$(2, 2.0)&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Beta$(</span><span class="se">\\</span><span class="s2">alpha, </span><span class="se">\\</span><span class="s2">beta)$&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;Beta(0.5, 0.5)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Beta(2, 2)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Beta(2, 5)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Beta(5, 1)&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="continuous-dist-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_44_0.png" src="../_images/2_probabilities_and_information_theory_44_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Visualization of the continuous Normal, Gamma, and Beta distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#continuous-dist-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="statistical-inference">
