@@ -1633,12 +1633,16 @@ D_{KL}(P \| Q) = \mathbb{E}_{X \sim P} \left ( log \frac{P(x)}{Q(x)} \right )
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;p(x)&quot;</span><span class="p">,</span> <span class="s2">&quot;q(x)&quot;</span><span class="p">])</span>
 
-<span class="n">D_KL</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">P</span> <span class="o">/</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">D_KL_P</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">P</span> <span class="o">/</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">D_KL_Q</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Q</span> <span class="o">/</span> <span class="n">P</span><span class="p">)</span>
 
-<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$D_</span><span class="si">{KL}</span><span class="s2">(P||Q)$&quot;</span><span class="p">)</span>
+<span class="n">line1</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL_P</span><span class="p">)</span>
+<span class="n">line2</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL_Q</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL_P</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL_Q</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$D_</span><span class="si">{KL}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;$D_</span><span class="si">{KL}</span><span class="s2">(P||Q)$&quot;</span><span class="p">,</span> <span class="s2">&quot;$D_</span><span class="si">{KL}</span><span class="s2">(Q||P)$&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
@@ -1655,9 +1659,153 @@ D_{KL}(P \| Q) = \mathbb{E}_{X \sim P} \left ( log \frac{P(x)}{Q(x)} \right )
 </div>
 <div class="section" id="jensen-shanon-divergence">
 <h3><span class="section-number">3.4.3. </span>Jensen-Shanon Divergence<a class="headerlink" href="#jensen-shanon-divergence" title="Permalink to this headline">¶</a></h3>
+<p>Originally, Kullback and Leibler defined the divergence metric in a symmetric and non-negative manner:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P \| Q) + D_{KL}(Q \| P)
+\]</div>
+<p>An alternative to this formulation, the <span class="math notranslate nohighlight">\(\lambda\)</span> Divergence is:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{\lambda}(P, Q) = D_{KL}(P \| \lambda P + (1 - \lambda) Q) + D_{KL}(Q \| \lambda P + (1 - \lambda) Q)
+\]</div>
+<p>When <span class="math notranslate nohighlight">\(\lambda = \frac{1}{2}\)</span>, this metric is referred as the <strong>Jensen-Shannon Divergence</strong> <span class="math notranslate nohighlight">\(D_{JS}\)</span>. It can be interpreted as the expected information gain from knowing from which distribution the random variable <span class="math notranslate nohighlight">\(X\)</span> is drawn from, <span class="math notranslate nohighlight">\(P\)</span> or <span class="math notranslate nohighlight">\(Q\)</span> with probability <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\((1 - \lambda)\)</span> respectively.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">line1</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+<span class="n">line2</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;p(x)&quot;</span><span class="p">,</span> <span class="s2">&quot;q(x)&quot;</span><span class="p">])</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">P</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">D_JS</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">P</span> <span class="o">/</span> <span class="n">M</span><span class="p">)</span> <span class="o">+</span> <span class="n">Q</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Q</span> <span class="o">/</span> <span class="n">M</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_JS</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_JS</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$D_</span><span class="si">{JS}</span><span class="s2">(P, Q)$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.42</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="jsd-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_60_0.png" src="../_images/2_probabilities_and_information_theory_60_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.14 </span><span class="caption-text">Visualization of the Jensen-Shannon Divergence <span class="math notranslate nohighlight">\(D_{KL}(P, Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#jsd-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="wasserstein-distance">
 <h3><span class="section-number">3.4.4. </span>Wasserstein Distance<a class="headerlink" href="#wasserstein-distance" title="Permalink to this headline">¶</a></h3>
+<p>Weither it is the non-symetric KL-Divergence, or the Jensen-Shannon Divergence, both suffer from their domain of application. Imagine two distribution <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> with no overlapp:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+D_{KL}(P\|Q) = +\infty &amp;&amp; D_{KL}(Q\|P) = +\infty &amp;&amp; D_{JS}(P, Q) = log\;2
+\end{align}
+\]</div>
+<p>This one of the reasons we introduce the <strong>Wasserstein Distance</strong>, or <strong>Earth Mover’s Distance</strong>, as an alternative, a smoother distance for measuring probability distributions similarities. Its name comes from the fact that it can be interpreted as the minimum energy cost of moving and transforming a stack of dirt following a probability distribution into another one.</p>
+<p>The <strong>Wasserstein Distance</strong> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+W(p, q) = \underset{\gamma \sim \Pi(p, q)}{inf} \mathbb{E}_{(x, y) \sim \gamma}[\|x - y\|]
+\]</div>
+<p>Before running away from this monster equation, and explaining its terms, let us consider a simple example with two discrete probabilities <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>. Each of them has <span class="math notranslate nohighlight">\(4\)</span> piles of dirt with a total of <span class="math notranslate nohighlight">\(10\)</span> shovelfuls of dirt.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+P_1=3, &amp;&amp; P_2=2, &amp;&amp; P_3=1, &amp;&amp; P_4=4 \\
+Q_1=1, &amp;&amp; Q_2=2, &amp;&amp; Q_3=4, &amp;&amp; Q_4=3 \\
+\end{align}
+\end{split}\]</div>
+<p>Let us design a optimal plan for turning P into Q:</p>
+<ul class="simple">
+<li><p>Move 2 shovelfuls from <span class="math notranslate nohighlight">\(P_1\)</span> to <span class="math notranslate nohighlight">\(P_2\)</span> and <span class="math notranslate nohighlight">\(P_1=Q_1\)</span></p></li>
+<li><p>Move 2 shovelfuls from <span class="math notranslate nohighlight">\(P_2\)</span> to <span class="math notranslate nohighlight">\(P_3\)</span> and <span class="math notranslate nohighlight">\(P_2=Q_2\)</span></p></li>
+<li><p>Move 1 shovelfuls from <span class="math notranslate nohighlight">\(Q_3\)</span> to <span class="math notranslate nohighlight">\(Q_4\)</span> and <span class="math notranslate nohighlight">\(P_3=Q_3,\;P_4=Q_4\)</span></p></li>
+</ul>
+<p>If we define <span class="math notranslate nohighlight">\(\delta_i\)</span> the cost of turning <span class="math notranslate nohighlight">\(P_i\)</span> into <span class="math notranslate nohighlight">\(Q_i\)</span>, <span class="math notranslate nohighlight">\(\delta_{i+1}=\delta_i + P_i + Q_i\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\delta_0 &amp; =  0 \\
+\delta_1 &amp; =  0 + 3 - 1 =  2 \\
+\delta_2 &amp; =  2 + 2 - 2 =  2 \\
+\delta_3 &amp; =  2 + 1 - 4 = -1 \\
+\delta_4 &amp; = -1 + 4 - 3 =  0 \\
+\end{align}
+\end{split}\]</div>
+<p>The Wasserstein Distance is then defined as <span class="math notranslate nohighlight">\(W(P, Q) = \sum |\delta_i| = 5\)</span>.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax11</span><span class="p">,</span> <span class="n">ax12</span><span class="p">,</span> <span class="n">ax13</span><span class="p">,</span> <span class="n">ax14</span><span class="p">,</span> <span class="n">ax21</span><span class="p">,</span> <span class="n">ax22</span><span class="p">,</span> <span class="n">ax23</span><span class="p">,</span> <span class="n">ax24</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+
+<span class="n">ax11</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$P_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+<span class="n">ax12</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$P_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+<span class="n">ax13</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$P_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+<span class="n">ax14</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$P_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+
+<span class="n">ax21</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$Q_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6514C&quot;</span><span class="p">)</span>
+<span class="n">ax22</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$Q_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6514C&quot;</span><span class="p">)</span>
+<span class="n">ax23</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$Q_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6514C&quot;</span><span class="p">)</span>
+<span class="n">ax24</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;$Q_</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">$&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6514C&quot;</span><span class="p">)</span>
+
+<span class="n">ax11</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step_</span><span class="si">{</span><span class="mi">0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax12</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step_</span><span class="si">{</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax13</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step_</span><span class="si">{</span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax14</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step_</span><span class="si">{</span><span class="mi">3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax11</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;# shovelfuls in P&quot;</span><span class="p">)</span>
+<span class="n">ax21</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;# shovelfuls in Q&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="wd-discrete-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_64_0.png" src="../_images/2_probabilities_and_information_theory_64_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.15 </span><span class="caption-text">Transport Plan from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Visualization of the Wasserstein Distance <span class="math notranslate nohighlight">\(W(P, Q)\)</span>.</span><a class="headerlink" href="#wd-discrete-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>Let us now come back on the continuous definition of the Wasserstein Distance:</p>
+<div class="math notranslate nohighlight">
+\[
+W(p, q) = \underset{\gamma \sim \Pi(p, q)}{inf} \mathbb{E}_{(x, y) \sim \gamma}[\|x - y\|]
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\Pi(p, q)\)</span> represents the set of all joint probability distributions between <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>. <span class="math notranslate nohighlight">\(\gamma\)</span> is one possible joint distribution describing a dirst transport plan. We can interpret <span class="math notranslate nohighlight">\(\gamma(x, y)\)</span> as the percentage of dirt we need to transport from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(y\)</span> to make <span class="math notranslate nohighlight">\(x\)</span> following the same distribution as <span class="math notranslate nohighlight">\(y\)</span>. The total amount of dirst moved is represented by this value and its traveling distance by <span class="math notranslate nohighlight">\(\|x - y\|\)</span>. The cost of moving <span class="math notranslate nohighlight">\(x\)</span> to resemble <span class="math notranslate nohighlight">\(y\)</span> is thus defined as <span class="math notranslate nohighlight">\(\gamma(x, y)\cdot\|x - y\|\)</span>. Finally the cost of the transport plan is the expected cost average for every <span class="math notranslate nohighlight">\((x, y)\)</span> pairs:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{x, y} \gamma(x, y) \|x - y\| = \mathcal{E}_{(x, y) \sim \gamma}[\|x - y\|]
+\]</div>
+<p>The Wasserstein Distance is finally the minimum cost among all possible transport plans <span class="math notranslate nohighlight">\(\Pi(p, q)\)</span>.</p>
 </div>
 <div class="section" id="cross-entropy">
 <h3><span class="section-number">3.4.5. </span>Cross-Entropy<a class="headerlink" href="#cross-entropy" title="Permalink to this headline">¶</a></h3>
