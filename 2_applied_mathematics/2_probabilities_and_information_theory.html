@@ -1803,7 +1803,7 @@ W(p, q) = \underset{\gamma \sim \Pi(p, q)}{inf} \mathbb{E}_{(x, y) \sim \gamma}[
 <p>Here, <span class="math notranslate nohighlight">\(\Pi(p, q)\)</span> represents the set of all joint probability distributions between <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>. <span class="math notranslate nohighlight">\(\gamma\)</span> is one possible joint distribution describing a dirst transport plan. We can interpret <span class="math notranslate nohighlight">\(\gamma(x, y)\)</span> as the percentage of dirt we need to transport from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(y\)</span> to make <span class="math notranslate nohighlight">\(x\)</span> following the same distribution as <span class="math notranslate nohighlight">\(y\)</span>. The total amount of dirst moved is represented by this value and its traveling distance by <span class="math notranslate nohighlight">\(\|x - y\|\)</span>. The cost of moving <span class="math notranslate nohighlight">\(x\)</span> to resemble <span class="math notranslate nohighlight">\(y\)</span> is thus defined as <span class="math notranslate nohighlight">\(\gamma(x, y)\cdot\|x - y\|\)</span>. Finally the cost of the transport plan is the expected cost average for every <span class="math notranslate nohighlight">\((x, y)\)</span> pairs:</p>
 <div class="math notranslate nohighlight">
 \[
-\sum_{x, y} \gamma(x, y) \|x - y\| = \mathcal{E}_{(x, y) \sim \gamma}[\|x - y\|]
+\sum_{x, y} \gamma(x, y) \|x - y\| = \mathbb{E}_{(x, y) \sim \gamma}[\|x - y\|]
 \]</div>
 <p>The Wasserstein Distance is finally the minimum cost among all possible transport plans <span class="math notranslate nohighlight">\(\Pi(p, q)\)</span>.</p>
 <div class="cell tag_hide-input tag_remove-output docutils container">
@@ -1853,6 +1853,12 @@ W(p, q) = \underset{\gamma \sim \Pi(p, q)}{inf} \mathbb{E}_{(x, y) \sim \gamma}[
 </div>
 <div class="section" id="cross-entropy">
 <h3><span class="section-number">3.4.5. </span>Cross-Entropy<a class="headerlink" href="#cross-entropy" title="Permalink to this headline">¶</a></h3>
+<p>One last metric related to the KL-Divergence is the <strong>Cross-Entropy</strong>. It is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+H(P, Q) = H(P) - D_{KL}(P\|Q) = -\mathbb{E}_{X \sim P}[log(Q(x))]
+\]</div>
+<p>One thing to notice is that minimizing the cross-entropy with respect to <span class="math notranslate nohighlight">\(Q\)</span> is the same as minimizing the KL-Divergence as <span class="math notranslate nohighlight">\(Q\)</span> does not intervene in the first term. This metric is key to the Machine Learning field when dealing with classification.</p>
 </div>
 </div>
 <div class="section" id="applications">
