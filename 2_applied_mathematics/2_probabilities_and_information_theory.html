@@ -401,8 +401,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kullback-leilber-divergence">
-     3.4.2. Kullback-Leilber Divergence
+    <a class="reference internal nav-link" href="#kullback-leibler-divergence">
+     3.4.2. Kullback-Leibler Divergence
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -413,6 +413,11 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#wasserstein-distance">
      3.4.4. Wasserstein Distance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-entropy">
+     3.4.5. Cross-Entropy
     </a>
    </li>
   </ul>
@@ -1585,7 +1590,6 @@ H(X) = \mathbb{E}_{X \sim P}[I(x)] = -\mathbb{E}_{X \sim P}[log P(x)]
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1598,14 +1602,65 @@ H(X) = \mathbb{E}_{X \sim P}[I(x)] = -\mathbb{E}_{X \sim P}[log P(x)]
 <p class="caption"><span class="caption-number">Fig. 3.12 </span><span class="caption-text">Visualization of the entropy of a Bernoulli trial depending on the value attributed to <span class="math notranslate nohighlight">\(p = P(X=1)\)</span>. If the outcome is abvious the entropy is low. But if the outcome is uncertain, the entropy is high.</span><a class="headerlink" href="#bin-entropy-func-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="kullback-leilber-divergence">
-<h3><span class="section-number">3.4.2. </span>Kullback-Leilber Divergence<a class="headerlink" href="#kullback-leilber-divergence" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="kullback-leibler-divergence">
+<h3><span class="section-number">3.4.2. </span>Kullback-Leibler Divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this headline">¶</a></h3>
+<p>Another great tool defined by the information theory is the notion of similarity between two distribution. If we consider two distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> over the same random variable <span class="math notranslate nohighlight">\(X\)</span>, it is possible to measure their difference using the <strong>Kullback-Leibler Divergence</strong>, or <strong>KL-Divergence</strong> for short:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P \| Q) = \mathbb{E}_{X \sim P} \left ( log \frac{P(x)}{Q(x)} \right )
+\]</div>
+<p>Becareful, the KL-Divergence can be assimilated to a measure but is not. It is a <strong>non-symetric</strong> measure, <span class="math notranslate nohighlight">\(D_{KL}(P \| Q) \neq D_{KL}(Q \| P)\)</span>. Its value is always <strong>non-negative</strong> <span class="math notranslate nohighlight">\(D_{KL}(P \| Q) \geq 0\)</span>, and <span class="math notranslate nohighlight">\(D_{KL}(P \| Q) = 0\)</span> if and only if <span class="math notranslate nohighlight">\(P=Q\)</span>.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">line1</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+<span class="n">line2</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;p(x)&quot;</span><span class="p">,</span> <span class="s2">&quot;q(x)&quot;</span><span class="p">])</span>
+
+<span class="n">D_KL</span> <span class="o">=</span> <span class="n">P</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">P</span> <span class="o">/</span> <span class="n">Q</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D_KL</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$D_</span><span class="si">{KL}</span><span class="s2">(P||Q)$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="kld-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_56_0.png" src="../_images/2_probabilities_and_information_theory_56_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.13 </span><span class="caption-text">Visualization of the KL-Divergence <span class="math notranslate nohighlight">\(D_{KL}(P \| Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#kld-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="jensen-shanon-divergence">
 <h3><span class="section-number">3.4.3. </span>Jensen-Shanon Divergence<a class="headerlink" href="#jensen-shanon-divergence" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="wasserstein-distance">
 <h3><span class="section-number">3.4.4. </span>Wasserstein Distance<a class="headerlink" href="#wasserstein-distance" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="cross-entropy">
+<h3><span class="section-number">3.4.5. </span>Cross-Entropy<a class="headerlink" href="#cross-entropy" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="applications">
