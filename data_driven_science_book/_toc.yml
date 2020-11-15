@@ -14,5 +14,9 @@
   - file: 2_applied_mathematics/3_statistical_inference
   
 - part: Machine Learning
+  chapters:
+  - file: 3_machine_learning/0_introduction
 
 - part: Deep Learning
+  chapters:
+  - file: 4_deep_learning/0_introduction
