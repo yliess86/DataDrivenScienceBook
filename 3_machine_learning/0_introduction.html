@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Statistical Inference &#8212; Data-Driven Science: a Python Visual and Practical Text Book</title>
+    <title>1. Introduction &#8212; Data-Driven Science: a Python Visual and Practical Text Book</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -58,8 +58,7 @@
     <link rel="shortcut icon" href="../_static/cover_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Introduction" href="../3_machine_learning/0_introduction.html" />
-    <link rel="prev" title="3. Probabilities and Information Theory" href="2_probabilities_and_information_theory.html" />
+    <link rel="prev" title="4. Statistical Inference" href="../2_applied_mathematics/3_statistical_inference.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -121,24 +120,24 @@
   Applied Mathematics
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="0_introduction.html">
+  <a class="reference internal" href="../2_applied_mathematics/0_introduction.html">
    1. Introduction
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="1_linear_algebra.html">
+  <a class="reference internal" href="../2_applied_mathematics/1_linear_algebra.html">
    2. Linear Algebra
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="2_probabilities_and_information_theory.html">
+  <a class="reference internal" href="../2_applied_mathematics/2_probabilities_and_information_theory.html">
    3. Probabilities and Information Theory
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../2_applied_mathematics/3_statistical_inference.html">
    4. Statistical Inference
   </a>
  </li>
@@ -148,9 +147,9 @@
   Machine Learning
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../3_machine_learning/0_introduction.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    1. Introduction
   </a>
  </li>
@@ -196,9 +195,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/2_applied_mathematics/3_statistical_inference.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/3_machine_learning/0_introduction.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -216,7 +215,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/yliess86/DataDrivenScienceBook/issues/new?title=Issue%20on%20page%20%2F2_applied_mathematics/3_statistical_inference.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/yliess86/DataDrivenScienceBook/issues/new?title=Issue%20on%20page%20%2F3_machine_learning/0_introduction.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -232,86 +231,10 @@
 
         <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/yliess86/DataDrivenScienceBook/master?urlpath=tree/2_applied_mathematics/3_statistical_inference.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction">
-   4.1. Introduction
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fundamentals-of-statistics">
-   4.2. Fundamentals of Statistics
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sampling">
-   4.3. Sampling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#confidence-intervals">
-   4.4. Confidence Intervals
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis-testing">
-   4.5. Hypothesis Testing
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#two-sample-inference">
-   4.6. Two-Sample Inference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#categorical-inference">
-   4.7. Categorical Inference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-regression">
-   4.8. Logistic Regression
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#anova">
-   4.9. ANOVA
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayeisan-inference">
-   4.10. Bayeisan Inference
-  </a>
- </li>
-</ul>
-
-        </nav>
         
     </div>
 </div>
@@ -320,44 +243,8 @@
         
               <div>
                 
-  <div class="section" id="statistical-inference">
-<h1><span class="section-number">4. </span>Statistical Inference<a class="headerlink" href="#statistical-inference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2><span class="section-number">4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p><strong>Statistical Inference</strong> uses classical statistics to observe and study patterns from an unknown population based on data. There are two main approaches to the field, either <strong>Frequentist</strong> or <strong>Bayesian</strong>. The first approach implies a fixed distribution responsible for the generation of repeated patterns in the data. We can find the best estimate of the distribution’s parameters given data samples. The last one implies that the state of the world can be updated using observed samples. The parameters of the distributions can themselves be represented using probability.</p>
-<p>As an example, here is a situation explained using the two frameworks. Imagine your phone is ringing in your house, and you want to reach it:</p>
-<ul class="simple">
-<li><p><strong>Frequentist</strong>: I have a mental model of my house. Given the beeping sound, I can infer the house’s area where I can search for my phone.</p></li>
-<li><p><strong>Bayesian</strong>: On top of having a mental model of my house, I also remember from the past where I misplaced the phone. By combining my inferences using the beeps and my prior information on its location, I can identify the house area and locate my phone.</p></li>
-</ul>
-</div>
-<div class="section" id="fundamentals-of-statistics">
-<h2><span class="section-number">4.2. </span>Fundamentals of Statistics<a class="headerlink" href="#fundamentals-of-statistics" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="sampling">
-<h2><span class="section-number">4.3. </span>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="confidence-intervals">
-<h2><span class="section-number">4.4. </span>Confidence Intervals<a class="headerlink" href="#confidence-intervals" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="hypothesis-testing">
-<h2><span class="section-number">4.5. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="two-sample-inference">
-<h2><span class="section-number">4.6. </span>Two-Sample Inference<a class="headerlink" href="#two-sample-inference" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="categorical-inference">
-<h2><span class="section-number">4.7. </span>Categorical Inference<a class="headerlink" href="#categorical-inference" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="logistic-regression">
-<h2><span class="section-number">4.8. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="anova">
-<h2><span class="section-number">4.9. </span>ANOVA<a class="headerlink" href="#anova" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="bayeisan-inference">
-<h2><span class="section-number">4.10. </span>Bayeisan Inference<a class="headerlink" href="#bayeisan-inference" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="introduction">
+<h1><span class="section-number">1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 </div>
 
     <script type="text/x-thebe-config">
@@ -373,7 +260,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./2_applied_mathematics"
+            path: "./3_machine_learning"
         },
         predefinedOutput: true
     }
@@ -388,8 +275,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="2_probabilities_and_information_theory.html" title="previous page"><span class="section-number">3. </span>Probabilities and Information Theory</a>
-    <a class='right-next' id="next-link" href="../3_machine_learning/0_introduction.html" title="next page"><span class="section-number">1. </span>Introduction</a>
+    <a class='left-prev' id="prev-link" href="../2_applied_mathematics/3_statistical_inference.html" title="previous page"><span class="section-number">4. </span>Statistical Inference</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
