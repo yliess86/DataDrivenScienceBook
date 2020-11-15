@@ -1538,8 +1538,65 @@ p(x) = \sum_{i=1}^n w_i p_i(x)
 </div>
 <div class="section" id="information-theory">
 <h2><span class="section-number">3.4. </span>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this headline">¶</a></h2>
+<p><strong>Information Theory</strong> is a subfield of applied mathematics introduced by Claude Shannon, which studies the quantification, storage, and communication of information. This section discusses information theory to allow probability distributions’ characterization and introduce similarity metrics between two distributions.</p>
 <div class="section" id="self-information-and-entropy">
 <h3><span class="section-number">3.4.1. </span>Self-Information and Entropy<a class="headerlink" href="#self-information-and-entropy" title="Permalink to this headline">¶</a></h3>
+<p>The basis for information theory is to understand that there is more information about what is less likely to occur than what is obvious. There is less information in the message “The Moon rose tonight.” than in the message “There is a moon eclipse tonight.”. Shannon formalized this idea of quantizing information, and the underlying intuitions are the following:</p>
+<ul class="simple">
+<li><p>There should be zero to low information content attributed to more likely events</p></li>
+<li><p>There should be higher information content attributed to less likely events</p></li>
+<li><p>There should be additive information content for independent events</p></li>
+</ul>
+<p><strong>Self-Information</strong> has been designed to follow those guidelines. Consider an event <span class="math notranslate nohighlight">\(X = x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+I(x) = -log P(x)
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this section <span class="math notranslate nohighlight">\(log\)</span> refers to the natural logarithm <span class="math notranslate nohighlight">\(ln\)</span> of base <span class="math notranslate nohighlight">\(e\)</span>. In this sense, the measure of information is defined in <strong>nats</strong>, where <span class="math notranslate nohighlight">\(1 nat\)</span> corresponds to the information gained observing an event with probability <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>. The Information measure is also defined in base <span class="math notranslate nohighlight">\(2\)</span> logarithm and is called <span class="math notranslate nohighlight">\(bits\)</span> or <span class="math notranslate nohighlight">\(shannons\)</span> but implies unnecessary constants in some computations.</p>
+</div>
+<p>The self-information metric is defined only for a single outcome, and the amount of uncertainty within an entire probability distribution can be measure using the <strong>Shannon Entropy</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X) = \mathbb{E}_{X \sim P}[I(x)] = -\mathbb{E}_{X \sim P}[log P(x)]
+\]</div>
+<p>It gives us information about the average amount needed to encode all the symbols from such a distribution. As defined above, distributions close to deterministic have a low entropy, and distributions close to uniform have high entropy.</p>
+<p>Let us consider a Bernoulli trial and plot its entropy function.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">P</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">P</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">P</span><span class="p">)</span> 
+
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="n">P</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="n">H</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;H(X)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="bin-entropy-func-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_52_0.png" src="../_images/2_probabilities_and_information_theory_52_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.12 </span><span class="caption-text">Visualization of the entropy of a Bernoulli trial depending on the value attributed to <span class="math notranslate nohighlight">\(p = P(X=1)\)</span>. If the outcome is abvious the entropy is low. But if the outcome is uncertain, the entropy is high.</span><a class="headerlink" href="#bin-entropy-func-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="kullback-leilber-divergence">
 <h3><span class="section-number">3.4.2. </span>Kullback-Leilber Divergence<a class="headerlink" href="#kullback-leilber-divergence" title="Permalink to this headline">¶</a></h3>
