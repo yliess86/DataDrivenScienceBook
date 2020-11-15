@@ -12,3 +12,7 @@
   - file: 2_applied_mathematics/1_linear_algebra
   - file: 2_applied_mathematics/2_probabilities_and_information_theory
   - file: 2_applied_mathematics/3_statistical_inference
+  
+- part: Machine Learning
+
+- part: Deep Learning
