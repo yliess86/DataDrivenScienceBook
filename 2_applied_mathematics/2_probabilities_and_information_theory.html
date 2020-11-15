@@ -58,6 +58,7 @@
     <link rel="shortcut icon" href="../_static/cover_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Statistical Inference" href="3_statistical_inference.html" />
     <link rel="prev" title="2. Linear Algebra" href="1_linear_algebra.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -134,6 +135,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    3. Probabilities and Information Theory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_statistical_inference.html">
+   4. Statistical Inference
   </a>
  </li>
 </ul>
@@ -373,117 +379,36 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#statistical-inference">
-   3.4. Statistical Inference
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-sample">
-     3.4.1. Random Sample
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#normal-sampling">
-     3.4.2. Normal Sampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#central-limit-thorem">
-     3.4.3. Central Limit Thorem
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#point-estimation">
-     3.4.4. Point Estimation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#confidence-intervals">
-     3.4.5. Confidence Intervals
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-statistics">
-     3.4.6. Bayesian Statistics
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis-testing">
-   3.5. Hypothesis Testing
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#single-sample-hypothesis">
-     3.5.1. Single Sample Hypothesis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#two-sample-hypothesis">
-     3.5.2. Two Sample Hypothesis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#analysis-of-variance">
-     3.5.3. Analysis of Variance
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#godness-of-fit">
-     3.5.4. Godness of Fit
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#information-theory">
-   3.6. Information Theory
+   3.4. Information Theory
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#self-information-and-entropy">
-     3.6.1. Self-Information and Entropy
+     3.4.1. Self-Information and Entropy
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#kullback-leilber-divergence">
-     3.6.2. Kullback-Leilber Divergence
+     3.4.2. Kullback-Leilber Divergence
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#jensen-shanon-divergence">
-     3.6.3. Jensen-Shanon Divergence
+     3.4.3. Jensen-Shanon Divergence
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#wasserstein-distance">
-     3.6.4. Wasserstein Distance
+     3.4.4. Wasserstein Distance
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applications">
-   3.7. Applications
+   3.5. Applications
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#noise-in-computer-graphics">
-     3.7.1. Noise in Computer Graphics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#probabilistic-dynamic-modeling">
-     3.7.2. Probabilistic Dynamic Modeling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logistic-regression">
-     3.7.3. Logistic Regression
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -1599,68 +1524,23 @@ p(x) = \sum_{i=1}^n w_i p_i(x)
 </div>
 </div>
 </div>
-<div class="section" id="statistical-inference">
-<h2><span class="section-number">3.4. </span>Statistical Inference<a class="headerlink" href="#statistical-inference" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="random-sample">
-<h3><span class="section-number">3.4.1. </span>Random Sample<a class="headerlink" href="#random-sample" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="normal-sampling">
-<h3><span class="section-number">3.4.2. </span>Normal Sampling<a class="headerlink" href="#normal-sampling" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="central-limit-thorem">
-<h3><span class="section-number">3.4.3. </span>Central Limit Thorem<a class="headerlink" href="#central-limit-thorem" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="point-estimation">
-<h3><span class="section-number">3.4.4. </span>Point Estimation<a class="headerlink" href="#point-estimation" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="confidence-intervals">
-<h3><span class="section-number">3.4.5. </span>Confidence Intervals<a class="headerlink" href="#confidence-intervals" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="bayesian-statistics">
-<h3><span class="section-number">3.4.6. </span>Bayesian Statistics<a class="headerlink" href="#bayesian-statistics" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
-<div class="section" id="hypothesis-testing">
-<h2><span class="section-number">3.5. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="single-sample-hypothesis">
-<h3><span class="section-number">3.5.1. </span>Single Sample Hypothesis<a class="headerlink" href="#single-sample-hypothesis" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="two-sample-hypothesis">
-<h3><span class="section-number">3.5.2. </span>Two Sample Hypothesis<a class="headerlink" href="#two-sample-hypothesis" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="analysis-of-variance">
-<h3><span class="section-number">3.5.3. </span>Analysis of Variance<a class="headerlink" href="#analysis-of-variance" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="godness-of-fit">
-<h3><span class="section-number">3.5.4. </span>Godness of Fit<a class="headerlink" href="#godness-of-fit" title="Permalink to this headline">¶</a></h3>
-</div>
-</div>
 <div class="section" id="information-theory">
-<h2><span class="section-number">3.6. </span>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4. </span>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="self-information-and-entropy">
-<h3><span class="section-number">3.6.1. </span>Self-Information and Entropy<a class="headerlink" href="#self-information-and-entropy" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.1. </span>Self-Information and Entropy<a class="headerlink" href="#self-information-and-entropy" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="kullback-leilber-divergence">
-<h3><span class="section-number">3.6.2. </span>Kullback-Leilber Divergence<a class="headerlink" href="#kullback-leilber-divergence" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.2. </span>Kullback-Leilber Divergence<a class="headerlink" href="#kullback-leilber-divergence" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="jensen-shanon-divergence">
-<h3><span class="section-number">3.6.3. </span>Jensen-Shanon Divergence<a class="headerlink" href="#jensen-shanon-divergence" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.3. </span>Jensen-Shanon Divergence<a class="headerlink" href="#jensen-shanon-divergence" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="wasserstein-distance">
-<h3><span class="section-number">3.6.4. </span>Wasserstein Distance<a class="headerlink" href="#wasserstein-distance" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.4.4. </span>Wasserstein Distance<a class="headerlink" href="#wasserstein-distance" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="applications">
-<h2><span class="section-number">3.7. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="noise-in-computer-graphics">
-<h3><span class="section-number">3.7.1. </span>Noise in Computer Graphics<a class="headerlink" href="#noise-in-computer-graphics" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="probabilistic-dynamic-modeling">
-<h3><span class="section-number">3.7.2. </span>Probabilistic Dynamic Modeling<a class="headerlink" href="#probabilistic-dynamic-modeling" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="logistic-regression">
-<h3><span class="section-number">3.7.3. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
-</div>
+<h2><span class="section-number">3.5. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -1693,6 +1573,7 @@ p(x) = \sum_{i=1}^n w_i p_i(x)
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="1_linear_algebra.html" title="previous page"><span class="section-number">2. </span>Linear Algebra</a>
+    <a class='right-next' id="next-link" href="3_statistical_inference.html" title="next page"><span class="section-number">4. </span>Statistical Inference</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
