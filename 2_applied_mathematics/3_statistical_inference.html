@@ -270,13 +270,18 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#satistics">
-     4.2.1. Satistics
+    <a class="reference internal nav-link" href="#central-tendency">
+     4.2.1. Central Tendency
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#statistical-descriptors">
-     4.2.2. Statistical Descriptors
+    <a class="reference internal nav-link" href="#spread">
+     4.2.2. Spread
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlation">
+     4.2.3. Correlation
     </a>
    </li>
   </ul>
@@ -348,16 +353,43 @@
 <p><strong>Statistical Analysis</strong> allows us to describe patterns observed in any given dataset via <strong>Visualization</strong> or <strong>Statistical Descriptors</strong>. In statistics, we are interested in studying a given <strong>Sample</strong> from a <strong>Population</strong> of <strong>Individuals</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Statistical Descriptors are closely related to Probability Descriptors. As we will observe later in the chapter, the Observed Mean can be associated with the Expectation, the Observed Variance to the Variance, and many more.</p>
+<p>Statistical Descriptors are closely related to <a class="reference internal" href="2_probabilities_and_information_theory.html"><span class="doc std std-doc">Probability Descriptors</span></a>. As we will observe later in the chapter, the Observed Mean can be associated with the Expectation, the Observed Variance to the Variance, and many more.</p>
 </div>
 <p>Suppose we design a study on the effectiveness of some medicine for some given disease. In that case, the sample corresponds to the set of patients who participated in the study, and the population represents all the people suffering from the studied disease.</p>
 <p>To give credit to a <strong>Study</strong>, in other word to <strong>Generalize</strong> its results, the sample needs to <strong>Reflect</strong> the <strong>Variation</strong> present in the entire population of interest. One way to obtain such a sample is to include <strong>Randomness</strong> in the population’s selection process.</p>
 <p>Now that we have defined the context of application let us define all the fundamentals of Statistical Analysis.</p>
-<div class="section" id="satistics">
-<h3><span class="section-number">4.2.1. </span>Satistics<a class="headerlink" href="#satistics" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The different types of visualizations that can be used to express some data series’ underlying variations have been discussed in the <a class="reference internal" href="../1_data_representations/1_data_visualization.html"><span class="doc std std-doc">Data Visualization Chapter</span></a>.</p>
 </div>
-<div class="section" id="statistical-descriptors">
-<h3><span class="section-number">4.2.2. </span>Statistical Descriptors<a class="headerlink" href="#statistical-descriptors" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="central-tendency">
+<h3><span class="section-number">4.2.1. </span>Central Tendency<a class="headerlink" href="#central-tendency" title="Permalink to this headline">¶</a></h3>
+<p>The first type of descriptor is the <strong>Central Tendency</strong>. It expresses the central value, the typical value for a data distribution. The most common central tendency measures are the <strong>Mode</strong>, the <strong>Mean</strong>, and the <strong>Median</strong>.</p>
+<p>The <strong>Mode</strong> <span class="math notranslate nohighlight">\(M_o\)</span> is the value that occurs most often in a given set of data values.</p>
+<p>The <strong>Mean</strong> <span class="math notranslate nohighlight">\(\overline{x}\)</span> refers to the <strong>Arithmetic Mean</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]</div>
+<p>In some cases it also refers to the <strong>Weighted Arithmetic Mean</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{x} = \frac{1}{n} \sum_{i=1}^{n} w_i x_i
+\]</div>
+<p>The <strong>Median</strong> <span class="math notranslate nohighlight">\(M_e\)</span> is the variable responsible for separating the statistical distributions as two equally populated groups when organized in ascending order.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_e = \begin{cases}
+x_{(n+1)/2} &amp; \text{if}\;n\;\text{is odd} \\
+\frac{x_{n/2} + x_{n/2 + 1}}{2} &amp; \text{if}\;n\;\text{is even}
+\end{cases}
+\end{split}\]</div>
+</div>
+<div class="section" id="spread">
+<h3><span class="section-number">4.2.2. </span>Spread<a class="headerlink" href="#spread" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="correlation">
+<h3><span class="section-number">4.2.3. </span>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="sampling-and-central-limit-theorem">
