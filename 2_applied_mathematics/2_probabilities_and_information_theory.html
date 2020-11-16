@@ -1886,6 +1886,38 @@ P(M \rightarrow M) = 0.7 &amp;&amp; P(M \rightarrow A) = 0.3 \\
 \end{align}
 \end{split}\]</div>
 <p>The first information we gain from the study is that Apple’s users tend to stay faithful to Apple’s products. However, it currently has the lowest wallet share of the two companies.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygraphviz</span> <span class="k">as</span> <span class="nn">pgv</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;digraph </span>
+<span class="s2">{</span>
+<span class="s2">    rankdir=TB;</span>
+<span class="s2">    node [ shape = circle ];</span>
+<span class="s2">    { rank = same; A M }</span>
+
+<span class="s2">    A -&gt; M[label=&quot;0.1&quot;];</span>
+<span class="s2">    M -&gt; A[label=&quot;0.3&quot;];</span>
+<span class="s2">    </span>
+<span class="s2">    edge[ dir = back ];</span>
+<span class="s2">    A:ne -&gt; A:nw[label=&quot;0.9&quot;];</span>
+<span class="s2">    M:ne -&gt; M:nw[label=&quot;0.7&quot;];</span>
+<span class="s2">}&quot;&quot;&quot;</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">pgv</span><span class="o">.</span><span class="n">AGraph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">))</span>
+<span class="n">img</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="markov-viz-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_72_0.png" src="../_images/2_probabilities_and_information_theory_72_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.17 </span><span class="caption-text">Markov Chain for Apple and Microsoft Transitions.</span><a class="headerlink" href="#markov-viz-fig" title="Permalink to this image">¶</a></p>
+</div>
 <p>The four transition statement can be organized into a transition diagram. It allow us to vsualize the transition and the market share of each company. We can compute the new share after a month using the following:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
