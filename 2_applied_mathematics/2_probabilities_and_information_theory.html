@@ -431,6 +431,18 @@
     <a class="reference internal nav-link" href="#markov-chain">
      3.5.1. Markov Chain
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#transition-matrix">
+       3.5.1.1. Transition Matrix
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#steady-state">
+       3.5.1.2. Steady State
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -1001,11 +1013,11 @@ P(H | e) = \frac{P(e | H) P(H)}{P(e)}
 </div>
 </div>
 </div>
-<div class="figure align-center" id="probtree-fig">
+<div class="figure align-center" id="proba-tree-fig">
 <div class="cell_output docutils container">
 <img alt="../_images/2_probabilities_and_information_theory_30_0.png" src="../_images/2_probabilities_and_information_theory_30_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Probability Tree, a node represent an outcome <span class="math notranslate nohighlight">\(A\)</span>, or <span class="math notranslate nohighlight">\(B\)</span> and edges represent the probability of the <span class="math notranslate nohighlight">\(i\)</span>-th event given the event <span class="math notranslate nohighlight">\(i-1\)</span> actualy happened. Multiplication of a branch path defines the Baye’s Theorem <span class="math notranslate nohighlight">\(P(A_2[A_1) = P(A_1 \cap A_2) P(A_1)\)</span>. Addition of the branches on a same level defines the total sum of probability <span class="math notranslate nohighlight">\(P(A_2 | A_1) + P(B_2 | A_1) + (A_2 | B_1) + P(B_2 | B_1) = 1\)</span>.</span><a class="headerlink" href="#probtree-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Probability Tree, a node represent an outcome <span class="math notranslate nohighlight">\(A\)</span>, or <span class="math notranslate nohighlight">\(B\)</span> and edges represent the probability of the <span class="math notranslate nohighlight">\(i\)</span>-th event given the event <span class="math notranslate nohighlight">\(i-1\)</span> actualy happened. Multiplication of a branch path defines the Baye’s Theorem <span class="math notranslate nohighlight">\(P(A_2[A_1) = P(A_1 \cap A_2) P(A_1)\)</span>. Addition of the branches on a same level defines the total sum of probability <span class="math notranslate nohighlight">\(P(A_2 | A_1) + P(B_2 | A_1) + (A_2 | B_1) + P(B_2 | B_1) = 1\)</span>.</span><a class="headerlink" href="#proba-tree-fig" title="Permalink to this image">¶</a></p>
 </div>
 <div class="section" id="radio-transmission">
 <h4><span class="section-number">3.2.5.1. </span>Radio Transmission<a class="headerlink" href="#radio-transmission" title="Permalink to this headline">¶</a></h4>
@@ -1085,7 +1097,7 @@ p(x)_{h \rightarrow 0} \approx P(x \leq X \leq x + h)
 <p>The <em>PDF</em> always respect the following:</p>
 <div class="math notranslate nohighlight">
 \[
-\int_{-\infty}^{+\infty} p(x) = 1
+\int_{-\infty}^{+\infty} p(x)\;dx = 1
 \]</div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
@@ -1283,7 +1295,7 @@ p(x) = \begin{cases}
 <p>The <strong>Bernoulli</strong> distribution is defined for a binary random variable to which a value of <span class="math notranslate nohighlight">\(1\)</span> is given with probability <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\((1 - p)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = p^k (1 - p)^{1 - k},\;k\in{0;1}
+p(x) = P(X=k) = p^k (1 - p)^{1 - k},\;k\in{0;1}
 \]</div>
 <p>Its expected value and variance are:</p>
 <div class="math notranslate nohighlight">
@@ -1298,7 +1310,7 @@ p(x) = p^k (1 - p)^{1 - k},\;k\in{0;1}
 <p>The <strong>Binomial</strong> is defined as a <span class="math notranslate nohighlight">\(n\)</span> simultaneous trials of independent Bernoulli experiment with <span class="math notranslate nohighlight">\(k\)</span> the number of successful trials:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-p(x) = \begin{pmatrix} n \\ k \end{pmatrix} p^k (1 - p)^{n - k}
+p(x) = P(X=k) = \begin{pmatrix} n \\ k \end{pmatrix} p^k (1 - p)^{n - k}
 \end{split}\]</div>
 <p>Its expected value and variance are:</p>
 <div class="math notranslate nohighlight">
@@ -1313,7 +1325,7 @@ p(x) = \begin{pmatrix} n \\ k \end{pmatrix} p^k (1 - p)^{n - k}
 <p>The <strong>Poisson</strong> distribution can be used for modeling occurences of events over time or space with <span class="math notranslate nohighlight">\(k\)</span> the number of occurrences and <span class="math notranslate nohighlight">\(\lambda\)</span> the rate of occurrence:</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \frac{\lambda^k e^{-\lambda}}{k!}
+p(x) = P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}
 \]</div>
 <p>Its expected value and variance are:</p>
 <div class="math notranslate nohighlight">
@@ -1568,11 +1580,13 @@ p(x) = \sum_{i=1}^n w_i p_i(x)
 <span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;2D Gaussian Mixture&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
 
 <span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">new_horizontal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;5%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">pack_start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">cax</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;p(x, y)&quot;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
@@ -1917,6 +1931,11 @@ H(P, Q) = H(P) - D_{KL}(P\|Q) = -\mathbb{E}_{X \sim P}[log(Q(x))]
 \[
 P(S_{n+1}=s\;|\;S_1=s_1,\dots,S_n=s_n) = P(S_{n+1}=s\;|\;S_n=s_n) 
 \]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The problem of Markov Chain is left to the student. Solutions are given by unhiding the corresponding code. As always, try to do it yourself before giving a glance at the answers. Try to make your brain actively recovering this entire chapter.</p>
+</div>
+<p>The problem of Eigenfaces is left to the student. Solutions are given by unhiding the corresponding code. As always, try to do it yourself before giving a glance at the answers. Try to make your brain actively recovering this entire chapter.</p>
 <p>Let us considere two companies <strong>Apple</strong> <span class="math notranslate nohighlight">\(A\)</span> and <strong>Microsoft</strong> <span class="math notranslate nohighlight">\(M\)</span>. A new companie wants to partner with one of those two and hire a market research company to find out which of the two brand will have a higher marker share after some period, let say 1 month. The actual state of both companies is respectively <span class="math notranslate nohighlight">\(45%\)</span> and <span class="math notranslate nohighlight">\(55%\)</span>. The recrutted market research team comes up with the following conclusion:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1958,6 +1977,8 @@ P(M \rightarrow M) = 0.7 &amp;&amp; P(M \rightarrow A) = 0.3 \\
 </div>
 <p class="caption"><span class="caption-number">Fig. 3.18 </span><span class="caption-text">Markov Chain for Apple and Microsoft Transitions.</span><a class="headerlink" href="#markov-viz-fig" title="Permalink to this image">¶</a></p>
 </div>
+<div class="section" id="transition-matrix">
+<h4><span class="section-number">3.5.1.1. </span>Transition Matrix<a class="headerlink" href="#transition-matrix" title="Permalink to this headline">¶</a></h4>
 <p>The four transition statement can be organized into a transition diagram. It allow us to vsualize the transition and the market share of each company. We can compute the new share after a month using the following:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1972,6 +1993,7 @@ s_M(t + 1) &amp; = s_M \cdot P(M \rightarrow M) + s_A \cdot P(A \rightarrow M)
 \begin{bmatrix} 0.45 &amp;&amp; 0.55 \end{bmatrix} \begin{bmatrix} 0.9 &amp;&amp; 0.1 \\ 0.3 &amp;&amp; 0.7 \end{bmatrix} = \begin{bmatrix} 0.57 &amp;&amp; 0.43 \end{bmatrix} \\
 S_t P = S_{t+1}
 \end{split}\]</div>
+<p>Knowing the initial state and the transformation matrix associated with this markov chain, compute the evolution of both company’ states over time and visualize the result:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -2014,6 +2036,9 @@ S_10: 0.75 0.25
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="steady-state">
+<h4><span class="section-number">3.5.1.2. </span>Steady State<a class="headerlink" href="#steady-state" title="Permalink to this headline">¶</a></h4>
 <p>This transformation is called a Markov Chain. Furthermore, if the <strong>Transition Matrix</strong> <span class="math notranslate nohighlight">\(P\)</span> does not evolve, it allows us to compute for more than one month later. The tendency makes Microsoft’s shares decrease over time. Nevertheless, at some point, there will be as many new customers as leaving one. This state is referred to as the <strong>Steady State</strong> <span class="math notranslate nohighlight">\(\pi\)</span> and respects the following equation:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -2029,6 +2054,7 @@ S_10: 0.75 0.25
 \pi Q       &amp; = 0 \\
 \end{align}
 \end{split}\]</div>
+<p>Resolve this homogeneous equation using linear algebra and compare the result with those obtained empirically:</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Homogeneous Linear System of Equations</span>
@@ -2048,6 +2074,7 @@ S_10: 0.75 0.25
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Steady State: 0.75 0.25
 </pre></div>
+</div>
 </div>
 </div>
 </div>
