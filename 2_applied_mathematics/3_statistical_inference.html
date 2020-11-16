@@ -401,6 +401,13 @@ s^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x_i})^2
 </div>
 <div class="section" id="correlation">
 <h3><span class="section-number">4.2.3. </span>Correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h3>
+<p>The last type of descriptor is the <strong>Correlation</strong> between two variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. In satistical analysis, it is often easier to interpret the correlation between two variables of the same unit. If it is not the case, it is common practice to centre and reduce the variables <span class="math notranslate nohighlight">\(x = \frac{X - \mu}{\sigma}\)</span>.</p>
+<p>One of the correlation metrics is the <strong>Linear Correlation Coeficient</strong> between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> and is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\rho(X, Y) = \frac{Cov(X, Y)}{\sigma_X \sigma_Y},\;\;-1 \leq \rho(X, Y) \leq 1
+\]</div>
+<p>When <span class="math notranslate nohighlight">\(\rho(X, Y)\)</span> is closed to <span class="math notranslate nohighlight">\(-1\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, it means that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are linearly related, and the sign defines the direction of the linearity. If <span class="math notranslate nohighlight">\(\rho(X, Y)\)</span> is null, there is no linear dependency, no correlation between the two variables.</p>
 </div>
 </div>
 <div class="section" id="sampling-and-central-limit-theorem">
