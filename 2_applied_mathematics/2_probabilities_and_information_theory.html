@@ -553,7 +553,7 @@ Monte Carlo Estimation: P(A) = 50.06%
 </div>
 <div class="section" id="birthday-paradox">
 <h4><span class="section-number">3.2.1.2. </span>Birthday Paradox<a class="headerlink" href="#birthday-paradox" title="Permalink to this headline">¶</a></h4>
-<p>Consider a room full of people. If we ask the following question: What is the probability of having pairs of people with the same birthday date without the year? It is certain that with 366 people, you will have at least one pair. But what if we have fewer people? With 50 people, there is 50% chance for the existence of such a pair. This problem is referred to as the birthday paradox.</p>
+<p>Consider a room full of people. If we ask the following question: What is the probability of having pairs of people with the same birthday date without the year? It is certain that with 366 people, you will have at least one pair. But what if we have fewer people? With 50 people, there is 97% chance for the existence of such a pair. This problem is referred to as the birthday paradox.</p>
 <p>Let us formalized this problem as follow:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\Omega=\left \{ (x_i, x_j) \; \text{with} \; x_i, x_j \in \left \{ 1, \dots, 365 \right \} \right \}\)</span>, <span class="math notranslate nohighlight">\(|\Omega| = 365^n\)</span></p></li>
@@ -908,7 +908,7 @@ P(A \cap B) = P(A | B) P(B)
 \]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are two *<em>Independent</em> events, <span class="math notranslate nohighlight">\(P(A | B) = P(A)\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are two <strong>Independent</strong> events, <span class="math notranslate nohighlight">\(P(A | B) = P(A)\)</span>.</p>
 </div>
 <div class="section" id="law-of-total-probability">
 <h4><span class="section-number">3.2.4.1. </span>Law of Total Probability<a class="headerlink" href="#law-of-total-probability" title="Permalink to this headline">¶</a></h4>
@@ -967,13 +967,53 @@ P(H | e) = \frac{P(e | H) P(H)}{P(e)}
 <li><p><strong>likelihood</strong> of the evidence given our hypothesis is true</p></li>
 <li><p><strong>marginal</strong> probability <span class="math notranslate nohighlight">\(P(e)\)</span>, how probable is the new evidence under all possible hypotheses</p></li>
 </ul>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygraphviz</span> <span class="k">as</span> <span class="nn">pgv</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;digraph probability_tree {</span>
+<span class="s2">    node [shape=circle]</span>
+<span class="s2">    O  [label=&quot;O&quot;]</span>
+<span class="s2">    A  [label=&quot;A1&quot;]</span>
+<span class="s2">    B  [label=&quot;B1&quot;]</span>
+<span class="s2">    AA [label=&quot;A2&quot;]</span>
+<span class="s2">    AB [label=&quot;B2&quot;]</span>
+<span class="s2">    BA [label=&quot;A2&quot;]</span>
+<span class="s2">    BB [label=&quot;B2&quot;]</span>
+<span class="s2">    O -&gt; A  [label=&quot;P(A1)&quot;]</span>
+<span class="s2">    O -&gt; B  [label=&quot;P(B1)&quot;]</span>
+<span class="s2">    A -&gt; AA [label=&quot;P(A2 | A1)&quot;]</span>
+<span class="s2">    A -&gt; AB [label=&quot;P(B2 | A1)&quot;]</span>
+<span class="s2">    B -&gt; BA [label=&quot;P(A2 | B1)&quot;]</span>
+<span class="s2">    B -&gt; BB [label=&quot;P(B2 | B1)&quot;]</span>
+<span class="s2">    node [shape=rectangle]</span>
+<span class="s2">    AA -&gt; &quot;P(A1 n A2)&quot;</span>
+<span class="s2">    AB -&gt; &quot;P(A1 n B2)&quot;</span>
+<span class="s2">    BA -&gt; &quot;P(B1 n A2)&quot;</span>
+<span class="s2">    BB -&gt; &quot;P(B1 n B2)&quot;</span>
+<span class="s2">}&quot;&quot;&quot;</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">pgv</span><span class="o">.</span><span class="n">AGraph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">))</span>
+<span class="n">img</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="probtree-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/2_probabilities_and_information_theory_30_0.png" src="../_images/2_probabilities_and_information_theory_30_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Probability Tree, a node represent an outcome <span class="math notranslate nohighlight">\(A\)</span>, or <span class="math notranslate nohighlight">\(B\)</span> and edges represent the probability of the <span class="math notranslate nohighlight">\(i\)</span>-th event given the event <span class="math notranslate nohighlight">\(i-1\)</span> actualy happened. Multiplication of a branch path defines the Baye’s Theorem <span class="math notranslate nohighlight">\(P(A_2[A_1) = P(A_1 \cap A_2) P(A_1)\)</span>. Addition of the branches on a same level defines the total sum of probability <span class="math notranslate nohighlight">\(P(A_2 | A_1) + P(B_2 | A_1) + (A_2 | B_1) + P(B_2 | B_1)\)</span>.</span><a class="headerlink" href="#probtree-fig" title="Permalink to this image">¶</a></p>
+</div>
 <div class="section" id="radio-transmission">
 <h4><span class="section-number">3.2.5.1. </span>Radio Transmission<a class="headerlink" href="#radio-transmission" title="Permalink to this headline">¶</a></h4>
 <p>Consider the example of a radio signal sent from the ISS to earth. Let say the bits transmitted are <span class="math notranslate nohighlight">\(1\)</span> 75% else <span class="math notranslate nohighlight">\(0\)</span>. It is logical to consider the fact that the transmitted signal can be altered, distorted through physical phenomena. Let us denote <span class="math notranslate nohighlight">\(\epsilon_0\)</span> the chance of receiving a <span class="math notranslate nohighlight">\(1\)</span> instead of a <span class="math notranslate nohighlight">\(0\)</span>, and <span class="math notranslate nohighlight">\(\epsilon_1\)</span> the chance or receiving a <span class="math notranslate nohighlight">\(0\)</span> instead of a <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <p>Suppose you received a bit <span class="math notranslate nohighlight">\(R\)</span> as a 1. What is the probability that it was, in fact, transmitted <span class="math notranslate nohighlight">\(T\)</span> as 1? We can obtain the response by applying Baye’s Rule:</p>
 <div class="math notranslate nohighlight">
 \[
-P(T=1 | R=1) = \frac{P(R=1\;|\;T=1) P(T=1)}{P(R=1)} = \frac{0.7(1 - \epsilon_1)}{0.7 (1 - \epsilon_1) + 0.3 \epsilon_0}
+P(T=1 | R=1) = \frac{P(R=1\;|\;T=1) P(T=1)}{P(R=1)} = \frac{0.75(1 - \epsilon_1)}{0.75 (1 - \epsilon_1) + 0.25 \epsilon_0}
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1089,9 +1129,9 @@ p(x)_{h \rightarrow 0} \approx P(x \leq X \leq x + h)
 </div>
 <div class="figure align-center" id="dist-types-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_32_0.png" src="../_images/2_probabilities_and_information_theory_32_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_36_0.png" src="../_images/2_probabilities_and_information_theory_36_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">PMF of a random discrete variable left, and PDF of a random continuous variable right.</span><a class="headerlink" href="#dist-types-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.8 </span><span class="caption-text">PMF of a random discrete variable left, and PDF of a random continuous variable right.</span><a class="headerlink" href="#dist-types-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1148,9 +1188,9 @@ P(X=x) = \sum_{y} P(X=x,Y=y) &amp;&amp; p(x) = \int p(x, y) dy
 </div>
 <div class="figure align-center" id="marginal-prob-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_36_0.png" src="../_images/2_probabilities_and_information_theory_36_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_40_0.png" src="../_images/2_probabilities_and_information_theory_40_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Vote for Woman President by Gender. The marginal probabilities are represented in the margin of the table corresponding to the “Total” column and row.</span><a class="headerlink" href="#marginal-prob-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Vote for Woman President by Gender. The marginal probabilities are represented in the margin of the table corresponding to the “Total” column and row.</span><a class="headerlink" href="#marginal-prob-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="product-rule">
@@ -1335,9 +1375,9 @@ p(x) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <div class="figure align-center" id="discrete-dist-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_40_0.png" src="../_images/2_probabilities_and_information_theory_40_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_44_0.png" src="../_images/2_probabilities_and_information_theory_44_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Visualization of the discrete Uniform, Bernoulli, Binomial, and Poisson distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#discrete-dist-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Visualization of the discrete Uniform, Bernoulli, Binomial, and Poisson distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#discrete-dist-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="continuous-distributions">
@@ -1462,9 +1502,9 @@ p(x) = x^{\alpha - 1}(1 - x)^{\beta - 1} \frac{\Gamma(\alpha + \beta)}{\Gamma(\a
 </div>
 <div class="figure align-center" id="continuous-dist-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_44_0.png" src="../_images/2_probabilities_and_information_theory_44_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_48_0.png" src="../_images/2_probabilities_and_information_theory_48_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Visualization of the continuous Normal, Gamma, and Beta distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#continuous-dist-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Visualization of the continuous Normal, Gamma, and Beta distributions using Monte Carlo Simulation.</span><a class="headerlink" href="#continuous-dist-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="mixture-of-distributions">
@@ -1541,9 +1581,9 @@ p(x) = \sum_{i=1}^n w_i p_i(x)
 </div>
 <div class="figure align-center" id="mixture-dist-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_48_0.png" src="../_images/2_probabilities_and_information_theory_48_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_52_0.png" src="../_images/2_probabilities_and_information_theory_52_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Gaussian Mixtures, univariate left and multivariate right, <span class="math notranslate nohighlight">\(X \sim \frac{1}{2} \mathcal{N(-1, 1)} + \frac{1}{2} \mathcal{N(1.5, 0.5)}\)</span>.</span><a class="headerlink" href="#mixture-dist-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.12 </span><span class="caption-text">Gaussian Mixtures, univariate left and multivariate right, <span class="math notranslate nohighlight">\(X \sim \frac{1}{2} \mathcal{N(-1, 1)} + \frac{1}{2} \mathcal{N(1.5, 0.5)}\)</span>.</span><a class="headerlink" href="#mixture-dist-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1604,9 +1644,9 @@ H(X) = \mathbb{E}_{X \sim P}[I(x)] = -\mathbb{E}_{X \sim P}[log P(x)]
 </div>
 <div class="figure align-center" id="bin-entropy-func-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_52_0.png" src="../_images/2_probabilities_and_information_theory_52_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_56_0.png" src="../_images/2_probabilities_and_information_theory_56_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.12 </span><span class="caption-text">Visualization of the entropy of a Bernoulli trial depending on the value attributed to <span class="math notranslate nohighlight">\(p = P(X=1)\)</span>. If the outcome is abvious the entropy is low. But if the outcome is uncertain, the entropy is high.</span><a class="headerlink" href="#bin-entropy-func-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.13 </span><span class="caption-text">Visualization of the entropy of a Bernoulli trial depending on the value attributed to <span class="math notranslate nohighlight">\(p = P(X=1)\)</span>. If the outcome is abvious the entropy is low. But if the outcome is uncertain, the entropy is high.</span><a class="headerlink" href="#bin-entropy-func-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="kullback-leibler-divergence">
@@ -1659,9 +1699,9 @@ D_{KL}(P \| Q) = \mathbb{E}_{X \sim P} \left ( log \frac{P(x)}{Q(x)} \right )
 </div>
 <div class="figure align-center" id="kld-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_56_0.png" src="../_images/2_probabilities_and_information_theory_56_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_60_0.png" src="../_images/2_probabilities_and_information_theory_60_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.13 </span><span class="caption-text">Visualization of the KL-Divergence <span class="math notranslate nohighlight">\(D_{KL}(P \| Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#kld-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.14 </span><span class="caption-text">Visualization of the KL-Divergence <span class="math notranslate nohighlight">\(D_{KL}(P \| Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#kld-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="jensen-shanon-divergence">
@@ -1717,9 +1757,9 @@ D_{\lambda}(P, Q) = D_{KL}(P \| \lambda P + (1 - \lambda) Q) + D_{KL}(Q \| \lamb
 </div>
 <div class="figure align-center" id="jsd-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_60_0.png" src="../_images/2_probabilities_and_information_theory_60_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_64_0.png" src="../_images/2_probabilities_and_information_theory_64_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.14 </span><span class="caption-text">Visualization of the Jensen-Shannon Divergence <span class="math notranslate nohighlight">\(D_{KL}(P, Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#jsd-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.15 </span><span class="caption-text">Visualization of the Jensen-Shannon Divergence <span class="math notranslate nohighlight">\(D_{KL}(P, Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#jsd-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="wasserstein-distance">
@@ -1798,9 +1838,9 @@ Q_1=1, &amp;&amp; Q_2=2, &amp;&amp; Q_3=4, &amp;&amp; Q_4=3 \\
 </div>
 <div class="figure align-center" id="wd-discrete-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_64_0.png" src="../_images/2_probabilities_and_information_theory_64_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_68_0.png" src="../_images/2_probabilities_and_information_theory_68_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.15 </span><span class="caption-text">Transport Plan from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Visualization of the Wasserstein Distance <span class="math notranslate nohighlight">\(W(P, Q)\)</span>.</span><a class="headerlink" href="#wd-discrete-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.16 </span><span class="caption-text">Transport Plan from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Visualization of the Wasserstein Distance <span class="math notranslate nohighlight">\(W(P, Q)\)</span>.</span><a class="headerlink" href="#wd-discrete-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Let us now come back on the continuous definition of the Wasserstein Distance:</p>
 <div class="math notranslate nohighlight">
@@ -1853,9 +1893,9 @@ W(p, q) = \underset{\gamma \sim \Pi(p, q)}{inf} \mathbb{E}_{(x, y) \sim \gamma}[
 </div>
 <div class="figure align-center" id="wd-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_68_0.png" src="../_images/2_probabilities_and_information_theory_68_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_72_0.png" src="../_images/2_probabilities_and_information_theory_72_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.16 </span><span class="caption-text">Visualization of the Wasserstein Distance <span class="math notranslate nohighlight">\(W(P, Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>. The distance is lowering towards <span class="math notranslate nohighlight">\(0\)</span> as the <span class="math notranslate nohighlight">\(\mu\)</span> of the <span class="math notranslate nohighlight">\(P\)</span> gaussian distribution moves towards the one of <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#wd-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.17 </span><span class="caption-text">Visualization of the Wasserstein Distance <span class="math notranslate nohighlight">\(W(P, Q)\)</span> between two gaussian distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>. The distance is lowering towards <span class="math notranslate nohighlight">\(0\)</span> as the <span class="math notranslate nohighlight">\(\mu\)</span> of the <span class="math notranslate nohighlight">\(P\)</span> gaussian distribution moves towards the one of <span class="math notranslate nohighlight">\(Q\)</span>.</span><a class="headerlink" href="#wd-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="cross-entropy">
@@ -1914,9 +1954,9 @@ P(M \rightarrow M) = 0.7 &amp;&amp; P(M \rightarrow A) = 0.3 \\
 </div>
 <div class="figure align-center" id="markov-viz-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/2_probabilities_and_information_theory_72_0.png" src="../_images/2_probabilities_and_information_theory_72_0.png" />
+<img alt="../_images/2_probabilities_and_information_theory_76_0.png" src="../_images/2_probabilities_and_information_theory_76_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 3.17 </span><span class="caption-text">Markov Chain for Apple and Microsoft Transitions.</span><a class="headerlink" href="#markov-viz-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 3.18 </span><span class="caption-text">Markov Chain for Apple and Microsoft Transitions.</span><a class="headerlink" href="#markov-viz-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>The four transition statement can be organized into a transition diagram. It allow us to vsualize the transition and the market share of each company. We can compute the new share after a month using the following:</p>
 <div class="math notranslate nohighlight">
