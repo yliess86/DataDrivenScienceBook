@@ -426,6 +426,13 @@
   <a class="reference internal nav-link" href="#applications">
    3.5. Applications
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#markov-chain">
+     3.5.1. Markov Chain
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -1863,6 +1870,116 @@ H(P, Q) = H(P) - D_{KL}(P\|Q) = -\mathbb{E}_{X \sim P}[log(Q(x))]
 </div>
 <div class="section" id="applications">
 <h2><span class="section-number">3.5. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="markov-chain">
+<h3><span class="section-number">3.5.1. </span>Markov Chain<a class="headerlink" href="#markov-chain" title="Permalink to this headline">¶</a></h3>
+<p>Realtime processes such as speech recognition, text classification, path recognition, and many more can be explained using <strong>Markov Chain</strong>. Markov Chain are based on the idea that the <strong>current state</strong> <span class="math notranslate nohighlight">\(S_t\)</span> of a <strong>process</strong> only <strong>depends</strong> on its <strong>previous state</strong> <span class="math notranslate nohighlight">\(S_{t+1}\)</span>, it is <strong>Memoryless</strong>. This assumption allows the use of simple conditional probabilities and computations.</p>
+<div class="math notranslate nohighlight">
+\[
+P(S_{n+1}=s\;|\;S_1=s_1,\dots,S_n=s_n) = P(S_{n+1}=s\;|\;S_n=s_n) 
+\]</div>
+<p>Let us considere two companies <strong>Apple</strong> <span class="math notranslate nohighlight">\(A\)</span> and <strong>Microsoft</strong> <span class="math notranslate nohighlight">\(M\)</span>. A new companie wants to partner with one of those two and hire a market research company to find out which of the two brand will have a higher marker share after some period, let say 1 month. The actual state of both companies is respectively <span class="math notranslate nohighlight">\(45%\)</span> and <span class="math notranslate nohighlight">\(55%\)</span>. The recrutted market research team comes up with the following conclusion:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+P(A \rightarrow A) = 0.9 &amp;&amp; P(A \rightarrow M) = 0.1 \\
+P(M \rightarrow M) = 0.7 &amp;&amp; P(M \rightarrow A) = 0.3 \\
+\end{align}
+\end{split}\]</div>
+<p>The first information we gain from the study is that Apple’s users tend to stay faithful to Apple’s products. However, it currently has the lowest wallet share of the two companies.</p>
+<p>The four transition statement can be organized into a transition diagram. It allow us to vsualize the transition and the market share of each company. We can compute the new share after a month using the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+s_A(t + 1) &amp; = s_A \cdot P(A \rightarrow A) + s_M \cdot P(M \rightarrow A) \\
+s_M(t + 1) &amp; = s_M \cdot P(M \rightarrow M) + s_A \cdot P(A \rightarrow M)
+\end{align}
+\end{split}\]</div>
+<p>These calculation could be resumed in Matrix form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} 0.45 &amp;&amp; 0.55 \end{bmatrix} \begin{bmatrix} 0.9 &amp;&amp; 0.1 \\ 0.3 &amp;&amp; 0.7 \end{bmatrix} = \begin{bmatrix} 0.57 &amp;&amp; 0.43 \end{bmatrix} \\
+S_t P = S_{t+1}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="c1"># Initial State</span>
+<span class="n">S_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># Transition Matrix</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+<span class="p">])</span>
+
+<span class="c1"># States Computation</span>
+<span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">S_init</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">P</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">S</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">states</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S_</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S_00: 0.45 0.55
+S_01: 0.57 0.43
+S_02: 0.64 0.36
+S_03: 0.69 0.31
+S_04: 0.71 0.29
+S_05: 0.73 0.27
+S_06: 0.74 0.26
+S_07: 0.74 0.26
+S_08: 0.74 0.26
+S_09: 0.75 0.25
+S_10: 0.75 0.25
+</pre></div>
+</div>
+</div>
+</div>
+<p>This transformation is called a Markov Chain. Furthermore, if the <strong>Transition Matrix</strong> <span class="math notranslate nohighlight">\(P\)</span> does not evolve, it allows us to compute for more than one month later. The tendency makes Microsoft’s shares decrease over time. Nevertheless, at some point, there will be as many new customers as leaving one. This state is referred to as the <strong>Steady State</strong> <span class="math notranslate nohighlight">\(\pi\)</span> and respects the following equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\pi P = \pi
+\]</div>
+<p>The steady-state of a transition matrix, if it exists, is a left eigenvector of <span class="math notranslate nohighlight">\(P\)</span>, and can be computed following the next procedure:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\pi P       &amp; = \pi \\
+\pi P - \pi &amp; = 0 \\
+\pi (P - I) &amp; = 0 \\
+\pi Q       &amp; = 0 \\
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Homogeneous Linear System of Equations</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">P</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">Qe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">Q</span><span class="p">,</span> <span class="n">e</span><span class="p">])</span>
+<span class="n">b</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="c1"># Solving using Least Squares</span>
+<span class="n">pi_T</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">Qe</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Steady State:&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pi_T</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Steady State: 0.75 0.25
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
