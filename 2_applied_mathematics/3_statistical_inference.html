@@ -338,6 +338,23 @@
    4.10. Bayesian Inference
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications">
+   4.11. Applications
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#logistic-regression">
+     4.11.1. Logistic Regression
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayes-classification">
+     4.11.2. Bayes Classification
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
         </nav>
@@ -679,7 +696,51 @@ P(X=x_i) = \frac{1}{6} &amp;&amp; \mathbb{E}(X) = 3.5
 <div class="cell_output docutils container">
 <img alt="../_images/3_statistical_inference_14_0.png" src="../_images/3_statistical_inference_14_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Visualization of the Low of Large Numbers. When <span class="math notranslate nohighlight">\(n\)</span> grow, <span class="math notranslate nohighlight">\(\overlin{X}_n\)</span> gets closer to <span class="math notranslate nohighlight">\(\mu\)</span>.</span><a class="headerlink" href="#stat-lln-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Visualization of the Low of Large Numbers. When <span class="math notranslate nohighlight">\(n\)</span> grow, <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> gets closer to <span class="math notranslate nohighlight">\(\mu\)</span>.</span><a class="headerlink" href="#stat-lln-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <strong>Central Limit Theorem</strong> States that for such a framework as the one described for this section, with expectation <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \text{when} \;\; n \rightarrow +\infty
+\]</div>
+<p>To resume, for any sample of a reasonably big size of independent random variable <span class="math notranslate nohighlight">\(X_i\)</span>, the standardized mean distribution <span class="math notranslate nohighlight">\(Z\)</span> can be simplified to a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span>.</p>
+<p>Let us verify this fact empirically with an example. Consider the uniform distribution <span class="math notranslate nohighlight">\(U(0, 1)\)</span>. By taking samples of bigger and bigger sizes, the distribution of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> should resemble the one of a normal distribution.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="mi">400</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sizes</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sizes</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">X_n</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">70.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="stat-clt-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_18_0.png" src="../_images/3_statistical_inference_18_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Visualization of the Central Limit Theorem. When <span class="math notranslate nohighlight">\(n\)</span> grow, the distribution of <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> gets closer to a normal distribution.</span><a class="headerlink" href="#stat-clt-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -703,6 +764,15 @@ P(X=x_i) = \frac{1}{6} &amp;&amp; \mathbb{E}(X) = 3.5
 </div>
 <div class="section" id="bayesian-inference">
 <h2><span class="section-number">4.10. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="applications">
+<h2><span class="section-number">4.11. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="logistic-regression">
+<h3><span class="section-number">4.11.1. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="bayes-classification">
+<h3><span class="section-number">4.11.2. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 
