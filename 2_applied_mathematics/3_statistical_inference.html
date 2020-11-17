@@ -632,12 +632,55 @@ T(X) = T(X_1,\cdots,X_n)
 <div class="math notranslate nohighlight">
 \[
 \begin{align}
-\mathbb{E}(\overline{X}_n) = m &amp;&amp; Var(\overline{X}_n) = \frac{\sigma^2}{n}
+\mathbb{E}(\overline{X}_n) = \mu &amp;&amp; Var(\overline{X}_n) = \frac{\sigma^2}{n}
 \end{align}
 \]</div>
 </div>
 <div class="section" id="central-limit-theorem">
 <h3><span class="section-number">4.3.2. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Permalink to this headline">¶</a></h3>
+<p>In this section, two fundamental theorems of statistics are discussed, the <strong>Law of Large Numbers</strong> and the <strong>Central Limit Theorem</strong>. Both of them concern the <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> statistic for samples of independent and identically distributed random variables.</p>
+<p>The <strong>Law of Large Numbers</strong> states that for such a framework, as the sample <strong>size grows</strong>, its <strong>mean</strong> gets <strong>closer</strong> to the <strong>average</strong> of the entire <strong>population</strong>. We have been relying secretly on this theorem when dealing with Monte Carlo Simulation.</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{X}_n \rightarrow \mu \;\; \text{when} \;\; n \rightarrow +\infty
+\]</div>
+<p>Let us verify this fact empirically with an example. Consider a dice where <span class="math notranslate nohighlight">\(X\)</span> represents the outcome number of a throw and follows a uniform distribution.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(X=x_i) = \frac{1}{6} &amp;&amp; \mathbb{E}(X) = 3.5
+\end{align}
+\]</div>
+<p>Let us repeat the experiment <span class="math notranslate nohighlight">\(n\)</span> times and compute the statistic <span class="math notranslate nohighlight">\(\overline{X}_n\)</span>. When the sample size grows, its value should be closer to <span class="math notranslate nohighlight">\(\mu\)</span>, which is <span class="math notranslate nohighlight">\(3.5\)</span>. It is visually possible to verify that this convergence happens.</p>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">line1</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)])</span>
+<span class="n">line2</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6514C&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;$\overline</span><span class="si">{X_n}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="s2">&quot;$\mu$ = 3.5&quot;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="stat-lln-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_14_0.png" src="../_images/3_statistical_inference_14_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Visualization of the Low of Large Numbers. When <span class="math notranslate nohighlight">\(n\)</span> grow, <span class="math notranslate nohighlight">\(\overlin{X}_n\)</span> gets closer to <span class="math notranslate nohighlight">\(\mu\)</span>.</span><a class="headerlink" href="#stat-lln-fig" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 <div class="section" id="point-estimate">
