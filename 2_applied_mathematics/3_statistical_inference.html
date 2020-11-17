@@ -616,6 +616,25 @@ Std  : 2.93
 <h2><span class="section-number">4.3. </span>Sampling and Central Limit Theorem<a class="headerlink" href="#sampling-and-central-limit-theorem" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sample">
 <h3><span class="section-number">4.3.1. </span>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h3>
+<p>As stated previously in the chapter, statistic analysis allows us to study some probabilistic phenomena, for example, the error in diameter of a milling machine, on a defined <strong>Sample</strong> as the statistical characteristics of an entire population cannot be measured. In statistics, a <strong>Sample</strong> has to represent a <strong>maximum</strong> of the <strong>variance</strong> present in the <strong>population</strong> it is drawn from using a <strong>known distribution</strong>.</p>
+<p>A <strong>Sample</strong> can be defined as a set of <span class="math notranslate nohighlight">\(n\)</span> independant random variable <span class="math notranslate nohighlight">\((X_1,\cdots,X_n)\)</span> drawn from a same distribution. The Observations of a the sample are defined by <span class="math notranslate nohighlight">\((x_1,\cdots,x_n)\)</span>.</p>
+<p>A <strong>Statistic</strong> <span class="math notranslate nohighlight">\(T\)</span> is a quantity, a measurable function, from the sample’s values.</p>
+<div class="math notranslate nohighlight">
+\[
+T(X) = T(X_1,\cdots,X_n)
+\]</div>
+<p>The <strong>Empirical Mean Satistic</strong> <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i
+\]</div>
+<p>If we define <span class="math notranslate nohighlight">\(\mu\)</span> the expected value, and <span class="math notranslate nohighlight">\(\sigma^2\)</span> the variance of the random variable <span class="math notranslate nohighlight">\(X\)</span>, the <strong>Expected Value</strong> and the <strong>Variance</strong> for the statistic <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> can be defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\mathbb{E}(\overline{X}_n) = m &amp;&amp; Var(\overline{X}_n) = \frac{\sigma^2}{n}
+\end{align}
+\]</div>
 </div>
 <div class="section" id="central-limit-theorem">
 <h3><span class="section-number">4.3.2. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Permalink to this headline">¶</a></h3>
