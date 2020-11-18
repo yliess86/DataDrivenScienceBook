@@ -335,11 +335,6 @@
        4.4.1.2. Maximum Likelihood
       </a>
      </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#expectation-maximization">
-       4.4.1.3. Expectation Maximization
-      </a>
-     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -801,7 +796,7 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 <p>In this section, we study two different kinds of estimators, <strong>Point Estimators</strong> and <strong>Interval Estimators</strong>, and discuss approaches to find them.</p>
 <div class="section" id="point-estimate">
 <h3><span class="section-number">4.4.1. </span>Point Estimate<a class="headerlink" href="#point-estimate" title="Permalink to this headline">¶</a></h3>
-<p><strong>Point Estimators</strong> can be created using different approaches. Among them three will be presented, the <strong>Method of Moments</strong>, the <strong>Maximum Likelihood</strong>, and the <strong>Expectation Maximization</strong>.</p>
+<p><strong>Point Estimators</strong> can be created using different approaches. Among them two will be presented, the <strong>Method of Moments</strong>, and the <strong>Maximum Likelihood</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <table class="colwidths-auto table">
@@ -865,28 +860,25 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 <div class="section" id="maximum-likelihood">
 <h4><span class="section-number">4.4.1.2. </span>Maximum Likelihood<a class="headerlink" href="#maximum-likelihood" title="Permalink to this headline">¶</a></h4>
 <p>Another method for creating point estimators is the <strong>Maximum Likelihood</strong>. Let us remind the context we are dealing with. Consider <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span> a random sample <em>(independent)</em> of size <span class="math notranslate nohighlight">\(n\)</span> sampled from a <em>PDF</em> or <em>PMF</em> <span class="math notranslate nohighlight">\(f(X | \theta)\)</span>. Our goal is to estimate, approximate <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
-<p>This method, as its name implies, consists on <strong>maximizing</strong> a function <span class="math notranslate nohighlight">\(L(\theta | X_1, \dots, X_n)\)</span> representing the <strong>Likelihood</strong> of having <span class="math notranslate nohighlight">\(\theta\)</span> given our sample. The <strong>Likelihood Function</strong> is defined as the joint <em>PMF</em> of each individual of our sample:</p>
+<p>This method, as its name implies, consists on <strong>maximizing</strong> a function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta | X_1, \dots, X_n)\)</span> representing the <strong>Likelihood</strong> of having <span class="math notranslate nohighlight">\(\theta\)</span> given our sample. The <strong>Likelihood Function</strong> is defined as the joint <em>PMF</em> of each individual of our sample:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-L(\theta | X_1, \dots, X_n) &amp; = p(X_1, \dots, X_n | \theta) \\
+\mathcal{L}(\theta | X_1, \dots, X_n) &amp; = p(X_1, \dots, X_n | \theta) \\
                             &amp; = p(X_1 | \theta) \cdots \dots \cdots p(X_n | \theta) \\
                             &amp; = \prod_{i=1}^{n} p(X_i | \theta) \\
 \end{align}
 \end{split}\]</div>
-<p>The value <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> that maximizes the likelihood function is called the <strong>Maximum Likelihood Estimator</strong>, or <strong>MLE</strong> for short. As a reminder, finding the maximum of some function <span class="math notranslate nohighlight">\(f\)</span> can be done by studying its derivative <span class="math notranslate nohighlight">\(f'\)</span>. In this sense we will often talk about the <strong>Log Likelihood Function</strong>:</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> that maximizes the likelihood function is called the <strong>Maximum Likelihood Estimator</strong>, or <strong>MLE</strong> for short. As a reminder, finding the maximum of some function <span class="math notranslate nohighlight">\(f\)</span> can be done by studying its derivative <span class="math notranslate nohighlight">\(f'\)</span>. In this sense we will often talk about the <strong>Log Likelihood Function</strong>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-l(\theta | X_1, \dots, X_n) &amp; = log L(\theta | X_1, \dots, X_n) \\
+l(\theta | X_1, \dots, X_n) &amp; = log \mathcal{L}(\theta | X_1, \dots, X_n) \\
                             &amp; = log \prod_{i=1}^{n} p(X_i | \theta) \\
                             &amp; = \sum_{i=1}^{n} log p(X_i | \theta)
 \end{align}
 \end{split}\]</div>
 <p><strong>Log</strong> is a <strong>Monotonic</strong> function, it does not change the order of what it is given, and the log of a product is the sum of logs. It allows us to simplify the likelihood as a sum and thus to simplify the process of derivation.</p>
-</div>
-<div class="section" id="expectation-maximization">
-<h4><span class="section-number">4.4.1.3. </span>Expectation Maximization<a class="headerlink" href="#expectation-maximization" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 <div class="section" id="interval-estimates">
