@@ -914,7 +914,8 @@ l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
 
 <span class="c1"># Replicate Trial (15 Throws, 6 Successes)</span>
 <span class="n">n</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="n">observations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">6</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">())</span>
+<span class="n">shuffle</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">6</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
 <span class="n">observations</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 
 <span class="c1"># Define Bernoulli Model</span>
@@ -932,7 +933,10 @@ l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="o">**</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
     
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Maximum Likelihood Estimation</span>
 <span class="sd">        Optimization -&gt; Gradient Ascent (find max using derivative)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1024,6 +1028,75 @@ In this section we study <strong>Interval Estimation</strong> for <strong>the me
 \[
 Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1)
 \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+
+<span class="n">confidence</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="n">za</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">zb</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Za = </span><span class="si">{</span><span class="n">za</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Zb =  </span><span class="si">{</span><span class="n">zb</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Za = -1.96
+Zb =  1.96
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96</span><span class="p">,</span> <span class="mf">1.96</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.96</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.96</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$1 - \alpha$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$-z_{\alpha / 2}$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z_{\alpha / 2}$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#328008&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="ic-normal-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_28_0.png" src="../_images/3_statistical_inference_28_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.6 </span><span class="caption-text">Normal Distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> and <span class="math notranslate nohighlight">\(95\)</span>% range <span class="math notranslate nohighlight">\([-Z_{\alpha / 2}, Z_{\alpha / 2}]\)</span></span><a class="headerlink" href="#ic-normal-fig" title="Permalink to this image">¶</a></p>
+</div>
 <p>If we want to define a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Interval Estimate</strong> of <span class="math notranslate nohighlight">\(\mu\)</span>, for example, we can refer to the normal distribution graph or table and see that it corresponds to area under the curve within the range <span class="math notranslate nohighlight">\([-1.96, 1.96]\)</span>. Whe can then say that:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1032,7 +1105,7 @@ P(-1.96 \leq Z \leq 1.96)                            &amp; = 0.95 \\
 P(\frac{\bar{X} - 1.96}{\sqrt{n}} \leq \mu \leq \frac{\bar{X} + 1.96}{\sqrt{n}}) &amp; = 0.95 \\ 
 \end{align}
 \end{split}\]</div>
-<p>We can now say that the random interval <span class="math notranslate nohighlight">\(\bar{X} \pm 1.96 \sigma / \sqrt{n}\)</span> is a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Confidence Interval</strong> (CI) for <span class="math notranslate nohighlight">\(\sigma\)</span>. <span class="math notranslate nohighlight">\(95\)</span>% is reffered to as <span class="math notranslate nohighlight">\(\alpha\)</span>, the <strong>Significance Level</strong>, and states that <span class="math notranslate nohighlight">\(P(\mu \in CI) = 1 - \alpha\)</span>.</p>
+<p>We can now say that the random interval <span class="math notranslate nohighlight">\(\bar{X} \pm 1.96 \sigma / \sqrt{n}\)</span> is a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Confidence Interval</strong> (CI) for <span class="math notranslate nohighlight">\(\sigma\)</span>. <span class="math notranslate nohighlight">\(95\)</span>% is reffered to as the <strong>Confidence Level</strong>, and states that <span class="math notranslate nohighlight">\(P(\mu \in CI) =  1 - \alpha\)</span>, with <span class="math notranslate nohighlight">\(alpha\)</span> the <strong>Significance Level</strong>.</p>
 </div>
 <div class="section" id="interval-estimation-of-a-proportion">
 <h4><span class="section-number">4.4.2.2. </span>Interval Estimation of a Proportion<a class="headerlink" href="#interval-estimation-of-a-proportion" title="Permalink to this headline">¶</a></h4>
