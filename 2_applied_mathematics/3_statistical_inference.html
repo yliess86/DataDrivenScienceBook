@@ -341,6 +341,18 @@
     <a class="reference internal nav-link" href="#interval-estimates">
      4.4.2. Interval Estimates
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interval-estimation-of-a-mean">
+       4.4.2.1. Interval Estimation of a Mean
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interval-estimation-of-a-proportion">
+       4.4.2.2. Interval Estimation of a Proportion
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -883,6 +895,48 @@ l(\theta | X_1, \dots, X_n) &amp; = log \mathcal{L}(\theta | X_1, \dots, X_n) \\
 </div>
 <div class="section" id="interval-estimates">
 <h3><span class="section-number">4.4.2. </span>Interval Estimates<a class="headerlink" href="#interval-estimates" title="Permalink to this headline">¶</a></h3>
+<p>Until this section, we have only discussed point estimators. But what about <strong>Intervals</strong>?
+In this section we study <strong>Interval Estimation</strong> for <strong>the means</strong> and <strong>for proportions</strong>.</p>
+<div class="section" id="interval-estimation-of-a-mean">
+<h4><span class="section-number">4.4.2.1. </span>Interval Estimation of a Mean<a class="headerlink" href="#interval-estimation-of-a-mean" title="Permalink to this headline">¶</a></h4>
+<p>Consider a sample <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span>, independent and sampled from the same distribution, for example <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span> with <span class="math notranslate nohighlight">\(\mu\)</span> unknown and <span class="math notranslate nohighlight">\(\sigma^2\)</span> known. What are the possible value, believable values of <span class="math notranslate nohighlight">\(\sigma\)</span> given our random sample?</p>
+<p>We are interested on knowing what the distribution <span class="math notranslate nohighlight">\(\bar{X}\)</span> looks like. Using MLE, we can apporximate this dsitribution:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{X} = \frac{1}{2} \sum_{i=1}{n} X_i
+\]</div>
+<p>We also know from the central limit theorem that its standardized centered and reduced form follows a normal distribution when considering a big enough sample size:</p>
+<div class="math notranslate nohighlight">
+\[
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1)
+\]</div>
+<p>If we want to define a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Interval Estimate</strong> of <span class="math notranslate nohighlight">\(\mu\)</span>, for example, we can refer to the normal distribution graph or table and see that it corresponds to area under the curve within the range <span class="math notranslate nohighlight">\([-1.96, 1.96]\)</span>. Whe can then say that:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+P(-1.96 \leq Z \leq 1.96)                            &amp; = 0.95 \\
+P(\frac{\bar{X} - 1.96}{\sqrt{n}} \leq \mu \leq \frac{\bar{X} + 1.96}{\sqrt{n}}) &amp; = 0.95 \\ 
+\end{align}
+\end{split}\]</div>
+<p>We can now say that the random interval <span class="math notranslate nohighlight">\(\bar{X} \pm 1.96 \sigma / \sqrt{n}\)</span> is a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Confidence Interval</strong> (CI) for <span class="math notranslate nohighlight">\(\sigma\)</span>. <span class="math notranslate nohighlight">\(95\)</span>% is reffered to as <span class="math notranslate nohighlight">\(\alpha\)</span>, the <strong>Significance Level</strong>, and states that <span class="math notranslate nohighlight">\(P(\mu \in CI) = 1 - \alpha\)</span>.</p>
+</div>
+<div class="section" id="interval-estimation-of-a-proportion">
+<h4><span class="section-number">4.4.2.2. </span>Interval Estimation of a Proportion<a class="headerlink" href="#interval-estimation-of-a-proportion" title="Permalink to this headline">¶</a></h4>
+<p>A similar approach to the one discussed for the interval estimation of a mean can be applied to estimating an interval for a <strong>Proportion</strong>. Consider a Binomial test with <span class="math notranslate nohighlight">\(n\)</span> large and let <span class="math notranslate nohighlight">\(X\)</span> denote the number of successes where <span class="math notranslate nohighlight">\(p\)</span>, the probability of one success is unknown.</p>
+<p>The central limit theorem tells us that:</p>
+<div class="math notranslate nohighlight">
+\[
+Z = \frac{\bar{X} - np}{\sigma / \sqrt{np(1-p)}} \sim \mathcal{N}(0, 1)
+\]</div>
+<p>In that regard, if we want to define a <span class="math notranslate nohighlight">\(100(1 - \alpha)\)</span>% confidence interval:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+P(-Z_{\alpha / 2} \leq Z \leq Z_{\alpha / 2}) &amp; = 0.95 \\
+P(\frac{X}{n} - Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}} \leq p \leq \frac{X}{n} + Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}}) &amp; \approx 0.95 \\ 
+\end{align}
+\end{split}\]</div>
+</div>
 </div>
 </div>
 <div class="section" id="hypothesis-testing">
