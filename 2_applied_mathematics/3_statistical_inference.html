@@ -326,13 +326,18 @@
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#method-of-moments">
-       4.4.1.1. Method of Moments
+      <a class="reference internal nav-link" href="#method-of-moments-mm">
+       4.4.1.1. Method of Moments (MM)
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#maximum-likelihood">
-       4.4.1.2. Maximum Likelihood
+      <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
+       4.4.1.2. Maximum Likelihood Estimation (MLE)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-map">
+       4.4.1.3. Maximum a Posteriori Estimation (MAP)
       </a>
      </li>
     </ul>
@@ -377,23 +382,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-inference">
-   4.9. Bayesian Inference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applications">
-   4.10. Applications
+   4.9. Applications
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression">
-     4.10.1. Logistic Regression
+     4.9.1. Logistic Regression
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#bayes-classification">
-     4.10.2. Bayes Classification
+     4.9.2. Bayes Classification
     </a>
    </li>
   </ul>
@@ -808,7 +808,7 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 <p>In this section, we study two different kinds of estimators, <strong>Point Estimators</strong> and <strong>Interval Estimators</strong>, and discuss approaches to find them.</p>
 <div class="section" id="point-estimate">
 <h3><span class="section-number">4.4.1. </span>Point Estimate<a class="headerlink" href="#point-estimate" title="Permalink to this headline">¶</a></h3>
-<p><strong>Point Estimators</strong> can be created using different approaches. Among them two will be presented, the <strong>Method of Moments</strong>, and the <strong>Maximum Likelihood</strong>.</p>
+<p><strong>Point Estimators</strong> can be created using different approaches. Among them three will be presented, the <strong>Method of Moments</strong>, the <strong>Maximum Likelihood Estimation</strong>, and the <strong>Maximum a Posteriori Estimation</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <table class="colwidths-auto table">
@@ -843,8 +843,8 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 </tbody>
 </table>
 </div>
-<div class="section" id="method-of-moments">
-<h4><span class="section-number">4.4.1.1. </span>Method of Moments<a class="headerlink" href="#method-of-moments" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="method-of-moments-mm">
+<h4><span class="section-number">4.4.1.1. </span>Method of Moments (MM)<a class="headerlink" href="#method-of-moments-mm" title="Permalink to this headline">¶</a></h4>
 <p>Before even looking at the <strong>Method of Moments</strong>, or <strong>MM</strong> for short, we need to define a <strong>Moment</strong>. The <span class="math notranslate nohighlight">\(k\)</span>-th Moment of a given random variable <span class="math notranslate nohighlight">\(X\)</span> is expressed as:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -869,9 +869,13 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 \]</div>
 <p>As you can notice, the method revolves around the sample mean and does not require any <em>PDF</em> nor <em>PMF</em> computation. One downfall of this method can be observed by looking at the second term of the variance estimator. If this term is too big, the approximation result will be negative, which is not acceptable.</p>
 </div>
-<div class="section" id="maximum-likelihood">
-<h4><span class="section-number">4.4.1.2. </span>Maximum Likelihood<a class="headerlink" href="#maximum-likelihood" title="Permalink to this headline">¶</a></h4>
-<p>Another method for creating point estimators is the <strong>Maximum Likelihood</strong>. Let us remind the context we are dealing with. Consider <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span> a random sample <em>(independent)</em> of size <span class="math notranslate nohighlight">\(n\)</span> sampled from a <em>PDF</em> or <em>PMF</em> <span class="math notranslate nohighlight">\(f(X | \theta)\)</span>. Our goal is to estimate, approximate <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<div class="section" id="maximum-likelihood-estimation-mle">
+<h4><span class="section-number">4.4.1.2. </span>Maximum Likelihood Estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this headline">¶</a></h4>
+<p>Another method for creating point estimators is the <strong>Maximum Likelihood</strong>. Let us remind the context we are dealing with. Consider <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span> a random sample <em>(independent)</em> of size <span class="math notranslate nohighlight">\(n\)</span> sampled from a <em>PDF</em> or <em>PMF</em> <span class="math notranslate nohighlight">\(p(D | \theta)\)</span>. Our goal is to estimate, approximate <span class="math notranslate nohighlight">\(\theta\)</span>. In this sense, we want to find:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_{MLE} = \underset{\theta}{argmax} \; p(D | \theta)
+\]</div>
 <p>This method, as its name implies, consists on <strong>maximizing</strong> a function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta | X_1, \dots, X_n)\)</span> representing the <strong>Likelihood</strong> of having <span class="math notranslate nohighlight">\(\theta\)</span> given our sample. The <strong>Likelihood Function</strong> is defined as the joint <em>PMF</em> of each individual of our sample:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -885,22 +889,22 @@ Z = \frac{\overline{X}_n - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1) \;\; \
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-l(\theta | X_1, \dots, X_n) &amp; = log \mathcal{L}(\theta | X_1, \dots, X_n) \\
-                            &amp; = log \prod_{i=1}^{n} p(X_i | \theta) \\
-                            &amp; = \sum_{i=1}^{n} log p(X_i | \theta)
+l(\theta | X_1, \dots, X_n) &amp; = log \; \mathcal{L}(\theta | X_1, \dots, X_n) \\
+                            &amp; = log \; \prod_{i=1}^{n} p(X_i | \theta) \\
+                            &amp; = \sum_{i=1}^{n} log \; p(X_i | \theta)
 \end{align}
 \end{split}\]</div>
 <p><strong>Log</strong> is a <strong>Monotonic</strong> function, it does not change the order of what it is given, and the log of a product is the sum of logs. It allows us to simplify the likelihood as a sum and thus to simplify the process of derivation.</p>
-<p>Consider the following example: you are playing basket ball and after 15 independent throws, only 6 made it. Let denot <span class="math notranslate nohighlight">\(X\)</span> the number of successes. With this formulation, <span class="math notranslate nohighlight">\(x=6\)</span> and <span class="math notranslate nohighlight">\(n=15\)</span>. Now let us assume that <span class="math notranslate nohighlight">\(X \sim B(n, p)\)</span> and estimate <span class="math notranslate nohighlight">\(p\)</span> by computing its MLE.</p>
+<p>Consider the following example: you are playing basket ball and after 15 independent throws, only 6 made it. Let denot <span class="math notranslate nohighlight">\(X\)</span> the number of successes. With this formulation, <span class="math notranslate nohighlight">\(x=6\)</span> and <span class="math notranslate nohighlight">\(n=15\)</span>. Now let us assume that <span class="math notranslate nohighlight">\(X \sim B(n, \theta)\)</span> and estimate <span class="math notranslate nohighlight">\(\theta\)</span> by computing its MLE.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
- l(X | p) &amp; = log \begin{pmatrix} n \\ X \end{pmatrix} p^X (1 - p)^{n - X} \\
- l(X | p) &amp; = log \begin{pmatrix} n \\ X \end{pmatrix} + Xlog(p) + (n - X) log(1 - p) \\
-l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
+ l(X | \theta) &amp; = log \begin{pmatrix} n \\ X \end{pmatrix} \theta^X (1 - \theta)^{n - X} \\
+ l(X | \theta) &amp; = log \begin{pmatrix} n \\ X \end{pmatrix} + Xlog(\theta) + (n - X) log(1 - \theta) \\
+l'(X | \theta) &amp; = \frac{X}{\theta} - \frac{n - X}{1 - \theta}
 \end{align}
 \end{split}\]</div>
-<p>After solving the equation <span class="math notranslate nohighlight">\(l'(X | p) = 0\)</span>, we obtain the following root: <span class="math notranslate nohighlight">\(\hat{p} = \frac{X}{n}\)</span>. If we evaluate this estimator, we obtain the Maximum Likelihood Estimate <span class="math notranslate nohighlight">\(\hat{p} = \frac{6}{15}\)</span>.</p>
+<p>After solving the equation <span class="math notranslate nohighlight">\(l'(X | \theta) = 0\)</span>, we obtain the following root: <span class="math notranslate nohighlight">\(\hat{\theta} = \frac{X}{n}\)</span>. If we evaluate this estimator, we obtain the Maximum Likelihood Estimate <span class="math notranslate nohighlight">\(\hat{\theta} = \frac{6}{15}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
@@ -918,20 +922,20 @@ l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
 <span class="n">observations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">6</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
 <span class="n">observations</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 
+
 <span class="c1"># Define Bernoulli Model</span>
-<span class="k">class</span> <span class="nc">Bernoulli</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">BernoulliModel</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Bernoulli Model</span>
 <span class="sd">        p = theta  is unknown and initialized to 0.5</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         
-    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Bernoulli PMF</span>
 <span class="sd">        p^x (1 - p)^(1 - x)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="o">**</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">**</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
     
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -942,7 +946,7 @@ l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">history</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
         <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
-            <span class="n">loglikelihood</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">observations</span><span class="p">)))</span>
+            <span class="n">loglikelihood</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="p">(</span><span class="n">observations</span><span class="p">)))</span>
             <span class="n">loglikelihood</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
             
             <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
@@ -954,7 +958,7 @@ l'(X | p) &amp; = \frac{X}{p} - \frac{n - X}{1 - p}
             
             
 <span class="c1"># Statistical Inference using MLE</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Bernoulli</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BernoulliModel</span><span class="p">()</span>
 <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1008,6 +1012,177 @@ Iteration 9: 𝑝̂=0.40
 <img alt="../_images/3_statistical_inference_23_0.png" src="../_images/3_statistical_inference_23_0.png" />
 </div>
 <p class="caption"><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Maximum Likelihood Estimate applied to the basket ball throw example. The objective is to find <span class="math notranslate nohighlight">\(p\)</span> for <span class="math notranslate nohighlight">\(B(n, p)\)</span>. Sample is represented left, and the optimization process base on the MLE right.</span><a class="headerlink" href="#mle-bernoulli-fig" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="maximum-a-posteriori-estimation-map">
+<h4><span class="section-number">4.4.1.3. </span>Maximum a Posteriori Estimation (MAP)<a class="headerlink" href="#maximum-a-posteriori-estimation-map" title="Permalink to this headline">¶</a></h4>
+<p>The last method presented in this section is the <strong>Maximum a Posteriori Estimation</strong> (MAP). It is similar and related to the <strong>Maximum Likelihood Estimate</strong> but take into account a posterior knwoledge on the parameters we want to estimate. The method can be derived from the MLE using Baye’s Theorem.</p>
+<p>This technique assume the same setup of <span class="math notranslate nohighlight">\(n\)</span> random independent samples <span class="math notranslate nohighlight">\(X_1, \dots, X_n\)</span>. Our goal is to find a good estimate of some parameters <span class="math notranslate nohighlight">\(\theta\)</span> for the given dataset. Contrary to MLE, MAP consider the best estimate as beign drawn from <span class="math notranslate nohighlight">\(p(\theta|D)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_{MAP} = \underset{\theta}{argmax} \; p(\theta|D)
+\]</div>
+<p>Instead of maximizing the lieklihood function, here we maximize a posterior distribution on the parameters.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\theta_{MAP} &amp; = \underset{\theta}{agrmax} \; p(\theta|D) \\
+             &amp; = \underset{\theta}{argmax} \; \frac{p(D|\theta)p(\theta)}{p(D)} \\
+             &amp; \propto \underset{\theta}{agrmax} \; p(D|\theta)p(\theta) \\
+             &amp; \propto \underset{\theta}{agrmax} \; p(D|\theta)p(\theta) \\
+             &amp; \propto \underset{\theta}{agrmax} \; log \; p(D|\theta) + log \; p(\theta) \\
+\end{align}
+\end{split}\]</div>
+<p>The same process used for MLE can now be applieds, it is juste a matter of finding the maximum of this function by computing its derivative. It means that our best estimate <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span> is the most probable <span class="math notranslate nohighlight">\(\theta\)</span> given observed data and our prior belief.</p>
+<p>Let us now reconsidere the example of basketball throws. This time let us consider some prior knowlege on the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the estimator of <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(B(n, p)\)</span>. Assuming <span class="math notranslate nohighlight">\(\theta\)</span> follows a Beta distribution <span class="math notranslate nohighlight">\(P(\theta) \sim Beta(\alpha, \beta)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+P(X|\theta) = \theta^{X} (1 - \theta)^{n - X} &amp;&amp;
+P(\theta) = \frac{1}{B(\alpha, \beta)} \theta^{\alpha - 1} (1 - \theta)^{\beta - 1}
+\end{align}
+\]</div>
+<p>Using this knowledge:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\theta|X) = \frac{1}{B(X + \alpha, n - X + \beta)} \theta^{X + \alpha - 1} (1 - \theta)^{n - X + \beta - 1}
+\]</div>
+<p>If we look closely, we can observe that <span class="math notranslate nohighlight">\(P(\theta|X) \sim Beta(X + \alpha, n - X + \beta)\)</span>. Thus:</p>
+<div class="math notranslate nohighlight">
+\[
+l'(\theta | X) = \frac{1}{B(X + \alpha, n - X + \beta)} (\frac{X + \alpha - 1}{\theta} - \frac{n - X + \beta - 1}{1 - \theta})
+\]</div>
+<p>Solving <span class="math notranslate nohighlight">\(l'(\theta | X)=0\)</span> gives us <span class="math notranslate nohighlight">\(\hat{\theta} = \frac{X + \alpha - 1}{\alpha + n + \beta - 2}\)</span>. If we choose a prior with <span class="math notranslate nohighlight">\(\alpha=0.7\)</span>, and <span class="math notranslate nohighlight">\(\beta=0.8\)</span>, <span class="math notranslate nohighlight">\(\hat{\theta} \approx 0.41\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">gamma</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="c1"># Replicate Trial (15 Throws, 6 Successes)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">shuffle</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">6</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">shuffle</span><span class="p">)</span>
+<span class="n">observations</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+
+<span class="c1"># Define Beta Distribution</span>
+<span class="k">class</span> <span class="nc">BetaDistribution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Beta Distribution</span>
+<span class="sd">        alpha and beta are chosen to be &quot;integers&quot; for simplification as</span>
+<span class="sd">        G(n + 1) = n!  with G := Gamma function</span>
+<span class="sd">        B(alpha, gamma) = (G(alpha)G(beta)) / G(alpha + beta)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">B_inv</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">gamma</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">gamma</span><span class="p">(</span><span class="n">beta</span><span class="p">))</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Beta PDF</span>
+<span class="sd">        1/B(alpha, gamma) * x^(alpha - 1) * (1 - x)^(beta - 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_inv</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    
+
+<span class="c1"># Define Bernoulli Model</span>
+<span class="k">class</span> <span class="nc">BernoulliModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Bernoulli Model</span>
+<span class="sd">        p = theta  is unknown and initialized to 0.5</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Bernoulli PMF</span>
+<span class="sd">        p^x (1 - p)^(1 - x)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">**</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">prior</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Maximum a Posteriori Estimation</span>
+<span class="sd">        Optimization -&gt; Gradient Ascent (find max using derivative)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="n">loglikelihood</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="p">(</span><span class="n">observations</span><span class="p">)))</span>
+            <span class="n">posterior</span> <span class="o">=</span> <span class="n">loglikelihood</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prior</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+            <span class="n">posterior</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">iteration</span><span class="si">}</span><span class="s2">: 𝑝̂=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">history</span>
+            
+            
+<span class="c1"># Statistical Inference using MAP</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BernoulliModel</span><span class="p">()</span>
+<span class="n">prior</span> <span class="o">=</span> <span class="n">BetaDistribution</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">observations</span><span class="p">,</span> <span class="n">prior</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration 0: 𝑝̂=0.48
+Iteration 1: 𝑝̂=0.46
+Iteration 2: 𝑝̂=0.45
+Iteration 3: 𝑝̂=0.44
+Iteration 4: 𝑝̂=0.43
+Iteration 5: 𝑝̂=0.43
+Iteration 6: 𝑝̂=0.42
+Iteration 7: 𝑝̂=0.42
+Iteration 8: 𝑝̂=0.41
+Iteration 9: 𝑝̂=0.41
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">observations</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Sample&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;proportion&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.395</span><span class="p">,</span> <span class="mf">0.505</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;MAP&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;step&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\hat</span><span class="si">{p}</span><span class="s2">$&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="map-bernoulli-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_28_0.png" src="../_images/3_statistical_inference_28_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.6 </span><span class="caption-text">Maximum a Posteriori Estimate applied to the basket ball throw example. The objective is to find <span class="math notranslate nohighlight">\(p\)</span> for <span class="math notranslate nohighlight">\(B(n, p)\)</span>. Sample is represented left, and the optimization process base on the MAP right.</span><a class="headerlink" href="#map-bernoulli-fig" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -1093,9 +1268,9 @@ Zb =  1.96
 </div>
 <div class="figure align-center" id="ic-normal-fig">
 <div class="cell_output docutils container">
-<img alt="../_images/3_statistical_inference_28_0.png" src="../_images/3_statistical_inference_28_0.png" />
+<img alt="../_images/3_statistical_inference_33_0.png" src="../_images/3_statistical_inference_33_0.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 4.6 </span><span class="caption-text">Normal Distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> and <span class="math notranslate nohighlight">\(95\)</span>% range <span class="math notranslate nohighlight">\([-Z_{\alpha / 2}, Z_{\alpha / 2}]\)</span></span><a class="headerlink" href="#ic-normal-fig" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 4.7 </span><span class="caption-text">Normal Distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> and <span class="math notranslate nohighlight">\(95\)</span>% range <span class="math notranslate nohighlight">\([-Z_{\alpha / 2}, Z_{\alpha / 2}]\)</span></span><a class="headerlink" href="#ic-normal-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>If we want to define a <span class="math notranslate nohighlight">\(95\)</span>% <strong>Interval Estimate</strong> of <span class="math notranslate nohighlight">\(\mu\)</span>, for example, we can refer to the normal distribution graph or table and see that it corresponds to area under the curve within the range <span class="math notranslate nohighlight">\([-1.96, 1.96]\)</span>. Whe can then say that:</p>
 <div class="math notranslate nohighlight">
@@ -1138,16 +1313,13 @@ P(\frac{X}{n} - Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}} \l
 <div class="section" id="anaysis-of-variance">
 <h2><span class="section-number">4.8. </span>Anaysis of Variance<a class="headerlink" href="#anaysis-of-variance" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="bayesian-inference">
-<h2><span class="section-number">4.9. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="applications">
-<h2><span class="section-number">4.10. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.9. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="logistic-regression">
-<h3><span class="section-number">4.10.1. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.9.1. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="bayes-classification">
-<h3><span class="section-number">4.10.2. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.9.2. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>

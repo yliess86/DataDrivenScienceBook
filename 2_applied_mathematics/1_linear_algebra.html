@@ -2295,7 +2295,7 @@ A &amp; = USV^T \\
 <p>The SVD does not require to compute the full left singular vectors and singular values. It can be simplified by ditching the null singular values, and their corresponding left and right singular vectors. This also saves memory and computation. This simplified version of the SVD is referred to as the economy SVD:</p>
 <div class="math notranslate nohighlight">
 \[
-A = \tilde{U} \tilde{\Sigma} \tilde{V}^T
+A = \hat{U} \hat{\Sigma} \hat{V}^T
 \]</div>
 </div>
 <p>The SVD of a transformation matrix A tries to capture its essence as a <strong>Rotation</strong> and a <strong>Stretch</strong>. Its computation procedure is coming quite easily by computing the <span class="math notranslate nohighlight">\(AA^T\)</span> and <span class="math notranslate nohighlight">\(A^TA\)</span> matrices to solve for <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> separately.</p>
@@ -2758,9 +2758,9 @@ Xw = y
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 3.00
-Intercept: 0.69
-MSE: 0.33
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope: 3.02
+Intercept: 0.80
+MSE: 0.24
 </pre></div>
 </div>
 </div>
@@ -3203,7 +3203,7 @@ B V = U \Sigma
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original Sigmas [Data]: [2.  0.5]
-Infered  Sigmas [SVD] : [1.99820583 0.49818404]
+Infered  Sigmas [SVD] : [1.98712996 0.50246625]
 </pre></div>
 </div>
 </div>
