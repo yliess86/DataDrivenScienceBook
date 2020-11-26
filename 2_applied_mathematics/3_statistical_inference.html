@@ -380,34 +380,39 @@
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#one-sample-testing">
-     4.5.1. One Sample Testing
+     4.5.1. One-Sample Testing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#two-sample-testing">
+     4.5.2. Two-Sample Testing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#p-value">
+     4.5.3. p-Value
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chi-square-test">
-   4.6. Chi-Square Test
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#anaysis-of-variance-anova">
-   4.7. Anaysis of Variance (ANOVA)
+   4.6. Anaysis of Variance (ANOVA)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applications">
-   4.8. Applications
+   4.7. Applications
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression">
-     4.8.1. Logistic Regression
+     4.7.1. Logistic Regression
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#bayes-classification">
-     4.8.2. Bayes Classification
+     4.7.2. Bayes Classification
     </a>
    </li>
   </ul>
@@ -1415,8 +1420,12 @@ P(\frac{X}{n} - Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}} \l
 <li><p>Compute the <strong>Sample Statistic</strong></p></li>
 <li><p><strong>Conclude</strong> on the hypothesis</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different statistics and different test types are chosen depending on the study’s framework. A few of them are discussed throughout this chapter. However, the majority of those tests follow the same kind of method.</p>
+</div>
 <div class="section" id="one-sample-testing">
-<h3><span class="section-number">4.5.1. </span>One Sample Testing<a class="headerlink" href="#one-sample-testing" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.5.1. </span>One-Sample Testing<a class="headerlink" href="#one-sample-testing" title="Permalink to this headline">¶</a></h3>
 <p>The first step of hypothesis testing is to formulate what is referred to as the <strong>Null</strong> and the <strong>Alternative</strong> hypothesis. The <strong>Null Hypothesis</strong> <span class="math notranslate nohighlight">\(H_0\)</span> denotes the statement, the population parameter subject to the test. The <strong>Alternative Hypothesis</strong> <span class="math notranslate nohighlight">\(H_1\)</span>, is the opposite statement. If we have enough evidence to reject the null hypothesis, the alternative hypothesis cannot be rejected and assumed to be true. If we do not, the alternative hypothesis is therefore rejected. The following are plosible respectively null and alternative hypothesis:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1662,22 +1671,48 @@ t_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{1.1 - 1.5}{0.12 / \sqrt{15}} 
 </div>
 <p class="caption"><span class="caption-number">Fig. 4.11 </span><span class="caption-text">Left One-Tailed example. The t-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex2-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>By looking a the pdf of a t-distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom, we can observe our critical value is way lower than <span class="math notranslate nohighlight">\(t_{0.01, 14} = -2.62\)</span>. In this sense, we can reject the null hypothesis with a confidence of <span class="math notranslate nohighlight">\(99\)</span>%.</p>
+<p>By looking a the pdf of a t-distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom (df), we can observe our critical value is way lower than <span class="math notranslate nohighlight">\(t_{0.01, 14} = -2.62\)</span>. In this sense, we can reject the null hypothesis with a confidence of <span class="math notranslate nohighlight">\(99\)</span>%.</p>
 </div>
+<div class="section" id="two-sample-testing">
+<h3><span class="section-number">4.5.2. </span>Two-Sample Testing<a class="headerlink" href="#two-sample-testing" title="Permalink to this headline">¶</a></h3>
+<p>Hypothesis testing does not always infer belief in one unique sample. You may want to compare and assess the belief between two different samples. This is what <strong>Two-Sample Testing</strong> is designed for. A two-sample test can be transformed into a one-sample test by applying a simple trick. Let us consider an example.</p>
+<p>Consider two basketball teams. Team A claims that their players have a number of 3 points field goals significantly different than team B. During the season, team A has <span class="math notranslate nohighlight">\(15\)</span> players and yield a mean of <span class="math notranslate nohighlight">\(35\)</span> with a standard deviation of <span class="math notranslate nohighlight">\(5.2\)</span> per player, against <span class="math notranslate nohighlight">\(13\)</span> players for team B with a mean of <span class="math notranslate nohighlight">\(28\)</span> and a standard deviation of <span class="math notranslate nohighlight">\(3.7\)</span>. Is there a significant difference between the two teams? Let us consider a <span class="math notranslate nohighlight">\(95\)</span>% confidence.</p>
+<p>In this problem we can define:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+H_0: \mu_A - \mu_B = 0 \\
+H_1: \mu_A - \mu_B \neq 0
+\end{align}
+\end{split}\]</div>
+<p>Given the lower sample size, we consider a t-statistic with degrees of freedom given by:</p>
+<div class="math notranslate nohighlight">
+\[
+df = \frac{(\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B})^2}{\frac{(s_A^2/n_A)^2}{n_A-1} + \frac{(s_B^2/n_B)^2}{n_B-1}} = \frac{(\frac{5.2^2}{15} + \frac{3.7^2}{13})^2}{\frac{(5.2^2/15)^2}{14} + \frac{(3.7^2/13)^2}{12}} \approx 9
+\]</div>
+<p>The critical value for this test nees to be less than <span class="math notranslate nohighlight">\(-t_{0.025, 9}\)</span> or greater than <span class="math notranslate nohighlight">\(t_{0.025, 9}\)</span> to be rejected with <span class="math notranslate nohighlight">\(t_{0.025, 9} \approx -2.26\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+t_c = \frac{(\bar{x_A} - \bar{x_B}) - (\mu_A - \mu_B)}{\sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}} 
+    = \frac{(35 - 28) - 0}{\sqrt{\frac{5.2^2}{15} + \frac{3.7^2}{13}}}
+    \approx 4.14
+\]</div>
+<p>We can now conclude that there is a significant difference at <span class="math notranslate nohighlight">\(5\)</span>% between the two teams.</p>
 </div>
-<div class="section" id="chi-square-test">
-<h2><span class="section-number">4.6. </span>Chi-Square Test<a class="headerlink" href="#chi-square-test" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="p-value">
+<h3><span class="section-number">4.5.3. </span>p-Value<a class="headerlink" href="#p-value" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="anaysis-of-variance-anova">
-<h2><span class="section-number">4.7. </span>Anaysis of Variance (ANOVA)<a class="headerlink" href="#anaysis-of-variance-anova" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.6. </span>Anaysis of Variance (ANOVA)<a class="headerlink" href="#anaysis-of-variance-anova" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="applications">
-<h2><span class="section-number">4.8. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.7. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="logistic-regression">
-<h3><span class="section-number">4.8.1. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.7.1. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="bayes-classification">
-<h3><span class="section-number">4.8.2. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.7.2. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
