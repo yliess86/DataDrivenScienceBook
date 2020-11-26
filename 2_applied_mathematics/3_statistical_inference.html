@@ -389,8 +389,13 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p-value">
-     4.5.3. p-Value
+    <a class="reference internal nav-link" href="#p-value-method">
+     4.5.3. P-Value Method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hypthesis-test-zoo">
+     4.5.4. Hypthesis Test Zoo
     </a>
    </li>
   </ul>
@@ -1607,7 +1612,7 @@ z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{0.15 / \sqrt{45}} 
 </div>
 <p class="caption"><span class="caption-number">Fig. 4.10 </span><span class="caption-text">Two-Tailed example. The Z-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex1-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>Looking at the <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> pdf, we can observe that or critical value <span class="math notranslate nohighlight">\(z_c\)</span> is lower than <span class="math notranslate nohighlight">\(-z_{0.025} = -1.96\)</span>. It is positioned in the rejection zone. In this case, we can reject the null hypothesis and conclude that with a <span class="math notranslate nohighlight">\(95\)</span>% confidence, the machine does not hold.</p>
+<p>Looking at the <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> pdf, we can observe that our statistic value <span class="math notranslate nohighlight">\(z_c\)</span> is lower than <span class="math notranslate nohighlight">\(-z_{0.025} = -1.96\)</span>. It is positioned in the rejection zone. In this case, we can reject the null hypothesis and conclude that with a <span class="math notranslate nohighlight">\(95\)</span>% confidence, the machine does not hold.</p>
 <ul class="simple">
 <li><p><strong>Left One-Tailed Test</strong>:</p></li>
 </ul>
@@ -1671,7 +1676,7 @@ t_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{1.1 - 1.5}{0.12 / \sqrt{15}} 
 </div>
 <p class="caption"><span class="caption-number">Fig. 4.11 </span><span class="caption-text">Left One-Tailed example. The t-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex2-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>By looking a the pdf of a t-distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom (df), we can observe our critical value is way lower than <span class="math notranslate nohighlight">\(t_{0.01, 14} = -2.62\)</span>. In this sense, we can reject the null hypothesis with a confidence of <span class="math notranslate nohighlight">\(99\)</span>%.</p>
+<p>By looking a the pdf of a t-distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom (df), we can observe our statistic value is way lower than the critical value <span class="math notranslate nohighlight">\(t_{0.01, 14} = -2.62\)</span>. In this sense, we can reject the null hypothesis with a confidence of <span class="math notranslate nohighlight">\(99\)</span>%.</p>
 </div>
 <div class="section" id="two-sample-testing">
 <h3><span class="section-number">4.5.2. </span>Two-Sample Testing<a class="headerlink" href="#two-sample-testing" title="Permalink to this headline">¶</a></h3>
@@ -1690,7 +1695,7 @@ H_1: \mu_A - \mu_B \neq 0
 \[
 df = \frac{(\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B})^2}{\frac{(s_A^2/n_A)^2}{n_A-1} + \frac{(s_B^2/n_B)^2}{n_B-1}} = \frac{(\frac{5.2^2}{15} + \frac{3.7^2}{13})^2}{\frac{(5.2^2/15)^2}{14} + \frac{(3.7^2/13)^2}{12}} \approx 9
 \]</div>
-<p>The critical value for this test nees to be less than <span class="math notranslate nohighlight">\(-t_{0.025, 9}\)</span> or greater than <span class="math notranslate nohighlight">\(t_{0.025, 9}\)</span> to be rejected with <span class="math notranslate nohighlight">\(t_{0.025, 9} \approx -2.26\)</span>.</p>
+<p>The statistic value for this test needs to be less than <span class="math notranslate nohighlight">\(-t_{0.025, 9}\)</span> or greater than <span class="math notranslate nohighlight">\(t_{0.025, 9}\)</span> to be rejected with <span class="math notranslate nohighlight">\(t_{0.025, 9} \approx -2.26\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[
 t_c = \frac{(\bar{x_A} - \bar{x_B}) - (\mu_A - \mu_B)}{\sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}} 
@@ -1699,8 +1704,42 @@ t_c = \frac{(\bar{x_A} - \bar{x_B}) - (\mu_A - \mu_B)}{\sqrt{\frac{s_A^2}{n_A} +
 \]</div>
 <p>We can now conclude that there is a significant difference at <span class="math notranslate nohighlight">\(5\)</span>% between the two teams.</p>
 </div>
-<div class="section" id="p-value">
-<h3><span class="section-number">4.5.3. </span>p-Value<a class="headerlink" href="#p-value" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="p-value-method">
+<h3><span class="section-number">4.5.3. </span>P-Value Method<a class="headerlink" href="#p-value-method" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>P-Value</strong> method is commonly used to decide on the rejection of the null hypothesis. It is an extension of the methods presented above. Instead of just considering the statistic position compared to the critical value of a given significance level, we consider the hole <strong>rejection area</strong>. This rejection area corresponds to the probability of rejecting the null hypothesis with a given significance level. The new decision rule is then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\text{p-value} &lt; \alpha: &amp; \; \text{Succeed to reject} \; H_0 \\
+\text{p-value} \geq \alpha: &amp; \; \text{Failed to reject} \; H_0 \\
+\end{align}
+\end{split}\]</div>
+<p>Let us reuse the example of the one-sample left one-tailed test with the light bulb life span. By referring to a <span class="math notranslate nohighlight">\(\text{p-value}\)</span> table of a t-distribution with <span class="math notranslate nohighlight">\(14\)</span> degrees of freedom, we find that <span class="math notranslate nohighlight">\(\text{p-value}=1.8\times10^{-9}\)</span> which is way lower than <span class="math notranslate nohighlight">\(\alpha=0.05\)</span>. We can then conclude that H_0 is rejected with a confidence of <span class="math notranslate nohighlight">\(95\)</span>%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">t</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">t_stat</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.1</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.12</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">p_value</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat</span><span class="p">),</span> <span class="mi">14</span><span class="p">)</span>             <span class="c1"># times 2 for two-tailed tests</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t-statistic: </span><span class="si">{</span><span class="n">t_stat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-value    : </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.2g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>t-statistic: -12.91
+p-value    : 1.8e-09
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="hypthesis-test-zoo">
+<h3><span class="section-number">4.5.4. </span>Hypthesis Test Zoo<a class="headerlink" href="#hypthesis-test-zoo" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="anaysis-of-variance-anova">
