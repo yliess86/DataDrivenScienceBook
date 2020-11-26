@@ -377,6 +377,13 @@
   <a class="reference internal nav-link" href="#hypothesis-testing">
    4.5. Hypothesis Testing
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#one-sample-testing">
+     4.5.1. One Sample Testing
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#chi-square-test">
@@ -1408,6 +1415,8 @@ P(\frac{X}{n} - Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}} \l
 <li><p>Compute the <strong>Sample Statistic</strong></p></li>
 <li><p><strong>Conclude</strong> on the hypothesis</p></li>
 </ul>
+<div class="section" id="one-sample-testing">
+<h3><span class="section-number">4.5.1. </span>One Sample Testing<a class="headerlink" href="#one-sample-testing" title="Permalink to this headline">¶</a></h3>
 <p>The first step of hypothesis testing is to formulate what is referred to as the <strong>Null</strong> and the <strong>Alternative</strong> hypothesis. The <strong>Null Hypothesis</strong> <span class="math notranslate nohighlight">\(H_0\)</span> denotes the statement, the population parameter subject to the test. The <strong>Alternative Hypothesis</strong> <span class="math notranslate nohighlight">\(H_1\)</span>, is the opposite statement. If we have enough evidence to reject the null hypothesis, the alternative hypothesis cannot be rejected and assumed to be true. If we do not, the alternative hypothesis is therefore rejected. The following are plosible respectively null and alternative hypothesis:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1534,7 +1543,7 @@ H_1:\;\mu \neq 3
 <p>Let us choose a confidence of <span class="math notranslate nohighlight">\(95\)</span>%. In this case, as the sample size is greater than <span class="math notranslate nohighlight">\(30\)</span>, we can call the Central Limit Theorem and use the Z-statistic.</p>
 <div class="math notranslate nohighlight">
 \[
-z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqrt{45}} \approx -3.46
+z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{0.15 / \sqrt{45}} \approx -8.9
 \]</div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
@@ -1550,7 +1559,7 @@ z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqr
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span> <span class="mf">1.96</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">((</span><span class="mf">2.8</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">45</span><span class="p">)),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">((</span><span class="mf">2.8</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.15</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">45</span><span class="p">)),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">)</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.96</span><span class="p">,</span> <span class="mf">1.96</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
@@ -1573,7 +1582,7 @@ z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqr
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="o">-</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z_c$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z_c$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -1590,6 +1599,71 @@ z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqr
 <p class="caption"><span class="caption-number">Fig. 4.10 </span><span class="caption-text">Two-Tailed example. The Z-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex1-fig" title="Permalink to this image">¶</a></p>
 </div>
 <p>Looking at the <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> pdf, we can observe that or critical value <span class="math notranslate nohighlight">\(z_c\)</span> is lower than <span class="math notranslate nohighlight">\(-z_{0.025} = -1.96\)</span>. It is positioned in the rejection zone. In this case, we can reject the null hypothesis and conclude that with a <span class="math notranslate nohighlight">\(95\)</span>% confidence, the machine does not hold.</p>
+<ul class="simple">
+<li><p><strong>Left One-Tailed Test</strong>:</p></li>
+</ul>
+<p>A company is manufacturing light bulbs with an average lifespan of <span class="math notranslate nohighlight">\(1.5k\)</span> hours. An engineer believes this value to be less. Using 15 samples, he measures the average lifespan to be <span class="math notranslate nohighlight">\(1.1k\)</span> hours with a standard deviation of <span class="math notranslate nohighlight">\(0.12k\)</span>.</p>
+<p>In this problem, we can define:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+H_0: \mu \geq 1.5k \\
+H_1: \mu &lt; 1.5k
+\end{align}
+\end{split}\]</div>
+<p>Let us consider a confidence of <span class="math notranslate nohighlight">\(99\)</span>%. There are less than 30 samples, and the population standard deviation is unknown. We will then use a t-statistic:</p>
+<div class="math notranslate nohighlight">
+\[
+t_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{1.1 - 1.5}{0.12 / \sqrt{15}} \approx -12.9
+\]</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;fivethirtyeight&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>  <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">((</span><span class="mf">1.1</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.12</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">15</span><span class="p">)),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$1 - \alpha$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$-t_{\alpha, n-1}$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$t_c$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="ht-ex2-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_50_0.png" src="../_images/3_statistical_inference_50_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.11 </span><span class="caption-text">Left One-Tailed example. The t-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex2-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>By looking a the pdf of a t-distribution with <span class="math notranslate nohighlight">\(n-1\)</span> degrees of freedom, we can observe our critical value is way lower than <span class="math notranslate nohighlight">\(t_{0.01, 14} = -2.62\)</span>. In this sense, we can reject the null hypothesis with a confidence of <span class="math notranslate nohighlight">\(99\)</span>%.</p>
+</div>
 </div>
 <div class="section" id="chi-square-test">
 <h2><span class="section-number">4.6. </span>Chi-Square Test<a class="headerlink" href="#chi-square-test" title="Permalink to this headline">¶</a></h2>
