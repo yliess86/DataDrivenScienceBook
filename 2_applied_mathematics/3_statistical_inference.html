@@ -1408,7 +1408,7 @@ P(\frac{X}{n} - Z_{\alpha / 2} \sqrt{\frac{\frac{Y}{n} (1 - \frac{Y}{n})}{n}} \l
 <li><p>Compute the <strong>Sample Statistic</strong></p></li>
 <li><p><strong>Conclude</strong> on the hypothesis</p></li>
 </ul>
-<p>The first step of hypothesis testing is to formulate what is referred to as the <strong>Null</strong> and the <strong>Alternative</strong> hypothesis. The <strong>Null Hypothesis</strong> <span class="math notranslate nohighlight">\(H_0\)</span> denotes the statement, the population parameter subject to the test. The <strong>Alternative Hypothesis</strong> <span class="math notranslate nohighlight">\(H_1\)</span>, is the opposite statement. If we have enough evidence that it can be rejected, the null hypothesis cannot be rejected and assumed to be true. If we do not, the null hypothesis is therefore rejected. The following are plosible respectively null and alternative hypothesis:</p>
+<p>The first step of hypothesis testing is to formulate what is referred to as the <strong>Null</strong> and the <strong>Alternative</strong> hypothesis. The <strong>Null Hypothesis</strong> <span class="math notranslate nohighlight">\(H_0\)</span> denotes the statement, the population parameter subject to the test. The <strong>Alternative Hypothesis</strong> <span class="math notranslate nohighlight">\(H_1\)</span>, is the opposite statement. If we have enough evidence to reject the null hypothesis, the alternative hypothesis cannot be rejected and assumed to be true. If we do not, the alternative hypothesis is therefore rejected. The following are plosible respectively null and alternative hypothesis:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
@@ -1417,6 +1417,10 @@ H_0:\;parameter\leq X &amp;&amp; H_1:\;parameter\gt X &amp;&amp; \text{One-Taile
 H_0:\;parameter\geq X &amp;&amp; H_1:\;parameter\lt X &amp;&amp; \text{One-Tailed Test}
 \end{align}
 \end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The belief we want to test, the hypothesis, is <span class="math notranslate nohighlight">\(H_1\)</span>. By refuting <span class="math notranslate nohighlight">\(H_0\)</span>, we can say we have enough evidence not to deny <span class="math notranslate nohighlight">\(H_1\)</span>.</p>
+</div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -1530,7 +1534,7 @@ H_1:\;\mu \neq 3
 <p>Let us choose a confidence of <span class="math notranslate nohighlight">\(95\)</span>%. In this case, as the sample size is greater than <span class="math notranslate nohighlight">\(30\)</span>, we can call the Central Limit Theorem and use the Z-statistic.</p>
 <div class="math notranslate nohighlight">
 \[
-Z = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqrt{45}} \approx -3.46
+z_c = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqrt{45}} \approx -3.46
 \]</div>
 <div class="cell tag_hide-input tag_remove-output docutils container">
 <div class="cell_input docutils container">
@@ -1569,7 +1573,7 @@ Z = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqrt{
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#008FD5&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-    <span class="o">-</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$z_c$&quot;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
     <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#F6424C&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -1585,7 +1589,7 @@ Z = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} = \frac{2.8 - 3.0}{\sqrt{0.15} / \sqrt{
 </div>
 <p class="caption"><span class="caption-number">Fig. 4.10 </span><span class="caption-text">Two-Tailed example. The Z-value is in the rejection zone.</span><a class="headerlink" href="#ht-ex1-fig" title="Permalink to this image">¶</a></p>
 </div>
-<p>Looking at the <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> pdf, we can observe that or value is lower than <span class="math notranslate nohighlight">\(-Z_{\alpha/2} = -1.96\)</span>. It is positioned in the rejection zone. In this case, we can reject the null hypothesis and conclude that with a <span class="math notranslate nohighlight">\(95\)</span>% confidence, the machine does not seem to present any problem.</p>
+<p>Looking at the <span class="math notranslate nohighlight">\(\mathcal{N}(0, 1)\)</span> pdf, we can observe that or critical value <span class="math notranslate nohighlight">\(z_c\)</span> is lower than <span class="math notranslate nohighlight">\(-z_{0.025} = -1.96\)</span>. It is positioned in the rejection zone. In this case, we can reject the null hypothesis and conclude that with a <span class="math notranslate nohighlight">\(95\)</span>% confidence, the machine does not hold.</p>
 </div>
 <div class="section" id="chi-square-test">
 <h2><span class="section-number">4.6. </span>Chi-Square Test<a class="headerlink" href="#chi-square-test" title="Permalink to this headline">¶</a></h2>
