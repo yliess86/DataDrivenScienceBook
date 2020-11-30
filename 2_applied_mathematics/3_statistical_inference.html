@@ -406,18 +406,13 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#linear-regression">
-     4.6.1. Linear Regression
+    <a class="reference internal nav-link" href="#linear-vs-logistic-regression">
+     4.6.1. Linear VS Logistic Regression
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logistic-regression">
-     4.6.2. Logistic Regression
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayes-classification">
-     4.6.3. Bayes Classification
+    <a class="reference internal nav-link" href="#naive-bayes-classification">
+     4.6.2. Naive Bayes Classification
     </a>
    </li>
   </ul>
@@ -1788,14 +1783,461 @@ p-value    : 1.8e-09
 <div class="section" id="applications">
 <h2><span class="section-number">4.6. </span>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h2>
 <p>Statistical Inference and Probabilities are key to Machine and Deep Learning, and <strong>Applied Mathematics</strong> in general. This section details common uses of those concepts especially to the use of <strong>Machine Learning</strong>.</p>
-<div class="section" id="linear-regression">
-<h3><span class="section-number">4.6.1. </span>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="linear-vs-logistic-regression">
+<h3><span class="section-number">4.6.1. </span>Linear VS Logistic Regression<a class="headerlink" href="#linear-vs-logistic-regression" title="Permalink to this headline">¶</a></h3>
+<p>Let us consider the Breast Cancer Dataset example for PCA in the <a class="reference internal" href="1_linear_algebra.html"><span class="doc std std-doc">Linear Algebra Chapter</span></a>. To simplify the explanations, we apply PCA on the features to obtain only one feature, the projection on to the first principal component, capturing most variation. As a reminder our goald with this dataset is to <strong>classify</strong> a person as having a breast cancer <span class="math notranslate nohighlight">\(1\)</span> or not <span class="math notranslate nohighlight">\(0\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+
+<span class="c1"># To Normalize Data (Mean Center and Normalize Variation)</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="c1"># Load Breast Cancer dataset in memory</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
+
+<span class="c1"># Split Dataset</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Show data as a dataframe to display infos table</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
 </div>
-<div class="section" id="logistic-regression">
-<h3><span class="section-number">4.6.2. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="bayes-classification">
-<h3><span class="section-number">4.6.3. </span>Bayes Classification<a class="headerlink" href="#bayes-classification" title="Permalink to this headline">¶</a></h3>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean radius</th>
+      <th>mean texture</th>
+      <th>mean perimeter</th>
+      <th>mean area</th>
+      <th>...</th>
+      <th>worst concavity</th>
+      <th>worst concave points</th>
+      <th>worst symmetry</th>
+      <th>worst fractal dimension</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.097064</td>
+      <td>-2.073335</td>
+      <td>1.269934</td>
+      <td>0.984375</td>
+      <td>...</td>
+      <td>2.109526</td>
+      <td>2.296076</td>
+      <td>2.750622</td>
+      <td>1.937015</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.829821</td>
+      <td>-0.353632</td>
+      <td>1.685955</td>
+      <td>1.908708</td>
+      <td>...</td>
+      <td>-0.146749</td>
+      <td>1.087084</td>
+      <td>-0.243890</td>
+      <td>0.281190</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.579888</td>
+      <td>0.456187</td>
+      <td>1.566503</td>
+      <td>1.558884</td>
+      <td>...</td>
+      <td>0.854974</td>
+      <td>1.955000</td>
+      <td>1.152255</td>
+      <td>0.201391</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.768909</td>
+      <td>0.253732</td>
+      <td>-0.592687</td>
+      <td>-0.764464</td>
+      <td>...</td>
+      <td>1.989588</td>
+      <td>2.175786</td>
+      <td>6.046041</td>
+      <td>4.935010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.750297</td>
+      <td>-1.151816</td>
+      <td>1.776573</td>
+      <td>1.826229</td>
+      <td>...</td>
+      <td>0.613179</td>
+      <td>0.729259</td>
+      <td>-0.868353</td>
+      <td>-0.397100</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 30 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 569 entries, 0 to 568
+Data columns (total 30 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   mean radius              569 non-null    float64
+ 1   mean texture             569 non-null    float64
+ 2   mean perimeter           569 non-null    float64
+ 3   mean area                569 non-null    float64
+ 4   mean smoothness          569 non-null    float64
+ 5   mean compactness         569 non-null    float64
+ 6   mean concavity           569 non-null    float64
+ 7   mean concave points      569 non-null    float64
+ 8   mean symmetry            569 non-null    float64
+ 9   mean fractal dimension   569 non-null    float64
+ 10  radius error             569 non-null    float64
+ 11  texture error            569 non-null    float64
+ 12  perimeter error          569 non-null    float64
+ 13  area error               569 non-null    float64
+ 14  smoothness error         569 non-null    float64
+ 15  compactness error        569 non-null    float64
+ 16  concavity error          569 non-null    float64
+ 17  concave points error     569 non-null    float64
+ 18  symmetry error           569 non-null    float64
+ 19  fractal dimension error  569 non-null    float64
+ 20  worst radius             569 non-null    float64
+ 21  worst texture            569 non-null    float64
+ 22  worst perimeter          569 non-null    float64
+ 23  worst area               569 non-null    float64
+ 24  worst smoothness         569 non-null    float64
+ 25  worst compactness        569 non-null    float64
+ 26  worst concavity          569 non-null    float64
+ 27  worst concave points     569 non-null    float64
+ 28  worst symmetry           569 non-null    float64
+ 29  worst fractal dimension  569 non-null    float64
+dtypes: float64(30)
+memory usage: 133.5 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">pca_X_train</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">pca_X_test</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">pca_X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">lc</span><span class="p">,</span> <span class="n">ln</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>    <span class="c1"># Ensure only one label for legend</span>
+    <span class="k">for</span> <span class="n">coord</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pca_X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;#008FD5&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;o&quot;</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot;Cancer&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;Normal&quot;</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="s2">&quot;Cancer&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lc</span><span class="p">:</span> <span class="n">lc</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">l</span> <span class="o">==</span> <span class="s2">&quot;Normal&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ln</span><span class="p">:</span> <span class="n">ln</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+            
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;PCA 1&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability of breast cancer&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plot_data</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">pca_X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="lr-breast-cancer-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_59_0.png" src="../_images/3_statistical_inference_59_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.12 </span><span class="caption-text">Visualization of the firs principal axis against the probability of having a breast cancer for the training data.</span><a class="headerlink" href="#lr-breast-cancer-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>As a first step, we can observe that the random variable <span class="math notranslate nohighlight">\(Y\)</span> we are studying, the probability of a patient with breast cancer or not, is binary and follows a Bernoulli distribution <span class="math notranslate nohighlight">\(B(p)\)</span>. We are interested in estimating the parameter <span class="math notranslate nohighlight">\(p\)</span> of that distribution given our dataset.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Y = \begin{cases}
+ 1 &amp; \text{ with probability } p \\ 
+ 0 &amp; \text{ with probability } 1-p 
+\end{cases}
+\end{split}\]</div>
+<p>In this example, we wan to find a model that gives us this probability given a data point, patient features, or feature in this case:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = P(Y=1\;|\;X=x)
+\]</div>
+<p>If there is a linear between X and Y, we can use a Linear Regression as presented in the <a class="reference internal" href="1_linear_algebra.html"><span class="doc std std-doc">Linear Algebra Chapter</span></a>. As a reminder, here is the definition of a linear model applied to our study case:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \beta_0 + \beta_1 x
+\]</div>
+<p>One problem with such a formulation is that <span class="math notranslate nohighlight">\(p(x)\)</span> can take negative values and positive values above 1. This cannot happened for probabilities. One way to fix this issue is to constrain this model by applying a monolitic function that maps <span class="math notranslate nohighlight">\(z = \beta_0 + \beta_1 x\)</span> to the <span class="math notranslate nohighlight">\([0, 1]\)</span> range. The <strong>sigmoid</strong> function, sometimes called the <strong>logistic</strong> function, is such a function:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">sigmoid</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="lr-sigmoid-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_63_0.png" src="../_images/3_statistical_inference_63_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.13 </span><span class="caption-text">Sigmoid function.</span><a class="headerlink" href="#lr-sigmoid-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>We are now performing what is called <strong>Logistic Regression</strong>. The probability of a given data point to correspond to a patient with breast cancer is now given by:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \sigma(z) = \frac{1}{1 + e^{-\beta_0 - \beta_1 x}}
+\]</div>
+<p>This equation can be rewritten as follow:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{p(x)}{1 - p(x)}      &amp; = e^{\beta_0 + \beta_1 x} \\
+log(\frac{p(x)}{1 - p(x)}) &amp; = \beta_0 + \beta_1 x
+\end{align}
+\end{split}\]</div>
+<p>The left factor is referred to as the logits, or log-odds, and the internal log factor as the odds. It is now just a matter of fitting a line into the logits projection, in other world estimating the coefficients <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>. This can be achieved using the MLE.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\prod_{i=1}^n P(Y=y_i\;|\;X=x_i) = \prod_{i=1}^n p(x_i)^{y_i} (1 - p(x_i))^{1 - y_i}
+\end{align}
+\]</div>
+<p>As a reminder, maximizing the likelihood is the same as maximizing the log-likelihood:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n y_i log\;p(x_i) + (1 - y_i) log\;(1 - p(x_i))
+\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that minimizing the negative loglikelihood is equivalent to minimizing the cross-entropy defined by Shannon, in this case the binary cross-entropy.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">SGD</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LinearRegression</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Train] Linear   Regression [</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">iterations</span><span class="si">}</span><span class="s2">] acc:</span><span class="si">{</span><span class="n">acc</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+    
+    
+<span class="k">class</span> <span class="nc">LogisticRegression</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Train] Logistic Regression [</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">iterations</span><span class="si">}</span><span class="s2">] acc:</span><span class="si">{</span><span class="n">acc</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+            
+            
+<span class="n">linear_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">linear_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">pca_X_train</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">logistic_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">logistic_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">pca_X_train</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Train] Linear   Regression [100/100] acc:66.40%
+[Train] Logistic Regression [100/100] acc:83.20%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">pca_X_test</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">linear_reg</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Test] Linear   Regression acc:</span><span class="si">{</span><span class="n">acc</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logistic_reg</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_pred</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">==</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Test] Logistic Regression acc:</span><span class="si">{</span><span class="n">acc</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Test] Linear   Regression acc:70.21%
+[Test] Logistic Regression acc:82.98%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">pca_X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">lc</span><span class="p">,</span> <span class="n">ln</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>    <span class="c1"># Ensure only one label for legend</span>
+    <span class="k">for</span> <span class="n">coord</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pca_X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;#008FD5&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;o&quot;</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot;Cancer&quot;</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="s2">&quot;Normal&quot;</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="s2">&quot;Cancer&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lc</span><span class="p">:</span> <span class="n">lc</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">l</span> <span class="o">==</span> <span class="s2">&quot;Normal&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ln</span><span class="p">:</span> <span class="n">ln</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+            
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;PCA 1&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability of breast cancer&quot;</span><span class="p">)</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="p">[</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">linear_reg</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">pca_X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">linear_reg</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Linear&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#E5AE42&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;linear regression&quot;</span><span class="p">)</span>
+
+<span class="n">logistic_reg</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">pca_X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">logistic_reg</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Logistic&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#E5AE42&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;logsitic regression&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.40</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="figure align-center" id="lr-logreg-fig">
+<div class="cell_output docutils container">
+<img alt="../_images/3_statistical_inference_69_0.png" src="../_images/3_statistical_inference_69_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.14 </span><span class="caption-text">Linear and Logistic Regression on breast cancer PCA 1 test set.</span><a class="headerlink" href="#lr-logreg-fig" title="Permalink to this image">¶</a></p>
+</div>
+<p>As we can observe from the results, the Logistic Regression is better suited to classification than the Linear one. They respectively yield an <span class="math notranslate nohighlight">\(82.98\)</span>% accuracy on the test set for the logistic regression, against <span class="math notranslate nohighlight">\(70.21\)</span>% for the linear regression.</p>
+<p>It is possible to verify the assumption that one model is better than another one by applying our knowledge on hypothesis testing. However, this will not be treated in this chapter.</p>
+</div>
+<div class="section" id="naive-bayes-classification">
+<h3><span class="section-number">4.6.2. </span>Naive Bayes Classification<a class="headerlink" href="#naive-bayes-classification" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
