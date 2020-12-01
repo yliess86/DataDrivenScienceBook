@@ -2238,6 +2238,222 @@ log(\frac{p(x)}{1 - p(x)}) &amp; = \beta_0 + \beta_1 x
 </div>
 <div class="section" id="naive-bayes-classification">
 <h3><span class="section-number">4.6.2. </span>Naive Bayes Classification<a class="headerlink" href="#naive-bayes-classification" title="Permalink to this headline">¶</a></h3>
+<p><strong>Naive Bayes Classifiers</strong> is a family of simple classifiers relying on the <strong>Bayes’ Theorem</strong> and the independence of the features. In this section, we discuss its use on the problem of <strong>Spam Identification</strong>.</p>
+<p>Let us consider an email, or message <span class="math notranslate nohighlight">\(m\)</span>, as an organized sequence of unique words <span class="math notranslate nohighlight">\(w_1, \dots, w_n\)</span>. The goal of spam identification can be stated as finding the conditionnal probability of this message beign a spam given all those worlds:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+P(spam\;|\;w_1\cap\dots\cap w_n) &amp; = \frac{P(w_1\cap\dots\cap w_n\;|\;spam)P(spam)}{P(w_1\cap\dots\cap w_n)} \\
+                                 &amp; \propto P(w_1\cap\dots\cap w_n\;|\;spam)P(spam) \\
+                                 &amp; \propto P(spam) \prod_{i=1}^n P(w_i\;|\;spam)
+\end{align}
+\end{split}\]</div>
+<p>Computing the posterior probability, even without considering the marginal term, gives a direct way to classify a mail as being spam or not. We need to compare the posterior of spam given the words and the posterior of not being spam given those same words—the most significant wins.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be careful, Naive Bayes Classifiers does not consider the order of the worlds, it only matters about their frequency in conjunction with its class, spam or not.</p>
+</div>
+<p>The common practice is to establish a <strong>Bag of Word</strong> to consider as a training set. If a word does not appear in the message, its probability is <span class="math notranslate nohighlight">\(0\)</span>. The standard is then to add a default value <span class="math notranslate nohighlight">\(\alpha\)</span> to all the worlds’ frequency.</p>
+<p>For this application example we will use the <a class="reference external" href="https://www.kaggle.com/uciml/sms-spam-collection-dataset/home">SMS Spam Collection Dataset</a> containing <span class="math notranslate nohighlight">\(5,574\)</span> messages tagged as “Spam” or “Ham”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;datasets/sms_spam_dataset.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin-1&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;v1&quot;</span><span class="p">,</span> <span class="s2">&quot;v2&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;v1&quot;</span><span class="p">:</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;v2&quot;</span><span class="p">:</span> <span class="s2">&quot;sms&quot;</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>sms</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let us begin by cleaning this dataset and removing all unnecessary features of the English language considering the use of a Naive Bayes Classifier. We first lowercase all the text, remove all the English stop words, punctuation, and special symbols. We can even apply stemming or lemming by reducing the inflection forms of words with the same lemma.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">stem</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="c1"># nltk.download(&#39;stopwords&#39;)</span>
+<span class="c1"># nltk.download(&#39;punkt&#39;)</span>
+
+
+<span class="n">LANGUAGE</span> <span class="o">=</span> <span class="s2">&quot;english&quot;</span>
+
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">stem</span><span class="o">.</span><span class="n">SnowballStemmer</span><span class="p">(</span><span class="n">LANGUAGE</span><span class="p">)</span>
+<span class="n">stopwords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="n">LANGUAGE</span><span class="p">))</span>
+
+<span class="n">clean_up</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">msg</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+    <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span> <span class="ow">and</span> <span class="n">word</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
+<span class="p">])</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;sms_clean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sms&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">clean_up</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>sms</th>
+      <th>sms_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ham</td>
+      <td>Go until jurong point, crazy.. Available only ...</td>
+      <td>go jurong point crazi avail bugi n great world...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ham</td>
+      <td>Ok lar... Joking wif u oni...</td>
+      <td>ok lar joke wif u oni</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>spam</td>
+      <td>Free entry in 2 a wkly comp to win FA Cup fina...</td>
+      <td>free entri wkli comp win fa cup final tkts may...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ham</td>
+      <td>U dun say so early hor... U c already then say...</td>
+      <td>u dun say earli hor u c alreadi say</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ham</td>
+      <td>Nah I don't think he goes to usf, he lives aro...</td>
+      <td>nah think goe usf live around though</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>One standard way to define the word’s distribution is to build a bag of words and its corresponding frequency table for each document. As the task of spam identification is simple, this may be suited. However, we will use another common word vectorizing technique using the <strong>TF-IDF</strong> statistic:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+\text{TF-IDF}_{i, j} = \text{TF}_{i,j} \times \text{IDF}_i &amp;&amp;
+\text{TF}_{i, j}     = \frac{\text{#occurrency of w_i in m_j}}{\text{#w in m_j}} &amp;&amp;
+\text{IDF}_i         = ln \left( \frac{\text{#m}}{\text{#m containing w_i}} \right)
+\end{align}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+
+
+<span class="n">random_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">random_df</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">train_df</span> <span class="o">=</span> <span class="n">random_df</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">random_df</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&quot;sms_clean&quot;</span><span class="p">]),</span> <span class="n">train_df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_df</span><span class="p">[</span><span class="s2">&quot;sms_clean&quot;</span><span class="p">]),</span> <span class="n">test_df</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+
+<span class="n">naive_bayes_classifier</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">()</span>
+<span class="n">naive_bayes_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">naive_bayes_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Train] Naive Bayes, acc: </span><span class="si">{</span><span class="n">acc</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="n">acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">naive_bayes_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Test]  Naive Bayes, acc: </span><span class="si">{</span><span class="n">acc</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Train] Naive Bayes, acc: 97.60%
+[Test]  Naive Bayes, acc: 96.23%
+</pre></div>
+</div>
+</div>
+</div>
+<p>We finally obtain a <span class="math notranslate nohighlight">\(96.23\)</span>% accuracy on the test set when applying Naive Bayes Classification with TF-IDF. This result is quite significant and was relatively easy to achieve. Moreover, this method scales linearly with the vocabulary and message’s length. All those reasons make Naive Bayes Classifier a great tool for this kind of task.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The accuracy metric has been used throughout this chapter. This is not the only metric, and it is not sufficient to conclude on a model performance in every case. Other metrics will be discussed in the following chapters.</p>
+</div>
 </div>
 </div>
 </div>
